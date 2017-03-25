@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>ACLU People Power Map</title>
+  <meta name="description" content="Stuff" />
+  <link rel="stylesheet" href="./css/style.css" />
+
+  <!-- FIXME is this a CDN? Maybe fetch from someplace else  -->
+  <link href='https://api.mapbox.com/mapbox.js/v3.0.1/mapbox.css' rel='stylesheet' />
+</head>
+
+<body>
+  <div class="header">
+    <img class="logo" src="./img/logo.png" />
+    <h2 class="cta">Find events near you</h2>
+    <div class="toolbar">
+      <div>
+        <input type="text" placeholder="Search by zip code" />
+        <button type="button" class="btn -primary">
+          <i class="icon-search"></i>
+        </button>
+      </div>
+      <div>
+        <button type="button" class="btn">Filter events</button>
+        <button type="button" class="btn">List view</button>
+      </div>
+    </div>
+  </div>
+  <div class="map">
+    <h2>Imagine a map</h2>
+  </div>
+
+  <!-- FIXME bundle third party JS dependencies and serve them ourselves. 
+       For now, just put them in here.  -->
+  <script src="https://api.mapbox.com/mapbox.js/v3.0.1/mapbox.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+  <!-- etc -->
+
+  <script src="./js/index.js"></script>
+</body>
+</html>
