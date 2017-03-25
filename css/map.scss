@@ -1,0 +1,39 @@
+@import "variables";
+
+.btn {
+  background: $light-blue;
+}
+
+.btn:hover {
+  cursor: pointer;
+}
+
+.btn.-primary {
+  background: $light-blue;
+}
+
+body {
+  font-family: "Freight Sans CMP";
+  font-size: 16px;
+}
+
+.header {
+  padding: 1em;
+  text-align: center;
+  background: $off-white;
+}
+
+.logo {
+  max-width: 300px;
+}
+
+.cta {
+  color: $blue;
+  font-size: 2rem;
+}
+
+.map {
+  background: $blue;
+  padding: 8rem;
+  text-align: center;
+}
