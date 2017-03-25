@@ -1,10 +1,23 @@
 const webpackMerge = require('webpack-merge');
 const commonConfig = require('./common.js');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = function(env) {
   return webpackMerge(commonConfig(env), {
     stats: 'errors-only',
     devtool: 'cheap-module-eval-source-map',
+    plugins: [
+      new ExtractTextPlugin({
+        filename: "bundle.css",
+        disable: true
+      }),
+      new HtmlWebpackPlugin({
+        filename: 'index.html',
+        template: './src/index.html',
+        inject: true,
+      })
+    ]
   })
 };
