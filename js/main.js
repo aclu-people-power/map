@@ -52,8 +52,10 @@
       return;
     }
 
-    var coords = knownZipcodes[zipcode];
-    map.setView([coords.lat, coords.lng], 9);
+    var latLng = knownZipcodes[zipcode];
+    var zoom = 9;
+
+    map.setView(latLng, zoom);
   }
 
   /**
