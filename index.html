@@ -27,9 +27,7 @@
       </div>
     </div>
   </div>
-  <div class="map">
-    <h2>Imagine a map</h2>
-  </div>
+  <div class="map" id="map"></div>
 
   <!-- FIXME bundle third party JS dependencies and serve them ourselves. 
        For now, just put them in here.  -->
@@ -37,6 +35,17 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
   <!-- etc -->
 
-  <script src="./js/index.js"></script>
+  <!-- First draw map -->
+  <script src="./js/map-init.js"></script>
+
+  <!-- Then grab events data -->
+  <script src= "https://s3.amazonaws.com/thirdbear-backups/aclu/public/action_events.js"></script>
+
+  <!-- And valid zip code data -->
+  <script src="./data/us_postal_codes.js"></script>
+
+  <!-- Then boot -->
+  <script src="./js/main.js"></script>
+
 </body>
 </html>

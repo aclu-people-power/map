@@ -83,6 +83,7 @@
 body {
   font-family: "Freight Sans CMP";
   font-size: 16px;
+  background: #9DBDC6;
 }
 
 .header {
@@ -101,7 +102,5 @@ body {
 }
 
 .map {
-  background: #9DBDC6;
-  padding: 8rem;
-  text-align: center;
+  min-height: 500px;
 }
