@@ -1,1 +1,26 @@
+# OS or Editor folders, misc tmp, swp and other files
 .DS_Store
+.cache
+.project
+.settings
+.tmproj
+nbproject
+Thumbs.db
+build/
+*.diff
+*.err
+*.orig
+*.log
+*.rej
+*.swo
+*.swp
+*.vi
+*~
+*.sass-cache
+.tags*
+
+# NPM packages folder.
+node_modules/
+
+# Compiled Assets
+dist/
