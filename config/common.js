@@ -10,9 +10,12 @@ const ASSET_PATH = process.env.ASSET_PATH || '/';
 module.exports = function(env){
   console.log("ENV CHECK: ", env !== "production")
   return {
-    entry: './js/index.js',
+    entry: {
+      bundle: './js/index.js',
+      'initialize-map': './js/initialize-map.js'
+    },
     output: {
-      filename: 'bundle.js',
+      filename: '[name].js',
       path: DIST_PATH,
       publicPath: ASSET_PATH
     },
