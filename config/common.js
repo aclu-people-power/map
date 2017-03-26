@@ -10,9 +10,11 @@ const ASSET_PATH = process.env.ASSET_PATH || '/';
 
 module.exports = function(env){
   return {
-    entry: ['./src/main.js'],
+    entry: {
+      bundle: './src/index.js',
+      'initialize-map': './src/initialize-map.js'
+    },
     output: {
-      filename: 'bundle.js',
       path: DIST_PATH,
       publicPath: ASSET_PATH
     },

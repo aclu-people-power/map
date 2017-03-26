@@ -47,6 +47,8 @@
   },
   "dependencies": {
     "moment": "^2.18.1",
+    "mapbox.js": "^3.0.1",
+    "moment": "^2.18.1",
     "vue": "^2.2.5"
   }
 }

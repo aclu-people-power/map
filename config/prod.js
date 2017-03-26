@@ -7,7 +7,7 @@ const webpack = require('webpack');
 module.exports = function(env){
   return webpackMerge(commonConfig(env), {
     output: {
-      filename: 'bundle.[chunkhash].js'
+      filename: '[name].[chunkhash].js'
     },
     devtool: 'source-map',
     plugins: [
@@ -38,8 +38,8 @@ module.exports = function(env){
       }),
       new HtmlWebpackPlugin({
         filename: 'index.html',
-        template: './src/index.html',
-        inject: true,
+        template: './src/index.html.ejs',
+        inject: false,
         minify: {
           removeComments: true,
           collapseWhitespace: true,

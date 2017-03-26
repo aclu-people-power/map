@@ -6,6 +6,9 @@ const webpack = require('webpack');
 
 module.exports = function(env) {
   return webpackMerge(commonConfig(env), {
+    output: {
+      filename: '[name].js',
+    },
     stats: 'errors-only',
     devtool: 'cheap-module-eval-source-map',
     plugins: [
@@ -15,8 +18,8 @@ module.exports = function(env) {
       }),
       new HtmlWebpackPlugin({
         filename: 'index.html',
-        template: './src/index.html',
-        inject: true,
+        template: './src/index.html.ejs',
+        inject: false
       })
     ]
   })
