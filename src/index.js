@@ -1,32 +1,39 @@
 import moment from 'moment';
 import { getFilteredEvents } from './util/event-utils';
 import { plotEvents, setMapPositionBasedOnZip } from './util/map-utils';
+import { getHash, setHash, onHashChange } from './util/url-hash';
 
+// FIXME DEBUG this is just here to poke around with and set event
+// filters via the JS console.
+window.setHash = setHash;
 
 // Boot:
 
-// (the url will be the source of truth for these values. here
-//  we are just faking it)
-const filters = {
-  eventType: null,
-  dateRange: null,
-  zipcode: null,
-};
+// This will move into the map component
+function plotAndZoom(filters) {
 
-// first we compute the filtered event set
-const filteredEvents = getFilteredEvents(window.PEOPLEPOWER_EVENTS, filters);
+  // first we compute the filtered event set
+  const filteredEvents = getFilteredEvents(window.PEOPLEPOWER_EVENTS, filters);
 
-// then plot those events
-plotEvents(filteredEvents, window.map);
+  // then plot those events
+  plotEvents(filteredEvents, window.map);
 
-// then adjust map position accordingly
-setMapPositionBasedOnZip(
-  filters.zipcode,
-  window.KNOWN_ZIPCODES,
-  filteredEvents,
-  window.map
-);
+  // then adjust map position accordingly
+  setMapPositionBasedOnZip(
+    filters.zipcode,
+    window.KNOWN_ZIPCODES,
+    filteredEvents,
+    window.map
+  );
+}
 
+// Once initially on boot, based on initial filters in URL
+plotAndZoom(getHash());
+
+// Also when the event filters change
+onHashChange(plotAndZoom);
+
+// TODO translate back and forth with date range into two fields
 
 // Start up Vue
 import Vue from 'vue';
