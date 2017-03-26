@@ -1,5 +1,6 @@
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const util = require('./util');
 
 //Directory that webpack should compile assets to
 const DIST_PATH = process.env.DIST_PATH || path.resolve(__dirname, '../dist');
@@ -8,14 +9,12 @@ const DIST_PATH = process.env.DIST_PATH || path.resolve(__dirname, '../dist');
 const ASSET_PATH = process.env.ASSET_PATH || '/';
 
 module.exports = function(env){
-  console.log("ENV CHECK: ", env !== "production")
   return {
     entry: {
-      bundle: './js/index.js',
-      'initialize-map': './js/initialize-map.js'
+      bundle: './src/index.js',
+      'initialize-map': './src/initialize-map.js'
     },
     output: {
-      filename: '[name].js',
       path: DIST_PATH,
       publicPath: ASSET_PATH
     },
@@ -27,38 +26,36 @@ module.exports = function(env){
         //caused by: https://github.com/babel/babel-loader/pull/391
         //Once new babel-loader is release, we should upgrade and remove this comment
         {
-          test: /.js$/,
+          test: /\.js$/,
           exclude: /node_modules/,
           loader: 'babel-loader',
+          options: {presets: ['env','es2015','stage-0']}
+        },
+        //Process VUE template files, extracting CSS to seperate files
+        {
+          test: /\.vue$/,
+          loader: 'vue-loader',
           options: {
-            presets: ['env']
+            loaders: {
+              css:  util.extractTextStyleLoaders('vue-style-loader'),
+              scss: util.extractTextStyleLoaders('vue-style-loader'),
+            }
           }
         },
+        //scss: ['vue-style-loader'].concat(util.styleLoaders)
+        //Allows for normal scss files to also be required directly
         {
-          //Compile sass files, then run through autoprefixer
           test: /\.scss$/,
-          use: ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: [
-              'css-loader',
-              {
-                loader: 'postcss-loader',
-                options: {
-                  plugins: function(){return [require('autoprefixer')]}
-                }
-              },
-              'sass-loader',
-            ]
-          })
+          use: util.extractTextStyleLoaders('style-loader'),
         },
-        //Inline very small font files (less than 5kb), otherwise just save
+        //Inline very small font files (less than 5kb), otherwise just copy
         //to output dir as normal files
         {
           test: /\.(eot|ttf|woff|woff2)$/,
           loader: 'url-loader',
           options: {
             limit: 5000,
-            name: './fonts/[name].[ext]',
+            name: './fonts/[name]-[hash].[ext]',
           },
         },
         //inline assests smaller than 10kb, otherwise copy them as files to output dir
@@ -67,16 +64,27 @@ module.exports = function(env){
           loader: 'url-loader',
           options: {
             limit: 10000,
-            name: './img/[name].[ext]'
+            name: './images/[name]-[hash].[ext]'
           },
         },
       ]
     },
-    plugins: [
-      new ExtractTextPlugin({
-        filename: "styles.css",
-        disable: (env === "production")
-      }),
-    ]
+    //Setup some basic extensions and aliases to make importing files easier
+    //to type and refactor. Note, when importing SCSS or using as src of
+    //an image files, you need to prefix the path with the '~' char, E.g.
+    //```@import '~styles/variables'```
+    //instead of
+    //```@import 'styles/variables'```
+    resolve: {
+      extensions: [".js", ".json", ".vue", ".scss"],
+      alias: {
+        'vue$': 'vue/dist/vue.esm.js',
+        'assets': path.resolve(__dirname,'../src/assets'),
+        'styles': path.resolve(__dirname,'../src/assets/styles'),
+        'fonts': path.resolve(__dirname,'../src/assets/fonts'),
+        'images': path.resolve(__dirname,'../src/assets/images'),
+        'components': path.resolve(__dirname,'../src/components')
+      }
+    }
   }
 }

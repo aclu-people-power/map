@@ -1,5 +1,6 @@
 // This makes window.L (leaflet.js) available. mapbox.js
 // is a leaflet plugin.
+import 'styles/index';
 import 'mapbox.js';
 
 L.mapbox.accessToken = "pk.eyJ1Ijoia2VubmV0aHBlbm5pbmd0b24iLCJhIjoiY2l6bmJ3MmFiMDMzZTMzbDJtdGxkM3hveSJ9.w4iOGaL2vrIvETimSXUXsw";

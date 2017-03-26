@@ -2,12 +2,12 @@
   "name": "map",
   "version": "1.0.0",
   "description": "ACLU People Power Map",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "start": "webpack-dev-server --env=dev --hot",
     "test": "",
-    "build:dev": "webpack --env=dev --colors",
-    "build:dist": "webpack --env=prod --colors && cp -r img dist/img && cp index.html dist/",
+    "build": "webpack --env=prod --colors",
+    "clean": "rm -rf dist",
     "dist:server": "pushd dist; python -m SimpleHTTPServer; popd"
   },
   "repository": {
@@ -24,9 +24,12 @@
     "babel-core": "^6.24.0",
     "babel-loader": "^6.4.1",
     "babel-preset-env": "^1.2.2",
+    "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.27.3",
     "extract-text-webpack-plugin": "^2.1.0",
     "file-loader": "^0.10.1",
+    "html-loader": "^0.4.5",
+    "html-webpack-plugin": "^2.28.0",
     "moment": "^2.18.1",
     "node-sass": "^4.5.1",
     "nodemon": "^1.11.0",
@@ -35,12 +38,17 @@
     "sass-loader": "^6.0.3",
     "style-loader": "^0.16.0",
     "url-loader": "^0.5.8",
+    "vue-loader": "^11.3.3",
+    "vue-template-compiler": "^2.2.5",
     "webpack": "^2.3.1",
     "webpack-dev-server": "^2.4.2",
+    "webpack-hot-middleware": "^2.17.1",
     "webpack-merge": "^4.1.0"
   },
   "dependencies": {
+    "moment": "^2.18.1",
     "mapbox.js": "^3.0.1",
-    "moment": "^2.18.1"
+    "moment": "^2.18.1",
+    "vue": "^2.2.5"
   }
 }

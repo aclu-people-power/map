@@ -16,12 +16,12 @@ npm start
 ## Compile assets for production deployment
 Assets will compiled to the dist dir by default.
 ```
-make build
+npm run build
 ```
 
-To run a simple webserver with the dist dir as root use:
+To run a simple webserver and verify production output you can use
 ```
-make run
+npm run dist:server
 ```
 
 ## Deployment
