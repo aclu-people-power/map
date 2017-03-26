@@ -4,10 +4,11 @@
   <meta charset="utf-8" />
   <title>ACLU People Power Map</title>
   <meta name="description" content="Stuff" />
-  <link rel="stylesheet" href="./css/style.css" />
 
   <!-- FIXME is this a CDN? Maybe fetch from someplace else  -->
   <link href='https://api.mapbox.com/mapbox.js/v3.0.1/mapbox.css' rel='stylesheet' />
+  <link href='styles.css' rel='stylesheet' />
+
 </head>
 
 <body>
@@ -29,14 +30,23 @@
   </div>
   <div class="map" id="map"></div>
 
-  <!-- FIXME bundle third party JS dependencies and serve them ourselves. 
-       For now, just put them in here.  -->
+  <!-- FIXME Not bundling mapbox.js since unclear if we will use this or mapbox gl -->
   <script src="https://api.mapbox.com/mapbox.js/v3.0.1/mapbox.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-  <!-- etc -->
 
   <!-- First draw map -->
-  <script src="./js/map-init.js"></script>
+  <script>
+    (function() {
+
+      L.mapbox.accessToken = "pk.eyJ1Ijoia2VubmV0aHBlbm5pbmd0b24iLCJhIjoiY2l6bmJ3MmFiMDMzZTMzbDJtdGxkM3hveSJ9.w4iOGaL2vrIvETimSXUXsw";
+
+      var centerOfUS = [37.8, -96.9];
+      var zoom = 4;
+
+      var map = window.map = L.mapbox.map('map', 'mapbox.streets')
+        .setView(centerOfUS, zoom);
+
+    }())
+  </script>
 
   <!-- Then grab events data -->
   <script src= "https://s3.amazonaws.com/thirdbear-backups/aclu/public/action_events.js"></script>
@@ -45,7 +55,6 @@
   <script src="./data/us_postal_codes.js"></script>
 
   <!-- Then boot -->
-  <script src="./js/main.js"></script>
-
+  <script src="bundle.js"></script>
 </body>
 </html>
