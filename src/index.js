@@ -3,13 +3,21 @@ import { getFilteredEvents } from './util/event-utils';
 import { plotEvents, setMapPositionBasedOnZip } from './util/map-utils';
 import { getHash, setHash, onHashChange } from './util/url-hash';
 
-// FIXME DEBUG this is just here to poke around with and set event
-// filters via the JS console.
+// temporary thing so that changing zipcode via UI updates query
+document.getElementById('zipcode').addEventListener('input', (event) => {
+  const value = event.target.value;
+  if (/^\d+$/.test(value) && value.length === 5) {
+    setHash({ zipcode: value });
+  }
+});
+
+// temporary thing for setting event type and start/end dates via JS
+// console, e.g. setHash({ eventType: 'hi', startDate: '2017-03-21'})
 window.setHash = setHash;
 
 // Boot:
 
-// This will move into the map component
+// FIXME this stuff will move into the map component
 function plotAndZoom(filters) {
 
   // first we compute the filtered event set
@@ -32,8 +40,6 @@ plotAndZoom(getHash());
 
 // Also when the event filters change
 onHashChange(plotAndZoom);
-
-// TODO translate back and forth with date range into two fields
 
 // Start up Vue
 import Vue from 'vue';
