@@ -1,4 +1,29 @@
-require('../css/index.scss');
-let moment = require('moment');
+import '../css/index.scss';
 
-document.getElementById("webpack-test").innerHTML="Webpack is running. The time is: " + moment().format('h:mm:ss a');
+import { getFilteredEvents } from './event-utils';
+import { plotEvents, setMapPositionBasedOnZip } from './map-utils';
+
+
+// Boot:
+
+// (the url will be the source of truth for these values. here
+//  we are just faking it)
+const filters = {
+  eventType: null,
+  dateRange: null,
+  zipcode: null,
+};
+
+// first we compute the filtered event set
+const filteredEvents = getFilteredEvents(window.PEOPLEPOWER_EVENTS, filters);
+
+// then plot those events
+plotEvents(filteredEvents, window.map);
+
+// then adjust map position accordingly
+setMapPositionBasedOnZip(
+  filters.zipcode, 
+  window.KNOWN_ZIPCODES, 
+  filteredEvents,
+  window.map
+);
