@@ -17,14 +17,23 @@ window.setHash = setHash;
 
 // Boot:
 
+
 // FIXME this stuff will move into the map component
+let eventsLayer = null;
+
 function plotAndZoom(filters) {
 
-  // first we compute the filtered event set
+  // wipe out existing plotted events -- probably this can
+  // be done more efficiently
+  if (eventsLayer) {
+    eventsLayer.clearLayers();
+  }
+
+  // compute filtered event set
   const filteredEvents = getFilteredEvents(window.PEOPLEPOWER_EVENTS, filters);
 
   // then plot those events
-  plotEvents(filteredEvents, window.map);
+  eventsLayer = plotEvents(filteredEvents, window.map);
 
   // then adjust map position accordingly
   setMapPositionBasedOnZip(
