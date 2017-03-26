@@ -11,7 +11,7 @@ import { plotEvents, setMapPositionBasedOnZip } from './map-utils';
 const filters = {
   eventType: null,
   dateRange: null,
-  zipcode: '53211', 
+  zipcode: null,
 };
 
 // first we compute the filtered event set
