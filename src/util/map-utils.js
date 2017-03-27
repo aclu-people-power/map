@@ -1,18 +1,18 @@
 export function plotEvents(events, map) {
-  const overlays = L.layerGroup().addTo(map);
+  const layer = L.layerGroup().addTo(map);
 
-  events.forEach(function(ppEvent) {
-    L.circleMarker([ppEvent.lat, ppEvent.lng], {
+  events.forEach(function(event) {
+    L.circleMarker([event.lat, event.lng], {
       radius: 5,
       color: 'white',
       fillColor: '#ef3030',
       opacity: 0.8,
       fillOpacity: 0.7,
       weight: 2
-    }).addTo(overlays);
+    }).addTo(layer);
   });
 
-  return overlays;
+  return layer;
 }
 
 export function setMapPositionBasedOnZip(zipcode, knownZipcodes, events, map) {
