@@ -11,8 +11,7 @@ const ASSET_PATH = process.env.ASSET_PATH || '/';
 module.exports = function(env){
   return {
     entry: {
-      bundle: './src/index.js',
-      'initialize-map': './src/initialize-map.js'
+      'initialize': './src/initialize.js'
     },
     output: {
       path: DIST_PATH,
@@ -29,7 +28,6 @@ module.exports = function(env){
           test: /\.js$/,
           exclude: /node_modules/,
           loader: 'babel-loader',
-          options: {presets: ['env','es2015','stage-0']}
         },
         //Process VUE template files, extracting CSS to seperate files
         {
