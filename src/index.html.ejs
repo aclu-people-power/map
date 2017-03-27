@@ -19,7 +19,18 @@
   <div id="app">
   </div>
   <!-- First draw an empty map -->
+<<<<<<< HEAD
   <script src="<%= htmlWebpackPlugin.files.chunks['initialize'].entry %>"></script>
+=======
+  <script src="<%= htmlWebpackPlugin.files.chunks['initialize-map'].entry %>"></script>
+
+  <!-- Then grab data dependencies -->
+  <script src="https://s3.amazonaws.com/thirdbear-backups/aclu/public/action_events.js"></script>
+  <script src="/us_postal_codes.js"></script>
+
+  <!-- Then startup main application -->
+  <script src="<%= htmlWebpackPlugin.files.chunks['bundle'].entry %>"></script>
+>>>>>>> origin/master
 
 </body>
 </html>

@@ -34,6 +34,9 @@ export default {
   components: {
     'toolbar': Toolbar,
     'loading-screen': LoadingScreen,
+    //FIXME: Async load EventMap... this is just proof of concept of code splitting
+    //and async component loading. Can refactor after we better decide on real component
+    //layout.
     'event-map': () => import('components/EventMap'),
   }
 }

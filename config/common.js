@@ -85,12 +85,5 @@ module.exports = function(env){
         'components': path.resolve(__dirname,'../src/components')
       }
     },
-
-		plugins: [
-			// new CopyWebpackPlugin([{
-			// 	from: './data/us_postal_codes.js',
-			// 	to: 'us_postal_codes.js'
-			// }])
-		]
   }
 }
