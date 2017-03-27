@@ -32,8 +32,14 @@ body {
   font-size: 2rem;
 }
 
-.map {
+#app {
+  padding: 20px;
+}
+
+#map {
   background: $blue;
   padding: 8rem;
   text-align: center;
+  height: 100px;
+  width: 300px;
 }
