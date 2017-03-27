@@ -1,6 +1,5 @@
 const path = require('path');
 const util = require('./util');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 //Directory that webpack should compile assets to
 const DIST_PATH = process.env.DIST_PATH || path.resolve(__dirname, '../dist');
