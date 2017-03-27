@@ -2,6 +2,7 @@ import moment from 'moment';
 import { getFilteredEvents } from './util/event-utils';
 import { plotEvents, setMapPositionBasedOnZip } from './util/map-utils';
 import { getHash, setHash, onHashChange } from './util/url-hash';
+import { pollForNewEvents } from './util/events-poll';
 
 // temporary thing so that changing zipcode via UI updates query
 document.getElementById('zipcode').addEventListener('input', (event) => {
@@ -17,8 +18,9 @@ window.setHash = setHash;
 
 // Boot:
 
-
-// FIXME this stuff will move into the map component
+// FIXME this stuff will be split into A) the map component and B)
+// top level app state stuff which the event map and event list
+// are a function of.
 let eventsLayer = null;
 
 function plotAndZoom(filters) {
@@ -49,6 +51,15 @@ plotAndZoom(getHash());
 
 // Also when the event filters change
 onHashChange(plotAndZoom);
+
+// Now poll for new events data and when it arrives, update data 
+pollForNewEvents(5000, (err) => {
+  if (!err) {
+    console.log('got new data!');
+    // window.PEOPLEPOWER_EVENTS has just been updated, so update the
+    // app state accordingly and let the UI react to that.
+  }
+});
 
 // Start up Vue
 import Vue from 'vue';
