@@ -49,3 +49,9 @@ function tick(){
     tick();
   },1000);
 };tick();
+
+// Once we are rolling with a vue app probably this will be
+// a little different
+if (module.hot) {
+  module.hot.accept();
+}

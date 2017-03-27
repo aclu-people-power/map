@@ -19,7 +19,8 @@ module.exports = function(env) {
       new HtmlWebpackPlugin({
         filename: 'index.html',
         template: './src/index.html.ejs',
-        inject: false
+        inject: false,
+				favicon: './src/assets/favicon.ico'
       })
     ]
   })

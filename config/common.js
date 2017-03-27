@@ -1,6 +1,6 @@
 const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const util = require('./util');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 //Directory that webpack should compile assets to
 const DIST_PATH = process.env.DIST_PATH || path.resolve(__dirname, '../dist');
@@ -85,6 +85,13 @@ module.exports = function(env){
         'images': path.resolve(__dirname,'../src/assets/images'),
         'components': path.resolve(__dirname,'../src/components')
       }
-    }
+    },
+
+		plugins: [
+			new CopyWebpackPlugin([{
+				from: './data/us_postal_codes.js',
+				to: 'us_postal_codes.js'
+			}])
+		]
   }
 }
