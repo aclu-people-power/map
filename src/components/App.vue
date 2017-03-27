@@ -3,7 +3,7 @@
   <div id="app">
     <toolbar/>
     <loading-screen v-if="this.loading"/>
-    <event-map :loaded="this.loaded"/>
+    <event-map :loaded="this.loaded" :updateEvents="this.updateEvents" :events="this.events" :updateCodes="this.updateCodes" :codes="this.codes"/>
   </div>
 </template>
 
@@ -14,11 +14,20 @@ import LoadingScreen from 'components/LoadingScreen'
 
 export default {
   name: 'app',
-  data: function(){
+  props: ['state','actions'],
+  data: function() {
     return {
       loading: true,
+      events: [],
+      codes: {},
       loaded: () => {
         this.loading = false;
+      },
+      updateEvents: (events) => {
+        this.events = events;
+      },
+      updateCodes: (codes) => {
+        this.codes = codes;
       }
     }
   },

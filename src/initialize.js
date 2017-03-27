@@ -11,10 +11,3 @@ export default new Vue({
     App
   }
 })
-
-function tick(){
-  setTimeout(function(){
-    console.debug('tick');
-    tick();
-  },1000);
-};tick();
