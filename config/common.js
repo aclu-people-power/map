@@ -1,5 +1,4 @@
 const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const util = require('./util');
 
 //Directory that webpack should compile assets to

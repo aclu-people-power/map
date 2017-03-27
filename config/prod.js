@@ -40,6 +40,7 @@ module.exports = function(env){
         filename: 'index.html',
         template: './src/index.html.ejs',
         inject: false,
+        hash: true,
         minify: {
           removeComments: true,
           collapseWhitespace: true,
