@@ -77,6 +77,7 @@ module.exports = function(env){
       extensions: [".js", ".json", ".vue", ".scss"],
       alias: {
         'vue$': 'vue/dist/vue.esm.js',
+        'src': path.resolve(__dirname, '../src'),
         'assets': path.resolve(__dirname,'../src/assets'),
         'styles': path.resolve(__dirname,'../src/assets/styles'),
         'fonts': path.resolve(__dirname,'../src/assets/fonts'),
@@ -86,10 +87,10 @@ module.exports = function(env){
     },
 
 		plugins: [
-			new CopyWebpackPlugin([{
-				from: './data/us_postal_codes.js',
-				to: 'us_postal_codes.js'
-			}])
+			// new CopyWebpackPlugin([{
+			// 	from: './data/us_postal_codes.js',
+			// 	to: 'us_postal_codes.js'
+			// }])
 		]
   }
 }

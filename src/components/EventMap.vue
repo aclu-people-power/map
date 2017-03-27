@@ -3,7 +3,7 @@
 </template>
 
 <script>
-  import codes from '../../data/us_postal_codes'
+  import codes from 'json-loader!src/data/us_postal_codes'
   export default {
     name: 'event-map',
     props: ['loaded'],
