@@ -53,7 +53,7 @@ plotAndZoom(getHash());
 onHashChange(plotAndZoom);
 
 // Now poll for new events data and when it arrives, update data 
-pollForNewEvents(5000, (err) => {
+pollForNewEvents(30000, (err) => {
   if (!err) {
     console.log('got new data!');
     // window.PEOPLEPOWER_EVENTS has just been updated, so update the
