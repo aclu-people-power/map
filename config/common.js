@@ -39,6 +39,10 @@ module.exports = function(env){
             }
           }
         },
+        {
+          test: /templates\/.*\.html$/,
+          loader: 'html-loader'
+        },
         //scss: ['vue-style-loader'].concat(util.styleLoaders)
         //Allows for normal scss files to also be required directly
         {

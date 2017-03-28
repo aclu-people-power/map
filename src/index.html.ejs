@@ -18,9 +18,14 @@
 <body>
 
   <div id="app">
-    <%= require('html-loader!src/templates/Toolbar.html') %>
-    <%= require('html-loader!src/templates/LoadingBar.html') %>
-    <%= require('html-loader!src/templates/EventMap.html') %>
+    <div>
+      <%= require('src/templates/Toolbar.html') %>
+      <%= require('src/templates/LoadingBar.html') %>
+    </div>
+    <div class="event-wrapper">
+      <%= require('src/templates/EventMap.html') %>
+      <%= require('src/templates/EventList.html') %>
+    </div>
   </div>
   <script src="<%= htmlWebpackPlugin.files.chunks['initialize'].entry %>"></script>
 </body>

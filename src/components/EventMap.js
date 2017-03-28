@@ -5,7 +5,7 @@ export default function(store){
   return new Vue({
     el: '#event-map',
     name: 'event-map',
-    template: require('html-loader!src/templates/EventMap.html'),
+    template: require('src/templates/EventMap.html'),
     store,
     methods: {
       loaded() {
