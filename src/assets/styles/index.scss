@@ -4,6 +4,7 @@
 @import "~styles/icons";
 @import "~styles/map";
 @import "~styles/toolbar";
+@import "~styles/event_list";
 
 body {
   font-family: "Freight Sans CMP";
@@ -20,4 +21,8 @@ body {
 
 .btn.-primary {
   background: $light-blue;
+}
+
+#app {
+  position: relative;
 }

@@ -1,9 +1,10 @@
 import Vue from 'vue';
 export default function(store){
   return new Vue({
+    name: 'toolbar',
     store,
     el: "#toolbar",
-    template: require('html-loader!src/templates/Toolbar.html'),
+    template: require('src/templates/Toolbar.html'),
     //just wired up some junk data to make sure store & state are working
     //as expected
     computed: {
