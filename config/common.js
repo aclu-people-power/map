@@ -1,6 +1,5 @@
 const path = require('path');
 const util = require('./util');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 //Directory that webpack should compile assets to
 const DIST_PATH = process.env.DIST_PATH || path.resolve(__dirname, '../dist');
@@ -11,8 +10,7 @@ const ASSET_PATH = process.env.ASSET_PATH || '/';
 module.exports = function(env){
   return {
     entry: {
-      bundle: './src/index.js',
-      'initialize-map': './src/initialize-map.js'
+      'initialize': './src/initialize.js'
     },
     output: {
       path: DIST_PATH,
@@ -29,7 +27,6 @@ module.exports = function(env){
           test: /\.js$/,
           exclude: /node_modules/,
           loader: 'babel-loader',
-          options: {presets: ['env','es2015','stage-0']}
         },
         //Process VUE template files, extracting CSS to seperate files
         {
@@ -79,6 +76,7 @@ module.exports = function(env){
       extensions: [".js", ".json", ".vue", ".scss"],
       alias: {
         'vue$': 'vue/dist/vue.esm.js',
+        'src': path.resolve(__dirname, '../src'),
         'assets': path.resolve(__dirname,'../src/assets'),
         'styles': path.resolve(__dirname,'../src/assets/styles'),
         'fonts': path.resolve(__dirname,'../src/assets/fonts'),
@@ -86,12 +84,5 @@ module.exports = function(env){
         'components': path.resolve(__dirname,'../src/components')
       }
     },
-
-		plugins: [
-			new CopyWebpackPlugin([{
-				from: './data/us_postal_codes.js',
-				to: 'us_postal_codes.js'
-			}])
-		]
   }
 }

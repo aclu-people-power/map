@@ -1,39 +1,9 @@
-@import "variables";
+@import "~styles/variables";
 
-.btn {
-  background: $light-blue;
-}
-
-.btn:hover {
-  cursor: pointer;
-}
-
-.btn.-primary {
-  background: $light-blue;
-}
-
-body {
-  font-family: "Freight Sans CMP";
-  font-size: 16px;
-}
-
-.header {
-  padding: 1em;
-  text-align: center;
-  background: $dark;
-}
-
-.logo {
-  max-width: 300px;
-}
-
-.cta {
-  color: $blue;
-  font-size: 2rem;
-}
-
-.map {
+#map {
   background: $blue;
   padding: 8rem;
   text-align: center;
+  height: 100px;
+  width: 300px;
 }

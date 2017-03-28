@@ -10,7 +10,7 @@ module.exports = function(env) {
       filename: '[name].js',
     },
     stats: 'errors-only',
-    devtool: 'cheap-module-eval-source-map',
+    devtool: 'eval-source-map',
     plugins: [
       new ExtractTextPlugin({
         filename: "bundle.css",
