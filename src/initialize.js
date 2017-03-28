@@ -61,3 +61,7 @@ let eventMap = EventMap(store);
 //     'event-map': () => import('components/EventMap'),
 //   }
 // })
+//
+if (module.hot) {
+  module.hot.accept();
+}
