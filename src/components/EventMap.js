@@ -71,7 +71,7 @@ export default function(store){
         }
 
         const latLng = store.state.zipcodes[store.state.filters.zipcode];
-        const zoom = 9;
+        const zoom = 8;
 
         this.mapRef.setView(latLng, zoom);
       }

@@ -30,7 +30,9 @@
       {{ view === 'map' ? 'List view' : 'Map view' }}
     </button>
   </div>
-  <div v-if="isFilterEventsOpen" class="filters">
-    HI WE ARE FILTERING!
-  </div>
+  <event-type-filters 
+    v-if="isFilterEventsOpen"
+    :filters="filters"
+  >
+  </event-type-filters>
 </div>

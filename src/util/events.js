@@ -34,9 +34,21 @@ export function getFilteredEvents(events, filters, zipcodes) {
 
   return events.filter(function(event) {
 
-    // should maybe be using event.categories, not sure
-    if (filters.eventType && filters.eventType !== event.event_type) {
-      return false;
+    if (filters.eventType) {
+      if (!event.categories) {
+        return false;
+      }
+
+      const allCategories = event.categories.split(',');
+      const allEventTypes = filters.eventType.split(',');
+
+      const eventIsInNoSelectedCategories = allEventTypes.every(type =>
+        !allCategories.includes(type)
+      );
+
+      if (eventIsInNoSelectedCategories) {
+        return false;
+      }
     }
 
     // note: there is also a utc timestamp, this one is localized

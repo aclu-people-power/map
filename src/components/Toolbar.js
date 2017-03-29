@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import { setHash } from 'src/util/url-hash';
+import EventTypeFilters from 'src/components/EventTypeFilters';
 
 export default function(store){
   return new Vue({
@@ -16,7 +17,10 @@ export default function(store){
       },
       view() {
         return store.state.view;
-      }
+      },
+      filters() {
+        return store.state.filters;
+      },
     },
     methods: {
       updateZipcode(event) {
@@ -31,6 +35,9 @@ export default function(store){
       toggleFilterEvents() {
         this.isFilterEventsOpen = !this.isFilterEventsOpen;
       },
+    },
+    components: {
+      'event-type-filters': EventTypeFilters
     }
   })
 }

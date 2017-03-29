@@ -5,4 +5,7 @@
   <div v-for="event in filteredEvents" class="event-card">
     <event-card v-bind:event="event"></event-card>
   </div>
+  <div v-if="filteredEvents.length ===0" class="event-list-zero-state">
+    No events matched that search.
+  </div>
 </div>
