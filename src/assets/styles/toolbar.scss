@@ -1,19 +1,72 @@
 .toolbar {
-  padding: 1em;
   text-align: center;
-  background: $dark;
+  display: flex;
+  flex-direction: column;
+}
 
-  p {
-    font-size: 2em;
-    color: white;
-  }
+.top-nav {
+  display: flex;
+  flex-direction: row;
+  background-color: $dark;
+  align-content: center;
+  width: 100%;
+  padding: 1em;
 }
 
 .logo {
   max-width: 300px;
+  max-height: 70px;
+  float: left;
 }
 
 .cta {
-  color: $blue;
-  font-size: 2rem;
+  color: white;
+  font-size: 2.5em;
+  padding-left: 20px;
+  margin: 20px 0 10px 0;
+}
+
+.event-filters {
+  display: flex;
+  flex-direction: row;
+  padding: 1em;
+  background-color: white;
+  justify-content: space-around;
+  width: 80%;
+  margin: auto;
+}
+
+input {
+  height: 2em;
+  width: 250px;
+  margin: 0 1em;
+  text-align: center;
+}
+
+.btn {
+ width: 200px;
+ margin: 0 .5em;
+ font-family: "Freight Sans CMP";
+ font-size: 1.3em;
+ font-weight: bold;
+ background: white;
+ border: 1px $light-gray solid;
+ display: flex;
+ flex-direction: row;
+ justify-content: space-around;
+}
+
+.arrow {
+  width: 15px;
+  margin: auto 0px;
+}
+
+.search {
+  background: $dark-red;
+  color: white;
+}
+
+.host {
+  background: $blue;
+  color: white;
 }

@@ -1,19 +1,13 @@
 <div class="toolbar" id="toolbar">
-  <div>
-    <img class="logo" src="~images/logo.png" />
+  <div class="top-nav">
+    <img class="logo" src="~images/logo.png" alt="logo"/>
     <h2 class="cta">Find events near you</h2>
   </div>
-  <div>
+  <div class="event-filters">
     <input type="text" placeholder="Search by zip code" />
-    <button type="button" class="btn -primary">
-      <i class="icon-search"></i>
-    </button>
-  </div>
-  <div>
-    <button type="button" class="btn">Filter events</button>
-    <button type="button" class="btn">List view</button>
-    <button type="button" class="btn" v-on:click="increment">Increment Counter</button>
-    <button type="button" class="btn" v-on:click="decrement">Decrement Counter</button>
-    <p>Count is : {{count}}</p>
+    <button class="btn date-picker"><span>DATE OF EVENT</span> <img class="arrow" src="~images/arrow.svg"/></button>
+    <button class="btn type-picker"><span>TYPE OF EVENT</span> <img class="arrow" src="~images/arrow.svg"/></button>
+    <button class="btn search">SEARCH EVENTS</button>
+    <button class="btn host">HOST AN EVENT</button>
   </div>
 </div>
