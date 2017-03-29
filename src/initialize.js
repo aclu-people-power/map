@@ -2,7 +2,6 @@ import 'styles/index';
 import 'core-js/es6/promise';
 import xhr from 'xhr';
 import store from 'src/store.js';
-import { loadEvents, pollForNewEvents } from 'src/util/events';
 import { setHash } from 'src/util/url-hash';
 
 import Toolbar from 'components/Toolbar';
@@ -10,17 +9,22 @@ import LoadingBar from 'components/LoadingBar';
 import EventMap from 'components/EventMap';
 import EventList from 'components/EventList';
 
+function loadEvents() {
+  xhr({
+    method: 'GET',
+    url: 'http://d3r5pbxngwkvri.cloudfront.net/action_events.json',
+    json: true,
+  }, (err, response) => {
+    if (err) return;
+    store.commit('eventsReceived', response.body);
+  });
+}
+
 // Load events data
-loadEvents((err) => {
-  if (err) return;
-  store.commit('eventsReceived', window.PEOPLEPOWER_EVENTS);
-});
+loadEvents();
 
 // And then keep grabbing events data once per minute 
-pollForNewEvents(60000, (err) => {
-  if (err) return;
-  store.commit('eventsReceived', window.PEOPLEPOWER_EVENTS);
-});
+setInterval(loadEvents, 6000);
 
 // Load valid zipcodes
 xhr({
