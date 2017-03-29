@@ -9,6 +9,7 @@
       @input="updateZipcode"
       placeholder="Search by zip code"
       :value="zipcode"
+      autofocus
     />
     <button type="button" class="btn -primary">
       <i class="icon-search"></i>
@@ -30,9 +31,8 @@
       {{ view === 'map' ? 'List view' : 'Map view' }}
     </button>
   </div>
-  <event-type-filters 
-    v-if="isFilterEventsOpen"
-    :filters="filters"
-  >
-  </event-type-filters>
+  <div v-if="isFilterEventsOpen">
+    <event-date-filters :filters="filters" ></event-date-filters>
+    <event-type-filters :filters="filters" ></event-type-filters>
+  </div>
 </div>

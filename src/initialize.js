@@ -32,10 +32,6 @@ xhr({
   store.commit('zipcodesReceived', response.body);
 });
 
-// temporary thing for setting event type and start/end dates via JS
-// console, e.g. setHash({ eventType: 'hi', startDate: '2017-03-21'})
-window.setHash = setHash;
-
 // Initialize Vue instances with the store.
 Toolbar(store);
 LoadingBar(store);

@@ -1,6 +1,6 @@
 <template>
   <div class="event-type-filters">
-    <h5>Type of event</h5>
+    <h5 class="event-filters-title">Type of event</h5>
     <div v-for="(label, type) in eventTypes">
       <input 
         type="checkbox" 

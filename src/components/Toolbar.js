@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import { setHash } from 'src/util/url-hash';
 import EventTypeFilters from 'src/components/EventTypeFilters';
+import EventDateFilters from 'src/components/EventDateFilters';
 
 export default function(store){
   return new Vue({
@@ -27,6 +28,9 @@ export default function(store){
         const value = event.target.value;
         if (/^\d+$/.test(value) && value.length === 5) {
           setHash({ zipcode: value });
+
+        } else if (!value) {
+          setHash({ zipcode: null });
         }
       },
       toggleView() {
@@ -37,7 +41,8 @@ export default function(store){
       },
     },
     components: {
-      'event-type-filters': EventTypeFilters
+      'event-type-filters': EventTypeFilters,
+      'event-date-filters': EventDateFilters
     }
   })
 }

@@ -67,6 +67,8 @@ export default function(store){
       setMapPositionBasedOnZip() {
         if (!store.state.filters.zipcode || 
             !store.state.zipcodes[store.state.filters.zipcode]) {
+
+          this.setInitialMapPosition();
           return;
         }
 
@@ -74,15 +76,19 @@ export default function(store){
         const zoom = 8;
 
         this.mapRef.setView(latLng, zoom);
+      },
+
+      setInitialMapPosition() {
+        const centerOfUS = [37.8, -96.9];
+        const zoom = 4;
+        
+        this.mapRef.setView(centerOfUS, zoom);
       }
     },
 
     mounted() {
-      const centerOfUS = [37.8, -96.9];
-      const zoom = 4;
-
       this.mapRef = L.mapbox.map('map', 'mapbox.streets')
-        .setView(centerOfUS, zoom);
+      this.setInitialMapPosition();
     },
 
     updated() {
