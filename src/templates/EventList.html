@@ -1,5 +1,9 @@
 <div id="event-list">
-  <div v-for="event in events" class="event-card">
+  <div v-for="event in filteredEvents" class="event-card">
     {{event.title}}
+
+    {{ filteredEvents.length ? '' : '' }}
+    {{ filters.length ? '' : '' }}
+    {{ events.length ? '' : '' }}
   </div>
 </div>

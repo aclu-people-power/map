@@ -1,5 +1,6 @@
 const path = require('path');
 const util = require('./util');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 //Directory that webpack should compile assets to
 const DIST_PATH = process.env.DIST_PATH || path.resolve(__dirname, '../dist');
@@ -88,5 +89,11 @@ module.exports = function(env){
         'components': path.resolve(__dirname,'../src/components')
       }
     },
+    plugins: [
+      new CopyWebpackPlugin([{
+        from: './src/data/us_postal_codes.json',
+        to: 'us_postal_codes.json'
+      }])
+    ]
   }
 }

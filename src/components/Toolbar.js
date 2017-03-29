@@ -1,26 +1,21 @@
 import Vue from 'vue';
+import { setHash } from 'src/util/url-hash';
+
 export default function(store){
   return new Vue({
     name: 'toolbar',
     store,
     el: "#toolbar",
     template: require('src/templates/Toolbar.html'),
-    //just wired up some junk data to make sure store & state are working
-    //as expected
     computed: {
-      count() {
-        return store.state.count
-      }
+
     },
     methods: {
-      increment() {
-        store.commit('increment');
-      },
-      decrement() {
-        store.commit('decrement');
-      },
-      loaded() {
-        store.commit('loaded');
+      updateZipcode(event) {
+        const value = event.target.value;
+        if (/^\d+$/.test(value) && value.length === 5) {
+          setHash({ zipcode: value });
+        }
       }
     }
   })

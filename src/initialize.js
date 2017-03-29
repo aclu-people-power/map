@@ -1,15 +1,46 @@
 import 'styles/index';
 import 'core-js/es6/promise';
+import xhr from 'xhr';
+import store from 'src/store.js';
+import { loadEvents, pollForNewEvents } from 'src/util/events';
+import { setHash } from 'src/util/url-hash';
+
 import Toolbar from 'components/Toolbar';
 import LoadingBar from 'components/LoadingBar';
 import EventMap from 'components/EventMap';
 import EventList from 'components/EventList';
-import store from 'src/store.js';
 
-let toolbar = Toolbar(store);
-let loadingBar = LoadingBar(store);
-let eventMap = EventMap(store);
-let eventList = EventList(store);
+// Load events data
+loadEvents((err) => {
+  if (err) return;
+  store.commit('eventsReceived', window.PEOPLEPOWER_EVENTS);
+});
+
+// And then keep grabbing events data once per minute 
+pollForNewEvents(60000, (err) => {
+  if (err) return;
+  store.commit('eventsReceived', window.PEOPLEPOWER_EVENTS);
+});
+
+// Load valid zipcodes
+xhr({
+  method: 'GET',
+  url: '/us_postal_codes.json',
+  json: true,
+}, (err, response) => {
+  if (err) return;
+  store.commit('zipcodesReceived', response.body);
+});
+
+// temporary thing for setting event type and start/end dates via JS
+// console, e.g. setHash({ eventType: 'hi', startDate: '2017-03-21'})
+window.setHash = setHash;
+
+// Initialize Vue instances with the store.
+Toolbar(store);
+LoadingBar(store);
+EventMap(store);
+EventList(store);
 
 if (module.hot) {
   module.hot.accept();
