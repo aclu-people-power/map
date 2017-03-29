@@ -9,6 +9,7 @@ const store = new Vuex.Store({
     events: [],
     zipcodes: [],
     filters: getHash(),
+    view: 'map'
   },
   mutations: {
     eventsReceived(state, events) {
@@ -20,6 +21,9 @@ const store = new Vuex.Store({
     filtersReceived(state, filters) {
       state.filters = filters;
     },
+    viewToggled(state) {
+      state.view = state.view === 'map' ? 'list' : 'map';
+    }
   }
 });
 

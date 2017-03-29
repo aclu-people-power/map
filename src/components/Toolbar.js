@@ -7,8 +7,16 @@ export default function(store){
     store,
     el: "#toolbar",
     template: require('src/templates/Toolbar.html'),
+    data: {
+      isFilterEventsOpen: false
+    },
     computed: {
-
+      zipcode() {
+        return store.state.filters.zipcode;
+      },
+      view() {
+        return store.state.view;
+      }
     },
     methods: {
       updateZipcode(event) {
@@ -16,7 +24,13 @@ export default function(store){
         if (/^\d+$/.test(value) && value.length === 5) {
           setHash({ zipcode: value });
         }
-      }
+      },
+      toggleView() {
+        store.commit('viewToggled');
+      },
+      toggleFilterEvents() {
+        this.isFilterEventsOpen = !this.isFilterEventsOpen;
+      },
     }
   })
 }

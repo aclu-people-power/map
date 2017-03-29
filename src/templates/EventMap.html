@@ -1,5 +1,5 @@
-<div id="event-map">
-  <div id="map">
+<div id="event-map" v-show="view === 'map'">
+  <div id="map" class="map">
     {{ events.length ? '' : '' }}
     {{ filters.length ? '' : '' }}
     {{ zipcodes.length ? '' : '' }}

@@ -1,22 +1,14 @@
 @import "~styles/variables";
 
-.event-wrapper {
-  position: relative;
-}
-
-#event-list {
-  position: absolute;
-  top: 0;
-  right: 0;
-  min-width: 250px;
-  min-height: 200px;
-  background-color: white;
-  font-size: 1.4rem;
-  border: solid 2px black;
+.event-list {
+  border: solid 1px black;
 }
 
 .event-card {
-  padding: 10px;
-  border: dotted 1px blue;
-  text-decoration: underline;
+  padding: 1em;
+  border-bottom: solid 2px #ccc; 
+}
+
+.event-card-title {
+
 }

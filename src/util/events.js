@@ -52,7 +52,7 @@ export function getFilteredEvents(events, filters, zipcodes) {
 
     if (filters.endDate) {
       const endDate = moment(filters.endDate, 'YYYY-MM-DD');
-    
+
       if (localDatetime.isAfter(endDate)) {
         return false;
       }
@@ -81,3 +81,13 @@ export function getFilteredEvents(events, filters, zipcodes) {
     return true;
   });
 }
+
+export const eventTypes = {
+  freedomcities: "Freedom Cities Action",
+  muslimban: "Muslim Ban Action",
+  protestrally: "Protest/Rally",
+  townmeeting: "Town Meeting",
+  organizing: "Organizing Meeting",
+  healthcareaction: "Health Care Action",
+  other: "Other"
+};

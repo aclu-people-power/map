@@ -28,6 +28,9 @@ export default function(store){
       },
       filteredEvents() {
         return getFilteredEvents(this.events, this.filters, this.zipcodes);
+      },
+      view() {
+        return store.state.view;
       }
     },
     methods: {

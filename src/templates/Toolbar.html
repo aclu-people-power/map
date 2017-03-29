@@ -4,17 +4,33 @@
     <h2 class="cta">Find events near you</h2>
   </div>
   <div>
-    <input 
-      type="text" 
-      @input="updateZipcode" 
-      placeholder="Search by zip code" 
+    <input
+      type="text"
+      @input="updateZipcode"
+      placeholder="Search by zip code"
+      :value="zipcode"
     />
     <button type="button" class="btn -primary">
       <i class="icon-search"></i>
     </button>
   </div>
   <div>
-    <button type="button" class="btn">Filter events</button>
-    <button type="button" class="btn">List view</button>
+    <button
+      type="button"
+      class="btn -fixed-width"
+      @click="toggleFilterEvents"
+    >
+      Filter events
+    </button>
+    <button
+      type="button"
+      class="btn -fixed-width"
+      @click="toggleView"
+    >
+      {{ view === 'map' ? 'List view' : 'Map view' }}
+    </button>
+  </div>
+  <div v-if="isFilterEventsOpen" class="filters">
+    HI WE ARE FILTERING!
   </div>
 </div>

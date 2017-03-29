@@ -12,17 +12,28 @@ body {
 }
 
 .btn {
-  background: $light-blue;
+  background: $blue;
+  text-transform: uppercase;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  padding: .5rem;
+  outline: none;
+  display: inline-block;
+  text-decoration: none;
 }
+
 
 .btn:hover {
   cursor: pointer;
 }
 
-.btn.-primary {
-  background: $light-blue;
+// oof
+.btn.-fixed-width {
+  width: 150px;
+  text-align: center;
 }
 
-#app {
-  position: relative;
+.btn.-primary {
+  background: $red;
 }
