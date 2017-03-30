@@ -38,7 +38,7 @@ export default function(store){
         this.plotEvents();
 
         // events data just showed up on app boot
-        if (newEvents.length && !oldEvents.length && Object.keys(this.zipcodes).length) {
+        if (newEvents.length && !oldEvents.length) {
           this.setMapPositionBasedOnZip();
         }
       },
@@ -47,7 +47,7 @@ export default function(store){
         this.plotEvents();
 
         // zipcode data just showed up on app boot
-        if (Object.keys(newZipcodes).length && !Object.keys(oldZipcodes).length && this.events.length) {
+        if (Object.keys(newZipcodes).length && !Object.keys(oldZipcodes).length) {
           this.setMapPositionBasedOnZip();
         }
       },
