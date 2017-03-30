@@ -33,23 +33,42 @@ export default function(store){
         return store.state.view;
       }
     },
-    methods: {
-      plotAndZoom() {
+    watch: {
+      events(newEvents, oldEvents) {
+        this.plotEvents();
 
+        // events data just showed up on app boot
+        if (newEvents.length && !oldEvents.length && Object.keys(this.zipcodes).length) {
+          this.setMapPositionBasedOnZip();
+        }
+      },
+
+      zipcodes(newZipcodes, oldZipcodes) {
+        this.plotEvents();
+
+        // zipcode data just showed up on app boot
+        if (Object.keys(newZipcodes).length && !Object.keys(oldZipcodes).length && this.events.length) {
+          this.setMapPositionBasedOnZip();
+        }
+      },
+
+      filters(newFilters, oldFilters) {
+        this.plotEvents();
+
+        // zoom to new location when zipcode changes
+        if (newFilters.zipcode !== oldFilters.zipcode) {
+          this.setMapPositionBasedOnZip();
+        } 
+      }
+    },
+    methods: {
+      plotEvents() {
         // wipe out existing plotted events -- probably this can
         // be done more efficiently
         if (this.eventsLayer) {
           this.eventsLayer.clearLayers();
         }
 
-        // then plot those events
-        this.plotEvents();
-
-        // then adjust map position accordingly
-        this.setMapPositionBasedOnZip();
-      },
-
-      plotEvents() {
         this.eventsLayer = L.layerGroup().addTo(this.mapRef);
 
         this.filteredEvents.forEach((event) => {
@@ -65,14 +84,13 @@ export default function(store){
       },
 
       setMapPositionBasedOnZip() {
-        if (!store.state.filters.zipcode || 
-            !store.state.zipcodes[store.state.filters.zipcode]) {
+        if (!this.filters.zipcode || !this.zipcodes[this.filters.zipcode]) {
 
           this.setInitialMapPosition();
           return;
         }
 
-        const latLng = store.state.zipcodes[store.state.filters.zipcode];
+        const latLng = this.zipcodes[this.filters.zipcode];
         const zoom = 8;
 
         this.mapRef.setView(latLng, zoom);
@@ -89,12 +107,6 @@ export default function(store){
     mounted() {
       this.mapRef = L.mapbox.map('map', 'mapbox.streets')
       this.setInitialMapPosition();
-    },
-
-    updated() {
-      // NOTE: this is a bit heavy handed, we do not really want to
-      // always zoom
-      this.plotAndZoom();
-    } 
+    }
   })
 }

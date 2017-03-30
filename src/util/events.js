@@ -8,6 +8,8 @@ export function getFilteredEvents(events, filters, zipcodes) {
     return events;
   }
 
+  const zipCodesLength = (Object.keys(zipcodes) || []).length;
+
   return events.filter(function(event) {
 
     if (filters.eventType) {
@@ -49,7 +51,7 @@ export function getFilteredEvents(events, filters, zipcodes) {
     if (filters.zipcode) {
       // We do not yet have valid zipcodes to filter against,
       // give it a pass.
-      if (!Object.keys(filters.zipcode).length) {
+      if (!zipcodes || !zipCodesLength) {
         return true;
       }
 
