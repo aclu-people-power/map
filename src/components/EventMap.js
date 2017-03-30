@@ -53,11 +53,11 @@ export default function(store){
 
       filters(newFilters, oldFilters) {
         this.plotEvents();
-
+        console.log('changing',newFilters, oldFilters);
         // zoom to new location when zipcode changes
         if (newFilters.zipcode !== oldFilters.zipcode) {
           this.setMapPositionBasedOnZip();
-        } 
+        }
       }
     },
     methods: {
@@ -98,7 +98,7 @@ export default function(store){
       setInitialMapPosition() {
         const centerOfUS = [37.8, -96.9];
         const zoom = 4;
-        
+
         this.mapRef.setView(centerOfUS, zoom);
       }
     },
