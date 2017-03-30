@@ -87,7 +87,7 @@ export default function(store){
     },
 
     mounted() {
-      this.mapRef = L.mapbox.map('map', 'mapbox.streets')
+      this.mapRef = L.mapbox.map('map', 'mapbox.streets');
       this.setInitialMapPosition();
     },
 
