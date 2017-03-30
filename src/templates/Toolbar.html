@@ -4,10 +4,31 @@
     <h2 class="cta">Find events near you</h2>
   </div>
   <div class="event-filters">
-    <input type="text" placeholder="Search by zip code" />
+
+    <input
+      type="text"
+      @input="updateZipcode"
+      placeholder="Search by zip code"
+      :value="zipcode"
+      autofocus
+    />
+
     <button class="btn date-picker"><span>DATE OF EVENT</span> &nbsp;&nbsp;<img class="arrow" src="~images/down-arrow.svg"/></button>
-    <button class="btn type-picker"><span>TYPE OF EVENT</span> &nbsp;&nbsp;<img class="arrow" src="~images/down-arrow.svg"/></button>
+
+    <button class="btn type-picker" @click="toggleFilterEvents"><span>TYPE OF EVENT</span> &nbsp;&nbsp;<img class="arrow" src="~images/down-arrow.svg"/></button>
+
+    <div v-if="isFilterEventsOpen">
+      <event-date-filters :filters="filters" ></event-date-filters>
+      <event-type-filters :filters="filters" ></event-type-filters>
+    </div>
+
     <button class="btn search">SEARCH EVENTS</button>
+
     <button class="btn host">HOST AN EVENT</button>
+
+    <button class="btn toggle-view" @click="toggleView">
+      {{ view === 'map' ? 'List view' : 'Map view' }}
+    </button>
+
   </div>
 </div>
