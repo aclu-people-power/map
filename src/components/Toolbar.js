@@ -1,27 +1,48 @@
 import Vue from 'vue';
+import { setHash } from 'src/util/url-hash';
+import EventTypeFilters from 'src/components/EventTypeFilters';
+import EventDateFilters from 'src/components/EventDateFilters';
+
 export default function(store){
   return new Vue({
     name: 'toolbar',
     store,
     el: "#toolbar",
     template: require('src/templates/Toolbar.html'),
-    //just wired up some junk data to make sure store & state are working
-    //as expected
+    data: {
+      isFilterEventsOpen: false
+    },
     computed: {
-      count() {
-        return store.state.count
-      }
+      zipcode() {
+        return store.state.filters.zipcode;
+      },
+      view() {
+        return store.state.view;
+      },
+      filters() {
+        return store.state.filters;
+      },
     },
     methods: {
-      increment() {
-        store.commit('increment');
+      updateZipcode(event) {
+        const value = event.target.value;
+        if (/^\d+$/.test(value) && value.length === 5) {
+          setHash({ zipcode: value });
+
+        } else if (!value) {
+          setHash({ zipcode: null });
+        }
       },
-      decrement() {
-        store.commit('decrement');
+      toggleView() {
+        store.commit('viewToggled');
       },
-      loaded() {
-        store.commit('loaded');
-      }
+      toggleFilterEvents() {
+        this.isFilterEventsOpen = !this.isFilterEventsOpen;
+      },
+    },
+    components: {
+      'event-type-filters': EventTypeFilters,
+      'event-date-filters': EventDateFilters
     }
   })
 }

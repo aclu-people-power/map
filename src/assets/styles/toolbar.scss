@@ -1,12 +1,7 @@
 .toolbar {
-  padding: 1em;
   text-align: center;
   background: $dark;
-
-  p {
-    font-size: 2em;
-    color: white;
-  }
+  padding: 1rem;
 }
 
 .logo {
@@ -14,6 +9,18 @@
 }
 
 .cta {
-  color: $blue;
+  color: #fff;
   font-size: 2rem;
+}
+
+.event-filters-title {
+  margin: 0;
+}
+
+.event-type-filters {
+  background: #fff;
+}
+
+.event-date-filters {
+  background: #fff;
 }

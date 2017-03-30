@@ -1,23 +1,33 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import { getHash, onHashChange } from 'src/util/url-hash';
+
 Vue.use(Vuex);
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
   state: {
-    events: [{title: 'event1'}, {title: 'event2'}, {title: 'event3'}],
+    events: [],
     zipcodes: [],
-    loading: true,
-    count: 1
+    filters: getHash(),
+    view: 'map'
   },
   mutations: {
-    increment (state) {
-      state.count++
+    eventsReceived(state, events) {
+      state.events = events;
     },
-    decrement (state) {
-      state.count--
+    zipcodesReceived(state, zipcodes) {
+      state.zipcodes = zipcodes;
     },
-    loaded (state) {
-      state.loading = false
+    filtersReceived(state, filters) {
+      state.filters = filters;
+    },
+    viewToggled(state) {
+      state.view = state.view === 'map' ? 'list' : 'map';
     }
   }
-})
+});
+
+// When url filters change, update the store.
+onHashChange((filters) => store.commit('filtersReceived', filters));
+
+export default store;

@@ -1,9 +1,7 @@
 @import "~styles/variables";
 
-#map {
+.map {
   background: $blue;
   padding: 8rem;
   text-align: center;
-  height: 100px;
-  width: 300px;
 }
