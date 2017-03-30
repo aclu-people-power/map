@@ -37,19 +37,18 @@ export default function(store){
       events(newEvents, oldEvents) {
         this.plotEvents();
 
-        // events data just showed up on app boot
+        // events data just showed up on app boot, if applicable
+        // set the map position based on zip
         if (newEvents.length && !oldEvents.length) {
           this.setMapPositionBasedOnZip();
         }
       },
 
+      // zipcodes should only change once, and when they do,
+      // if applicable, set the map position based on zip
       zipcodes(newZipcodes, oldZipcodes) {
         this.plotEvents();
-
-        // zipcode data just showed up on app boot
-        if (Object.keys(newZipcodes).length && !Object.keys(oldZipcodes).length) {
-          this.setMapPositionBasedOnZip();
-        }
+        this.setMapPositionBasedOnZip();
       },
 
       filters(newFilters, oldFilters) {
