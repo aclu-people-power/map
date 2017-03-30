@@ -1,7 +1,4 @@
 <div id="event-list" class="event-list" v-show="view === 'list'">
-  {{ filteredEvents.length ? '' : '' }}
-  {{ filters.length ? '' : '' }}
-  {{ events.length ? '' : '' }}
   <div v-for="event in filteredEvents" class="event-card">
     <event-card v-bind:event="event"></event-card>
   </div>
