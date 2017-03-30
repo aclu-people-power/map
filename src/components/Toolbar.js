@@ -10,7 +10,8 @@ export default function(store){
     el: "#toolbar",
     template: require('src/templates/Toolbar.html'),
     data: {
-      isFilterEventsOpen: false
+              isFilterEventsOpen: false,
+              isFilterEventsByDateOpen: false
     },
     computed: {
       zipcode() {
@@ -39,6 +40,9 @@ export default function(store){
       toggleFilterEvents() {
         this.isFilterEventsOpen = !this.isFilterEventsOpen;
       },
+      toggleFilterEventsByDate() {
+        this.isFilterEventsByDateOpen = !this.isFilterEventsByDateOpen;
+      }
     },
     components: {
       'event-type-filters': EventTypeFilters,
