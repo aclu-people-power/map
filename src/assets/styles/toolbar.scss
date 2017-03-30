@@ -1,9 +1,9 @@
 .toolbar {
   text-align: center;
   background: $dark;
-  padding: 1rem;
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .top-nav {
@@ -11,7 +11,7 @@
   flex-direction: row;
   background-color: $dark;
   align-content: center;
-  width: 100%;
+  -webkit-box-sizing: border-box;
   padding: 1em;
 }
 
@@ -32,10 +32,9 @@
   display: flex;
   flex-direction: row;
   padding: 1em;
-  background-color: white;
+  background-color: #919191;
   justify-content: space-around;
-  width: 80%;
-  margin: auto;
+  -webkit-box-sizing: border-box;
 }
 
 input {
@@ -63,8 +62,8 @@ input {
   margin: auto 0px;
 }
 
-.search {
-  background: $dark-red;
+.btn.search {
+  background: #ac2c23;
   color: white;
 }
 
@@ -83,4 +82,9 @@ input {
 
 .event-date-filters {
   background: #fff;
+}
+
+.btn.type-picker, .btn.date-picker {
+  background: #fff;
+  color: #000;
 }
