@@ -88,3 +88,31 @@ input {
   background: #fff;
   color: #000;
 }
+
+/* positioning here is kinda jank... */
+.event-filter-by-date {
+    position: absolute;
+    top: 400;
+    left: 80;
+    z-index: 10;
+    padding: 10px;
+}
+
+/* positioning here is kinda jank... */
+.event-filter-by-type {
+    text-align: left;
+    position: absolute;
+    top: 400;
+    left: 200;
+    z-index: 10;
+    padding: 10px;
+    width: 180px;
+    border-style: solid;
+    border-color: #c1c1c1;
+    border-width: 1px;
+}
+
+/* this is gross. */
+.no-margin-checkbox {
+    margin-right: -220px;
+}
