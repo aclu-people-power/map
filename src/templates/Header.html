@@ -11,6 +11,7 @@
           type="text"
           v-model="zipcode"
           placeholder="Search by zip code"
+          @keyup.enter="search"
           autofocus
         />
         <button type="button" @click="search">
@@ -53,20 +54,49 @@
     </div>
 
     <div class="toolbar -desktop">
-      <button 
-        class="date-picker" @click="toggleFilterEventsByDate"><span>DATE OF EVENT</span> &nbsp;&nbsp;<img id="date-arrow" class="arrow" src="~images/down-arrow.svg"/></button>
+      <div class="toolbar-inner">
 
-      <div v-if="isFilterEventsByDateOpen" class="event-filter-by-date">
-        <event-date-filters :filters="filters" ></event-date-filters>
+        <input
+          class="toolbar-item"
+          type="text"
+          v-model="zipcode"
+          placeholder="Search by zip code"
+          @keyup.enter="search"
+          autofocus
+        />
+
+        <button 
+          class="dropdown toolbar-item" 
+          @click="toggleFilterEventsByDate">
+            Date of event
+        </button>
+
+        <div v-if="isFilterEventsByDateOpen" class="event-filter-by-date">
+          <event-date-filters :filters="filters" ></event-date-filters>
+        </div>
+
+        <button 
+          class="dropdown toolbar-item" 
+          @click="toggleFilterEvents"
+        >
+          Type of event
+        </button>
+
+        <button 
+          class="search toolbar-item" 
+          @click="search"
+        >
+          Search events
+        </button>
+
+        <a 
+          class="btn toolbar-item" 
+          href="https://go.peoplepower.org/signup/host_new?source=map"
+          target="_blank"
+        >
+          Host an event
+        </a>
       </div>
-
-      <button class="type-picker" @click="toggleFilterEvents"><span>TYPE OF EVENT</span> &nbsp;&nbsp;<img id="event-arrow" class="arrow" src="~images/down-arrow.svg"/></button>
-
-
-      <button class="search" @click="search">SEARCH EVENTS</button>
-
-      <button class="host">HOST AN EVENT</button>
-
     </div>
   </div>
 </div>

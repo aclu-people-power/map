@@ -44,7 +44,6 @@
   }
   input {
     width: 80%;
-    padding-left: 1em;
   }
   button {
     width: 20%;
@@ -125,13 +124,78 @@
   input {
     border: none;
     border-bottom: solid 1px $dark;
-    height: 2em;
-    font-weight: 200;
-    display: inline-block;
-    max-width: 40%;
+    max-width: 33%;
+    padding-left: 0;
   }
   strong {
     font-size: .8em;
     margin: 1em;
   }
+}
+
+@media (min-width: 1000px) {
+  .header {
+    padding: 0;
+  }
+
+  .header-inner {
+    width: auto; 
+    max-width: none; 
+  }
+
+  .branding {
+    padding: 1em;
+    overflow: auto;
+  }
+
+  .logo,
+  .cta {
+    float: left;
+    margin-right: 1em;
+  }
+
+  .cta {
+    /* Because of the font this requires a teeny tweak*/
+    position: relative;
+    top: .12em;
+  }
+
+  .toolbar {
+    display: none;
+  }
+
+  .toolbar.-desktop {
+    display: block;
+    background: $white;
+    padding: $offset;
+  }
+
+  .toolbar-inner {
+    margin: 0 auto;
+  }
+
+  .toolbar-item {
+    margin: 0 $offset 0 0;
+    display: inline-block;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  .toolbar-item,
+  .toolbar-item.btn {
+    padding-left: $offset;
+    padding-right: $offset * 1.5;
+  }
+
+  .toolbar {
+    input {
+      border: solid 1px $light-gray;
+    }
+    .search {
+      background: $dark-red;
+    }
+  }
+
 }

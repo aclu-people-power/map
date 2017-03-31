@@ -16,7 +16,8 @@ body {
   margin: 0;
 }
 
-button {
+button,
+.btn {
   font-family: "Freight Sans CMP";
   display: inline-block;
   font-weight: bold;
@@ -33,9 +34,20 @@ button:hover {
   cursor: pointer;
 }
 
+button.dropdown {
+  background: $white;
+  border: solid 1px $light-gray;
+  color: $black;
+}
+
 input {
   &:focus {
     outline-color: $light-blue;
   }
 }
 
+input[type="text"] {
+  height: 2em;
+  font-weight: 200;
+  padding-left: 1em;
+}
