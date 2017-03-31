@@ -4,7 +4,7 @@ import xhr from 'xhr';
 import store from 'src/store.js';
 import { setHash } from 'src/util/url-hash';
 
-import Toolbar from 'components/Toolbar';
+import Header from 'components/Header';
 import LoadingBar from 'components/LoadingBar';
 import EventMap from 'components/EventMap';
 import EventList from 'components/EventList';
@@ -37,7 +37,7 @@ xhr({
 });
 
 // Initialize Vue instances with the store.
-Toolbar(store);
+Header(store);
 LoadingBar(store);
 EventMap(store);
 EventList(store);

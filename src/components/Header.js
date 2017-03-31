@@ -5,10 +5,10 @@ import EventDateFilters from 'src/components/EventDateFilters';
 
 export default function(store){
   return new Vue({
-    name: 'toolbar',
+    name: 'header',
     store,
-    el: "#toolbar",
-    template: require('src/templates/Toolbar.html'),
+    el: "#header",
+    template: require('src/templates/Header.html'),
     data() {
       return {
         isFilterEventsOpen: false,

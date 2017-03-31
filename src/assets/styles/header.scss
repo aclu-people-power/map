@@ -1,4 +1,4 @@
-.toolbar {
+.header {
   text-align: center;
   background: $dark;
   display: flex;
@@ -7,18 +7,11 @@
 }
 
 .top-nav {
-  display: flex;
-  flex-direction: row;
-  background-color: $dark;
-  align-content: center;
-  -webkit-box-sizing: border-box;
   padding: 1em;
 }
 
 .logo {
   max-width: 300px;
-  max-height: 70px;
-  float: left;
 }
 
 .cta {
