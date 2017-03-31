@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import { getFilteredEvents } from 'src/util/events';
+import mapMarker from '../assets/images/map-marker.svg';
 
 // Attaches L (leaflet.js) to window.
 import 'mapbox.js';
@@ -57,7 +58,7 @@ export default function(store){
         // zoom to new location when zipcode changes
         if (newFilters.zipcode !== oldFilters.zipcode) {
           this.setMapPositionBasedOnZip();
-        } 
+        }
       }
     },
     methods: {
@@ -71,13 +72,13 @@ export default function(store){
         this.eventsLayer = L.layerGroup().addTo(this.mapRef);
 
         this.filteredEvents.forEach((event) => {
-          L.circleMarker([event.lat, event.lng], {
-            radius: 5,
-            color: 'white',
-            fillColor: '#ef3030',
-            opacity: 0.8,
-            fillOpacity: 0.7,
-            weight: 2
+          L.marker([event.lat, event.lng], {
+             icon: L.icon({
+               iconUrl: mapMarker,
+               iconSize: [22,22],
+               iconAnchor: [11, 22],
+               className: 'map-marker'
+             }),
           }).addTo(this.eventsLayer);
         });
       },
@@ -98,7 +99,7 @@ export default function(store){
       setInitialMapPosition() {
         const centerOfUS = [37.8, -96.9];
         const zoom = 4;
-        
+
         this.mapRef.setView(centerOfUS, zoom);
       }
     },
