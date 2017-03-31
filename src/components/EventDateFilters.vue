@@ -1,18 +1,11 @@
 <template>
-  <div class="event-date-filters">
-    <h5 class="event-filters-title">Date of event</h5>
-    <input 
-      type="text" 
-      placeholder="from"
-      :value="startDate"
-      @input="updateSelectedStartDate"
-    />
-    <input 
-      type="text" 
-      placeholder="to"
-      :value="endDate"
-      @input="updateSelectedEndDate"
-    />
+  <div>
+    <h5 class="filter-events-title">Date of event</h5>
+    <div class="filter-events-date-picker">
+      <input type="text" v-model="startDate" />
+      <strong>to</strong>
+      <input type="text" v-model="endDate" />
+    </div>
   </div>
 </template>
 
@@ -22,27 +15,29 @@ import { setHash } from 'src/util/url-hash';
 export default {
   name: 'event-type-filters',
   props: ['filters'],
-  computed: {
-    startDate() {
-      this.filters.startDate;
-    },
-    endDate() {
-      this.filters.endDate;
-    }
+  data() {
+    return {
+      startDate: this.filters.startDate,
+      endDate: this.filters.endDate
+    };
   },
-  methods: {
-    updateSelectedStartDate(event) {
-      const newDate = event.target.value;
+  watch: {
+    startDate(newDate) {
       // FIXME ha ha
       if (/\d{4}-\d{2}-\d{2}/.test(newDate)) {
         setHash({ startDate: newDate });
       }
+      if (!newDate) {
+        setHash({ startDate: null });
+      }
     },
-    updateSelectedEndDate(event) {
-      const newDate = event.target.value;
+    endDate(newDate) {
       // FIXME ha ha
       if (/\d{4}-\d{2}-\d{2}/.test(newDate)) {
         setHash({ endDate: newDate });
+      }
+      if (!newDate) {
+        setHash({ endDate: null });
       }
     }
   }

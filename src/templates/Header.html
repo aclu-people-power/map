@@ -1,38 +1,72 @@
 <div class="header" id="header">
-  <div class="top-nav">
-    <img class="logo" src="~images/logo.png" alt="logo"/>
-    <h2 class="cta">Find events near you</h2>
-  </div>
-
-  <div class="event-filters">
-
-    <input
-      type="text"
-      v-model="zipcode"
-      placeholder="Search by zip code"
-      autofocus
-    />
-
-    <button 
-      class="btn date-picker" @click="toggleFilterEventsByDate"><span>DATE OF EVENT</span> &nbsp;&nbsp;<img id="date-arrow" class="arrow" src="~images/down-arrow.svg"/></button>
-
-    <div v-if="isFilterEventsByDateOpen" class="event-filter-by-date">
-      <event-date-filters :filters="filters" ></event-date-filters>
+  <div class="header-inner">
+    <div class="branding" ref="branding">
+      <img class="logo" src="~images/logo.png" alt="logo"/>
+      <h2 class="cta">Find events near you</h2>
     </div>
 
-    <button class="btn type-picker" @click="toggleFilterEvents"><span>TYPE OF EVENT</span> &nbsp;&nbsp;<img id="event-arrow" class="arrow" src="~images/down-arrow.svg"/></button>
+    <div class="toolbar">
+      <div class="search-wrap">
+        <input
+          type="text"
+          v-model="zipcode"
+          placeholder="Search by zip code"
+          autofocus
+        />
+        <button type="button" @click="search">
+          <i class="icon-search"></i>
+        </button>
+      </div>
+      <div class="button-group">
+        <button
+          type="button"
+          @click="toggleFilterEvents"
+        >
+          Filter events
+        </button>
 
-    <div v-if="isFilterEventsOpen">
-      <event-type-filters :filters="filters" class="event-filter-by-type"></event-type-filters>
+        <button @click="toggleView">
+          {{ view === 'map' ? 'List view' : 'Map view' }}
+        </button>
+      </div>
+
+      <div v-if="isFilterEventsOpen">
+        <div class="filter-events">
+          <div class="filter-events-header">
+            <span>Filter events</span>
+            <span class="filter-events-close" @click="toggleFilterEvents">
+              ✖
+            </span>
+          </div>
+          <div class="filter-events-body">
+            <event-date-filters :filters="filters" ></event-date-filters>
+            <event-type-filters :filters="filters"></event-type-filters>
+            <button 
+              class="filter-events-search" 
+              @click="toggleFilterEvents"
+            >
+              Search events
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <button class="btn search" @click="search">SEARCH EVENTS</button>
+    <div class="toolbar -desktop">
+      <button 
+        class="date-picker" @click="toggleFilterEventsByDate"><span>DATE OF EVENT</span> &nbsp;&nbsp;<img id="date-arrow" class="arrow" src="~images/down-arrow.svg"/></button>
 
-    <button class="btn host">HOST AN EVENT</button>
+      <div v-if="isFilterEventsByDateOpen" class="event-filter-by-date">
+        <event-date-filters :filters="filters" ></event-date-filters>
+      </div>
 
-    <button class="btn toggle-view" @click="toggleView">
-      {{ view === 'map' ? 'List view' : 'Map view' }}
-    </button>
+      <button class="type-picker" @click="toggleFilterEvents"><span>TYPE OF EVENT</span> &nbsp;&nbsp;<img id="event-arrow" class="arrow" src="~images/down-arrow.svg"/></button>
 
+
+      <button class="search" @click="search">SEARCH EVENTS</button>
+
+      <button class="host">HOST AN EVENT</button>
+
+    </div>
   </div>
 </div>

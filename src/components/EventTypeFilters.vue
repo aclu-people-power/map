@@ -1,13 +1,16 @@
 <template>
-  <div class="event-type-filters">
-    <h5 class="event-filters-title">Type of event</h5>
-    <div v-for="(label, type) in eventTypes">
+  <div>
+    <h5 class="filter-events-title">Type of event</h5>
+    <div 
+      class="filter-events-checkbox" 
+      v-for="(label, type) in eventTypes"
+    >
       <input
         type="checkbox" 
         v-model="selectedEventTypes"
         class="no-margin-checkbox"
+        :value="type"
         :checked="selectedEventTypes.includes(type)" 
-        @change="updateSelectedEventTypes(type, $event)"
       /> 
       {{label}}
     </div>
