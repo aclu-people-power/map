@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h5 class="filter-events-title">Type of event</h5>
+    <h5 v-if="showTitle" class="filter-events-title">Type of event</h5>
     <div 
       class="filter-events-checkbox" 
       v-for="(label, type) in eventTypes"
@@ -23,7 +23,7 @@ import { setHash } from 'src/util/url-hash';
 
 export default {
   name: 'event-type-filters',
-  props: ['filters'],
+  props: ['filters', 'showTitle'],
   data() {
     return {
       selectedEventTypes: this.filters.eventType ? 

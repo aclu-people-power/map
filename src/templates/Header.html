@@ -40,8 +40,8 @@
             </span>
           </div>
           <div class="filter-events-body">
-            <event-date-filters :filters="filters" ></event-date-filters>
-            <event-type-filters :filters="filters"></event-type-filters>
+            <event-date-filters :showTitle="true" :filters="filters" ></event-date-filters>
+            <event-type-filters :showTitle="true" :filters="filters"></event-type-filters>
             <button 
               class="filter-events-search" 
               @click="toggleFilterEvents"
@@ -65,22 +65,13 @@
           autofocus
         />
 
-        <button 
-          class="dropdown toolbar-item" 
-          @click="toggleFilterEventsByDate">
-            Date of event
-        </button>
-
-        <div v-if="isFilterEventsByDateOpen" class="event-filter-by-date">
+        <button-dropdown buttonText="Date of event" buttonClass="toolbar-item">
           <event-date-filters :filters="filters" ></event-date-filters>
-        </div>
+        </button-dropdown>
 
-        <button 
-          class="dropdown toolbar-item" 
-          @click="toggleFilterEvents"
-        >
-          Type of event
-        </button>
+        <button-dropdown buttonText="Type of event" buttonClass="toolbar-item">
+          <event-type-filters :filters="filters"></event-type-filters>
+        </button-dropdown>
 
         <button 
           class="search toolbar-item" 

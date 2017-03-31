@@ -34,12 +34,6 @@ button:hover {
   cursor: pointer;
 }
 
-button.dropdown {
-  background: $white;
-  border: solid 1px $light-gray;
-  color: $black;
-}
-
 input {
   &:focus {
     outline-color: $light-blue;

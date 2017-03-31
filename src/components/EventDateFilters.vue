@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h5 class="filter-events-title">Date of event</h5>
+    <h5 v-if="showTitle" class="filter-events-title">Date of event</h5>
     <div class="filter-events-date-picker">
       <input type="text" v-model="startDate" />
       <strong>to</strong>
@@ -14,7 +14,7 @@ import { setHash } from 'src/util/url-hash';
 
 export default {
   name: 'event-type-filters',
-  props: ['filters'],
+  props: ['filters', 'showTitle'],
   data() {
     return {
       startDate: this.filters.startDate,

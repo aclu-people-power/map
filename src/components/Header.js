@@ -2,6 +2,7 @@ import Vue from 'vue';
 import { setHash } from 'src/util/url-hash';
 import EventTypeFilters from 'src/components/EventTypeFilters';
 import EventDateFilters from 'src/components/EventDateFilters';
+import ButtonDropdown from 'src/components/ButtonDropdown';
 
 export default function(store){
   return new Vue({
@@ -47,7 +48,8 @@ export default function(store){
     },
     components: {
       'event-type-filters': EventTypeFilters,
-      'event-date-filters': EventDateFilters
+      'event-date-filters': EventDateFilters,
+      'button-dropdown': ButtonDropdown,
     }
   })
 }
