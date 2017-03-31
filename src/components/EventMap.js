@@ -2,9 +2,9 @@ import Vue from 'vue';
 import { getFilteredEvents } from 'src/util/events';
 
 // Attaches L (leaflet.js) to window.
-import 'mapbox.js';
+import mapboxgl from 'mapbox-gl';
 
-L.mapbox.accessToken = 'pk.eyJ1Ijoia2VubmV0aHBlbm5pbmd0b24iLCJhIjoiY2l6bmJ3MmFiMDMzZTMzbDJtdGxkM3hveSJ9.w4iOGaL2vrIvETimSXUXsw';
+mapboxgl.accessToken = 'pk.eyJ1Ijoia2VubmV0aHBlbm5pbmd0b24iLCJhIjoiY2l6bmJ3MmFiMDMzZTMzbDJtdGxkM3hveSJ9.w4iOGaL2vrIvETimSXUXsw';
 
 export default function(store){
   return new Vue({
@@ -40,7 +40,7 @@ export default function(store){
         // events data just showed up on app boot, if applicable
         // set the map position based on zip
         if (newEvents.length && !oldEvents.length) {
-          this.setMapPositionBasedOnZip();
+       //   this.setMapPositionBasedOnZip();
         }
       },
 
@@ -48,7 +48,7 @@ export default function(store){
       // if applicable, set the map position based on zip
       zipcodes(newZipcodes, oldZipcodes) {
         this.plotEvents();
-        this.setMapPositionBasedOnZip();
+       // this.setMapPositionBasedOnZip();
       },
 
       filters(newFilters, oldFilters) {
@@ -56,55 +56,68 @@ export default function(store){
 
         // zoom to new location when zipcode changes
         if (newFilters.zipcode !== oldFilters.zipcode) {
-          this.setMapPositionBasedOnZip();
+         // this.setMapPositionBasedOnZip();
         } 
       }
     },
     methods: {
       plotEvents() {
-        // wipe out existing plotted events -- probably this can
-        // be done more efficiently
-        if (this.eventsLayer) {
-          this.eventsLayer.clearLayers();
-        }
+        // FIXME needs API updated to mapbox gl!
+        //
+        // // wipe out existing plotted events -- probably this can
+        // // be done more efficiently
+        // if (this.eventsLayer) {
+        //   this.eventsLayer.clearLayers();
+        // }
 
-        this.eventsLayer = L.layerGroup().addTo(this.mapRef);
+        // this.eventsLayer = L.layerGroup().addTo(this.mapRef);
 
-        this.filteredEvents.forEach((event) => {
-          L.circleMarker([event.lat, event.lng], {
-            radius: 5,
-            color: 'white',
-            fillColor: '#ef3030',
-            opacity: 0.8,
-            fillOpacity: 0.7,
-            weight: 2
-          }).addTo(this.eventsLayer);
-        });
+        // this.filteredEvents.forEach((event) => {
+        //   L.circleMarker([event.lat, event.lng], {
+        //     radius: 5,
+        //     color: 'white',
+        //     fillColor: '#ef3030',
+        //     opacity: 0.8,
+        //     fillOpacity: 0.7,
+        //     weight: 2
+        //   }).addTo(this.eventsLayer);
+        // });
       },
 
       setMapPositionBasedOnZip() {
-        if (!this.filters.zipcode || !this.zipcodes[this.filters.zipcode]) {
+        // FIXME needs API updated to mapbox gl!
+        //
+        // if (!this.filters.zipcode || !this.zipcodes[this.filters.zipcode]) {
 
-          this.setInitialMapPosition();
-          return;
-        }
+        //   this.setInitialMapPosition();
+        //   return;
+        // }
 
-        const latLng = this.zipcodes[this.filters.zipcode];
-        const zoom = 8;
+        // const latLng = this.zipcodes[this.filters.zipcode];
+        // const zoom = 8;
 
-        this.mapRef.setView(latLng, zoom);
+        // this.mapRef.setView(latLng, zoom);
       },
 
       setInitialMapPosition() {
-        const centerOfUS = [37.8, -96.9];
-        const zoom = 4;
+        const centerOfUS = [-96.9, 37.8];
+        const zoom = 3;
         
-        this.mapRef.setView(centerOfUS, zoom);
+        this.mapRef.panTo(centerOfUS, zoom);
       }
     },
 
     mounted() {
-      this.mapRef = L.mapbox.map('map', 'mapbox.streets')
+      const centerOfUS = [-96.9, 37.8];
+      const zoom = 3;
+
+      this.mapRef = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/basic-v9',
+        center: centerOfUS,
+        zoom
+      });
+
       this.setInitialMapPosition();
     }
   })

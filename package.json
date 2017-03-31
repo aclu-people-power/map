@@ -49,8 +49,7 @@
     "webpack-merge": "^4.1.0"
   },
   "dependencies": {
-    "load-script": "^1.0.0",
-    "mapbox.js": "^3.0.1",
+    "mapbox-gl": "^0.34.0",
     "moment": "^2.18.1",
     "vue": "^2.2.5",
     "vuex": "^2.2.1",
