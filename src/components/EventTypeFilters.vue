@@ -2,12 +2,11 @@
   <div class="event-type-filters">
     <h5 class="event-filters-title">Type of event</h5>
     <div v-for="(label, type) in eventTypes">
-      <input 
-        type="checkbox" 
+      <input type="checkbox"
+        class="no-margin-checkbox"
         :checked="selectedEventTypes.includes(type)" 
         @change="updateSelectedEventTypes(type, $event)"
-      />
-      {{label}}
+      /> {{label}}
     </div>
   </div>
 </template>
