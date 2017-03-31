@@ -1,0 +1,35 @@
+<div class="toolbar" id="toolbar">
+  <div class="top-nav">
+    <img class="logo" src="~images/logo.png" alt="logo"/>
+    <h2 class="cta">Find events near you</h2>
+  </div>
+  <div class="event-filters">
+
+    <input
+      type="text"
+      v-model="zipcode"
+      placeholder="Search by zip code"
+      autofocus
+    />
+    <button type="button" class="btn -primary" @click="search">
+      <i class="icon-search"></i>
+    </button>
+  </div>
+  <div>
+    <button
+      type="button"
+      class="btn -fixed-width"
+      @click="toggleFilterEvents"
+    >
+      Filter events
+    </button>
+    <button
+      type="button"
+      class="btn -fixed-width"
+      @click="toggleView"
+    >
+      {{ view === 'map' ? 'List view' : 'Map view' }}
+    </button>
+
+  </div>
+</div>

@@ -9,14 +9,14 @@ export default function(store){
     store,
     el: "#toolbar",
     template: require('src/templates/Toolbar.html'),
-    data: {
-              isFilterEventsOpen: false,
-              isFilterEventsByDateOpen: false
+    data() {
+      return {
+        isFilterEventsOpen: false,
+        isFilterEventsByDateOpen: false,
+        zipcode: store.state.filters.zipcode,
+      };
     },
     computed: {
-      zipcode() {
-        return store.state.filters.zipcode;
-      },
       view() {
         return store.state.view;
       },
@@ -25,15 +25,6 @@ export default function(store){
       },
     },
     methods: {
-      updateZipcode(event) {
-        const value = event.target.value;
-        if (/^\d+$/.test(value) && value.length === 5) {
-          setHash({ zipcode: value });
-
-        } else if (!value) {
-          setHash({ zipcode: null });
-        }
-      },
       toggleView() {
         store.commit('viewToggled');
       },
@@ -42,6 +33,16 @@ export default function(store){
       },
       toggleFilterEventsByDate() {
         this.isFilterEventsByDateOpen = !this.isFilterEventsByDateOpen;
+      },
+      search() {
+        setHash({ zipcode: this.zipcode });
+      }
+    },
+    watch: {
+      zipcode(newZipcode) {
+        if (/^\d+$/.test(newZipcode) && newZipcode.length === 5) {
+          setHash({ zipcode: newZipcode });
+        }
       }
     },
     components: {

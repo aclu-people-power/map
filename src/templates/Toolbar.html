@@ -7,13 +7,13 @@
 
     <input
       type="text"
-      @input="updateZipcode"
+      v-model="zipcode"
       placeholder="Search by zip code"
-      :value="zipcode"
       autofocus
     />
 
-    <button class="btn date-picker" @click="toggleFilterEventsByDate"><span>DATE OF EVENT</span> &nbsp;&nbsp;<img id="date-arrow" class="arrow" src="~images/down-arrow.svg"/></button>
+    <button 
+      class="btn date-picker" @click="toggleFilterEventsByDate"><span>DATE OF EVENT</span> &nbsp;&nbsp;<img id="date-arrow" class="arrow" src="~images/down-arrow.svg"/></button>
 
     <div v-if="isFilterEventsByDateOpen" class="event-filter-by-date">
       <event-date-filters :filters="filters" ></event-date-filters>
@@ -25,7 +25,7 @@
       <event-type-filters :filters="filters" class="event-filter-by-type"></event-type-filters>
     </div>
 
-    <button class="btn search">SEARCH EVENTS</button>
+    <button class="btn search" @click="search">SEARCH EVENTS</button>
 
     <button class="btn host">HOST AN EVENT</button>
 
