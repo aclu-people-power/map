@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import { getFilteredEvents } from 'src/util/events';
-import mapMarker from '../assets/images/map-marker.svg';
+import mapMarker from 'src/templates/mapMarker.svg';
 
 // Attaches L (leaflet.js) to window.
 import 'mapbox.js';
@@ -73,10 +73,10 @@ export default function(store){
 
         this.filteredEvents.forEach((event) => {
           L.marker([event.lat, event.lng], {
-             icon: L.icon({
-               iconUrl: mapMarker,
-               iconSize: [22,22],
-               iconAnchor: [11, 22],
+             icon: L.divIcon({
+               html: mapMarker,
+               iconSize: [20,20],
+               iconAnchor: [10, 20],
                className: 'map-marker'
              }),
           }).addTo(this.eventsLayer);

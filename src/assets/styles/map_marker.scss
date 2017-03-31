@@ -1,0 +1,7 @@
+@import "~styles/variables";
+
+.map-marker path {
+  fill: $salmon;
+  stroke: #FFF;
+  stroke-width: 2px;
+}
