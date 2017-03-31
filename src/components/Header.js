@@ -13,7 +13,6 @@ export default function(store){
     data() {
       return {
         isFilterEventsOpen: false,
-        isFilterEventsByDateOpen: false,
         zipcode: store.state.filters.zipcode,
       };
     },
@@ -31,9 +30,6 @@ export default function(store){
       },
       toggleFilterEvents() {
         this.isFilterEventsOpen = !this.isFilterEventsOpen;
-      },
-      toggleFilterEventsByDate() {
-        this.isFilterEventsByDateOpen = !this.isFilterEventsByDateOpen;
       },
       search() {
         setHash({ zipcode: this.zipcode });
