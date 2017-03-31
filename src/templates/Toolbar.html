@@ -13,13 +13,13 @@
       autofocus
     />
 
-    <button class="btn date-picker" @click="toggleFilterEventsByDate"><span>DATE OF EVENT</span> &nbsp;&nbsp;<div id="date-arrow" class="arrow" src="~images/down-arrow.svg"></div></button>
+    <button class="btn date-picker" @click="toggleFilterEventsByDate">DATE OF EVENT&nbsp;<span class="triangle"></span></button>
 
     <div v-if="isFilterEventsByDateOpen" class="event-filter-by-date">
       <event-date-filters :filters="filters" ></event-date-filters>
     </div>
 
-    <button class="btn type-picker" @click="toggleFilterEvents"><span>TYPE OF EVENT</span> &nbsp;&nbsp;<div id="event-arrow" class="arrow" src="~images/down-arrow.svg"></div></button>
+    <button class="btn type-picker" @click="toggleFilterEvents">TYPE OF EVENT&nbsp;<span class="triangle"></span></button>
 
     <div v-if="isFilterEventsOpen">
       <event-type-filters :filters="filters" class="event-filter-by-type"></event-type-filters>
