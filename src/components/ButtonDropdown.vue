@@ -1,5 +1,5 @@
 <template>
-  <div :class="['button-dropdown', { open: isOpen }]">
+  <div ref="root" :class="['button-dropdown', { open: isOpen }]">
     <button 
        :class="['button-dropdown-button', buttonClass]" 
       @click="toggleVisibility"
@@ -27,7 +27,20 @@ export default {
   methods: {
     toggleVisibility() {
       this.isOpen = !this.isOpen;
+    },
+    handleWindowClick(event) {
+      if (this.$refs.root.contains(event.target)) {
+        return;
+      } else if (this.isOpen) {
+        this.isOpen = false;
+      }
     }
+  },
+  mounted() {
+    window.addEventListener('click', this.handleWindowClick);
+  },
+  destroyed() {
+    window.removeEventListener('click', this.handleWindowClick);
   }
 }
 </script>
