@@ -14,7 +14,6 @@ const store = new Vuex.Store({
   },
   actions: {
     loadEvents({commit}){
-      console.log('loading events');
       xhr({
         method: 'GET',
         url: 'http://d3r5pbxngwkvri.cloudfront.net/action_events.json',
@@ -25,7 +24,6 @@ const store = new Vuex.Store({
       });
     },
     loadZips({commit}){
-      console.log('loading zips');
       xhr({
         method: 'GET',
         url: '/us_postal_codes.json',
