@@ -8,43 +8,46 @@ import Header from 'components/Header';
 import LoadingBar from 'components/LoadingBar';
 import EventMap from 'components/EventMap';
 import EventList from 'components/EventList';
+import Modernizr from 'modernizr';
 
-function loadEvents() {
+if(Modernizr.webgl && Modernizr.flexbox){
+  function loadEvents() {
+    xhr({
+      method: 'GET',
+      url: 'http://d3r5pbxngwkvri.cloudfront.net/action_events.json',
+      json: true,
+    }, (err, response) => {
+      if (err) return;
+      store.commit('eventsReceived', response.body);
+    });
+  }
+
+  // Load events data
+  loadEvents();
+
+  const ONE_MINUTE = 60000;
+
+  // And then keep grabbing events data once per minute,
+  // the rate at which the data feed is regenerated.
+  setInterval(loadEvents, ONE_MINUTE);
+
+  // Load valid zipcodes
   xhr({
     method: 'GET',
-    url: 'http://d3r5pbxngwkvri.cloudfront.net/action_events.json',
+    url: '/us_postal_codes.json',
     json: true,
   }, (err, response) => {
     if (err) return;
-    store.commit('eventsReceived', response.body);
+    store.commit('zipcodesReceived', response.body);
   });
-}
 
-// Load events data
-loadEvents();
+  // Initialize Vue instances with the store.
+  Header(store);
+  LoadingBar(store);
+  EventMap(store);
+  EventList(store);
 
-const ONE_MINUTE = 60000;
-
-// And then keep grabbing events data once per minute,
-// the rate at which the data feed is regenerated.
-setInterval(loadEvents, ONE_MINUTE);
-
-// Load valid zipcodes
-xhr({
-  method: 'GET',
-  url: '/us_postal_codes.json',
-  json: true,
-}, (err, response) => {
-  if (err) return;
-  store.commit('zipcodesReceived', response.body);
-});
-
-// Initialize Vue instances with the store.
-Header(store);
-LoadingBar(store);
-EventMap(store);
-EventList(store);
-
-if (module.hot) {
-  module.hot.accept();
+  if (module.hot) {
+    module.hot.accept();
+  }
 }

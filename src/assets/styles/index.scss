@@ -1,5 +1,6 @@
 @import "~styles/variables";
 @import "~styles/mixins";
+@import "~styles/modernizr";
 @import "~styles/fonts";
 @import "~styles/icons";
 @import "~styles/map";
@@ -10,7 +11,7 @@
 body,
 input,
 button {
-  font-size: $text-size; 
+  font-size: $text-size;
 }
 
 body {
@@ -33,7 +34,7 @@ button,
   transition: background .3s;
   &:hover {
     cursor: pointer;
-    background: darken($blue, 5%); 
+    background: darken($blue, 5%);
   }
 }
 
