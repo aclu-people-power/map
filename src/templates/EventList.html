@@ -2,10 +2,16 @@
   <div v-for="event in filteredEvents" class="event-list-item">
     <event-card v-bind:event="event"></event-card>
   </div>
-  <div v-if="isSelectedZipcodeInvalid" class="event-list-empty">
-    Invalid zipcode.
+  <div 
+    v-if="isSelectedZipcodeInvalid" 
+    class="event-list-empty"
+    v-html="Invalid zipcode."
+  >
   </div>
-  <div v-else-if="events.length && !filteredEvents.length" class="event-list-empty">
-    No events matched that search.
+  <div 
+    v-if="filteredEvents.length ===0"
+    class="event-list-zero-state"
+    v-html="No events matched that search."
+  >
   </div>
 </div>
