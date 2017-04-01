@@ -68,6 +68,7 @@
 
 .filter-events {
   position: fixed;
+  overflow-y: scroll;
   z-index: 9999;
   left: 0;
   right: 0;
@@ -103,6 +104,9 @@
 .filter-events-search {
   width: 100%;
   background: $dark-red;
+  &:hover {
+    background: darken($dark-red, 5%);
+  }
 }
 
 .filter-events-title {
