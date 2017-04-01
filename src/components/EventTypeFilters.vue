@@ -2,16 +2,20 @@
   <div>
     <h5 v-if="showTitle" class="filter-events-title">Type of event</h5>
     <div 
-      class="filter-events-checkbox" 
+      class="filter-events-item" 
       v-for="(label, type) in eventTypes"
     >
-      <input
-        type="checkbox" 
-        v-model="selectedEventTypes"
-        class="no-margin-checkbox"
-        :value="type"
-        :checked="selectedEventTypes.includes(type)" 
-      /> 
+      <div class="filter-events-checkbox">
+        <input
+          type="checkbox" 
+          v-model="selectedEventTypes"
+          class="no-margin-checkbox"
+          :value="type"
+          :id="type"
+          :checked="selectedEventTypes.includes(type)" 
+        /> 
+        <label :for="type"></label>
+      </div>
       {{label}}
     </div>
   </div>

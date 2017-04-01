@@ -114,10 +114,36 @@
   margin: 0 0 1em 0;
 }
 
-.filter-events-checkbox {
-  font-size: .8em;
+.filter-events-item {
   margin: 1em 0;
+}
+
+.filter-events-checkbox {
+  position: relative;
+  height: 1em;
+  width: 1em;
+  border: solid 2px $black;
+  margin-right: 1em;
+  display: inline-block;
+  font-size: .8em;
+  margin-right: 1em;
   font-weight: bold;
+  input {
+    visibility: hidden;
+  }
+  label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  input:checked + label {
+    background: $blue;
+  }
 }
 
 .filter-events-date-picker {
