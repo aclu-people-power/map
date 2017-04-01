@@ -40,8 +40,8 @@
             </span>
           </div>
           <div class="filter-events-body">
-            <event-date-filters :showTitle="true" :filters="filters" ></event-date-filters>
-            <event-type-filters :showTitle="true" :filters="filters"></event-type-filters>
+            <event-date-filters :show-title="true" :filters="filters" ></event-date-filters>
+            <event-type-filters :show-title="true" :filters="filters"></event-type-filters>
             <button 
               class="filter-events-search" 
               @click="toggleFilterEvents"
@@ -65,11 +65,11 @@
           autofocus
         />
 
-        <button-dropdown buttonText="Date of event" buttonClass="toolbar-item">
+        <button-dropdown button-text="Date of event" button-class="toolbar-item">
           <event-date-filters :filters="filters" ></event-date-filters>
         </button-dropdown>
 
-        <button-dropdown buttonText="Type of event" buttonClass="toolbar-item">
+        <button-dropdown button-text="Type of event" button-class="toolbar-item">
           <event-type-filters :filters="filters"></event-type-filters>
         </button-dropdown>
 
