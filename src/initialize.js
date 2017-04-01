@@ -4,7 +4,7 @@ import xhr from 'xhr';
 import store from 'src/store.js';
 import { setHash } from 'src/util/url-hash';
 
-import Toolbar from 'components/Toolbar';
+import Header from 'components/Header';
 import LoadingBar from 'components/LoadingBar';
 import EventMap from 'components/EventMap';
 import EventList from 'components/EventList';
@@ -23,8 +23,11 @@ function loadEvents() {
 // Load events data
 loadEvents();
 
-// And then keep grabbing events data once per minute 
-setInterval(loadEvents, 6000);
+const ONE_MINUTE = 60000;
+
+// And then keep grabbing events data once per minute,
+// the rate at which the data feed is regenerated.
+setInterval(loadEvents, ONE_MINUTE);
 
 // Load valid zipcodes
 xhr({
@@ -37,7 +40,7 @@ xhr({
 });
 
 // Initialize Vue instances with the store.
-Toolbar(store);
+Header(store);
 LoadingBar(store);
 EventMap(store);
 EventList(store);
