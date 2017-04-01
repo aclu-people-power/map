@@ -28,10 +28,11 @@ button,
   padding: .5em;
   outline: none;
   text-decoration: none;
-}
-
-button:hover {
-  cursor: pointer;
+  transition: background .3s;
+  &:hover {
+    cursor: pointer;
+    background: darken($blue, 5%); 
+  }
 }
 
 input {

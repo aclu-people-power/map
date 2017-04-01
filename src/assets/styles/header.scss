@@ -48,6 +48,9 @@
   button {
     width: 20%;
     background: $dark-red;
+    &:hover {
+      background: darken($dark-red, 5%);
+    }
   }
 }
 
@@ -142,7 +145,7 @@
     }
   }
   input:checked + label {
-    background: $blue;
+    background: $light-blue;
   }
 }
 
@@ -168,6 +171,10 @@
   color: $black;
   background: $white;
   border: solid 1px $light-gray;
+  transition: background .3s;
+  &:hover {
+    background: $off-white;
+  }
   span {
     position: relative;
     &:after {
@@ -179,7 +186,7 @@
       border-left: .3em solid transparent;
       border-right: .3em solid transparent;
       border-top: .3em solid $black;
-      left: calc(100% + .3em);
+      left: calc(100% + .4em);
       top: 50%;
       transform: translateY(-50%);
     }
@@ -262,6 +269,9 @@
     }
     .search {
       background: $dark-red;
+      &:hover {
+        background: darken($dark-red, 5%);
+      }
     }
   }
 
