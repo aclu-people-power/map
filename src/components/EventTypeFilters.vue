@@ -1,19 +1,19 @@
 <template>
   <div>
     <h5 v-if="showTitle" class="filter-events-title">Type of event</h5>
-    <div 
-      class="filter-events-item" 
+    <div
+      class="filter-events-item"
       v-for="(label, type) in eventTypes"
     >
       <label :for="type" class="filter-events-checkbox">
         <input
-          type="checkbox" 
+          type="checkbox"
           v-model="selectedEventTypes"
           class="no-margin-checkbox"
           :value="type"
           :id="type"
-          :checked="selectedEventTypes.includes(type)" 
-        /> 
+          :checked="selectedEventTypes.includes(type)"
+        />
         <span></span>
         {{ label }}
       </label>
@@ -28,20 +28,17 @@ import { setHash } from 'src/util/url-hash';
 export default {
   name: 'event-type-filters',
   props: ['filters', 'showTitle'],
-  data() {
-    return {
-      selectedEventTypes: this.filters.eventType ? 
-        this.filters.eventType.split(',') : []
-    };
-  },
   computed: {
     eventTypes() {
       return eventTypes;
-    }
-  },
-  watch: {
-    selectedEventTypes(newSelectedEventTypes) {
-      setHash({ eventType: newSelectedEventTypes.join(',') });
+    },
+    selectedEventTypes: {
+      get(){
+        return this.filters.eventType ? this.filters.eventType.split(',') : []
+      },
+      set(newEventTypes){
+        setHash({ eventType: newEventTypes.join(',') });
+      }
     }
   }
 }
