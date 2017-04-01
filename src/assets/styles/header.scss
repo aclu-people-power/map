@@ -120,29 +120,36 @@
 }
 
 .filter-events-checkbox {
-  position: relative;
-  height: 1em;
-  width: 1em;
-  border: solid 2px $black;
-  margin-right: 1em;
-  display: inline-block;
-  font-size: .8em;
-  margin-right: 1em;
-  font-weight: bold;
+  display: block;
+
+  // Hide default checkbox, too hard to style
   input {
     visibility: hidden;
+    display:block;
+    height:0;
+    width:0;
+    position:absolute;
+    overflow:hidden;
   }
-  label {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+
+  // The fake checkbox to style
+  span {
+    display: inline-block;
+    position: relative;
+    height: 1em;
+    width: 1em;
+    border: solid 2px $black;
+    margin-right: 1em;
+    font-size: .8em;
+    margin-right: 1em;
+    font-weight: bold;
     &:hover {
       cursor: pointer;
     }
   }
-  input:checked + label {
+
+  // Checked style
+  input:checked + span {
     background: $light-blue;
   }
 }

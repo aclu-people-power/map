@@ -5,7 +5,7 @@
       class="filter-events-item" 
       v-for="(label, type) in eventTypes"
     >
-      <div class="filter-events-checkbox">
+      <label :for="type" class="filter-events-checkbox">
         <input
           type="checkbox" 
           v-model="selectedEventTypes"
@@ -14,9 +14,9 @@
           :id="type"
           :checked="selectedEventTypes.includes(type)" 
         /> 
-        <label :for="type"></label>
-      </div>
-      {{label}}
+        <span></span>
+        {{ label }}
+      </label>
     </div>
   </div>
 </template>
