@@ -1,4 +1,5 @@
 @import "~styles/variables";
+@import "~styles/mixins";
 @import "~styles/fonts";
 @import "~styles/icons";
 @import "~styles/map";
@@ -36,10 +37,8 @@ button,
   }
 }
 
-input {
-  &:focus {
-    outline-color: $light-blue;
-  }
+input:focus {
+  outline-color: $light-blue;
 }
 
 input[type="text"] {

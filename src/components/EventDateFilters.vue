@@ -43,30 +43,32 @@ export default {
 	mounted() {
     const component = this;
 
-		this.pikadayStartDate = new Pikaday({
-			field: this.$refs.startDate,
-			format: displayFormat, 
+    this.pikadayStartDate = new Pikaday({
+      field: this.$refs.startDate,
+      format: displayFormat, 
       position: 'bottom',
       minDate: new Date(),
-			onSelect: function() {
+      onSelect: function() {
         const date = this.getMoment();
         component.startDate = date.format(displayFormat);
         setHash({ startDate: date.format(inputFormat)  });
 
         component.pikadayEndDate.setMinDate(date.toDate());
-			}
+      }
     });
 
-		this.pikadayEndDate = new Pikaday({
-			field: this.$refs.endDate,
-			format: displayFormat, 
+    this.pikadayEndDate = new Pikaday({
+      field: this.$refs.endDate,
+      format: displayFormat, 
       position: 'bottom',
       minDate: new Date(),
-			onSelect: function() {
+      onSelect: function() {
         const date = this.getMoment();
         component.endDate = date.format(displayFormat);
         setHash({ endDate: date.format(inputFormat)  });
-			}
+
+        component.pikadayStartDate.setMaxDate(date.toDate());
+      }
     });
 	}
 }

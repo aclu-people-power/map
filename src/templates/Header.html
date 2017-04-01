@@ -1,8 +1,8 @@
 <div class="header" id="header">
   <div class="header-inner">
-    <div class="branding" ref="branding">
-      <img class="logo" src="~images/logo.png" alt="logo"/>
-      <h2 class="cta">Find events near you</h2>
+    <div class="branding">
+      <img class="logo" src="~images/logo.png" alt="logo" />
+      <h2 class="cta" ref="cta">Find events near you</h2>
     </div>
 
     <div class="toolbar">
@@ -32,7 +32,7 @@
       </div>
 
       <div v-if="isFilterEventsOpen">
-        <div class="filter-events">
+        <div class="filter-events" :style="filterEventsTop">
           <div class="filter-events-header">
             <span>Filter events</span>
             <span class="filter-events-close" @click="toggleFilterEvents">

@@ -14,6 +14,9 @@ export default function(store){
       return {
         isFilterEventsOpen: false,
         zipcode: store.state.filters.zipcode,
+        // Where to position the expanded event filtering UI
+        // for smaller screens
+        filterEventsTop: { top: 0 },
       };
     },
     computed: {
@@ -29,6 +32,16 @@ export default function(store){
         store.commit('viewToggled');
       },
       toggleFilterEvents() {
+        // When opening, calculate where to position it based on
+        // cta’s position.
+        if (!this.isFilterEventsOpen) {
+          const position = this.$refs.cta.getBoundingClientRect().top;
+          // This is to account for the large empty on the top of this
+          // font included in its line height // (wish I knew the right word...)
+          const adjustment = 10;
+          this.filterEventsTop.top = `${position + adjustment}px`;
+        }
+
         this.isFilterEventsOpen = !this.isFilterEventsOpen;
       },
       search() {

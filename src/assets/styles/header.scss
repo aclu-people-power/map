@@ -23,7 +23,7 @@
 }
 
 .cta {
-  font-family: "Freight Sans CMP";
+  font-family: $accent-font;
   color: $white;
   font-size: 2em;
   margin: .1em 0;
@@ -31,7 +31,7 @@
 
 .search-wrap {
   height: 2em;
-  overflow: auto;
+  @include clearfix;
   input,
   button {
     height: 100%;
@@ -56,7 +56,7 @@
 
 .button-group {
   margin-top: $offset;
-  overflow: auto;
+  @include clearfix;
   button {
     width: calc(50% - #{$offset / 2});
     float: left;
@@ -71,8 +71,6 @@
   z-index: 9999;
   left: 0;
   right: 0;
-  // NOTE: extreme magic number.
-  top: 82px;
   bottom: 0;
   background: $white;
   text-align: left;
@@ -83,7 +81,7 @@
   padding: .5em 1em;
   color: $white;
   font-weight: bold;
-  font-family: "Freight Sans CMP";
+  font-family: $accent-font;
   text-transform: uppercase;
 }
 
@@ -108,9 +106,9 @@
 }
 
 .filter-events-title {
-  font-size: $text-size;
+  font-size: 1rem; 
   font-weight: bold;
-  font-family: "Freight Sans CMP";
+  font-family: $accent-font;
   text-transform: uppercase;
   padding-bottom: .5em;
   border-bottom: solid 2px $light-gray;
@@ -179,14 +177,7 @@
   span {
     position: relative;
     &:after {
-      position: absolute;
-      content: '';
-      height: $offset;
-      width: 0; 
-      height: 0; 
-      border-left: .3em solid transparent;
-      border-right: .3em solid transparent;
-      border-top: .3em solid $black;
+      @include triangle-down;
       left: calc(100% + .4em);
       top: 50%;
       transform: translateY(-50%);
@@ -195,8 +186,7 @@
 }
 
 .button-dropdown.open .button-dropdown-button span:after {
-  border-top: none;
-  border-bottom: .3em solid $black;
+  @include triangle-up;
 }
 
 .button-dropdown-content {
@@ -204,8 +194,6 @@
   z-index: 9999;
   top: calc(100% - 1px);
   left: 0;
-  box-sizing: border-box;
-  width: 200%;
   background: $white;
   padding: 1em;
   text-align: left;
@@ -213,7 +201,7 @@
 }
 
 
-@media (min-width: 1000px) {
+@media (min-width: $breakpoint-large) {
   .header {
     padding: 0;
   }
@@ -225,7 +213,7 @@
 
   .branding {
     padding: 1em;
-    overflow: auto;
+    @include clearfix;
   }
 
   .logo,
