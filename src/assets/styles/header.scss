@@ -47,9 +47,9 @@
   }
   button {
     width: 20%;
-    background: $dark-red;
+    background: $red;
     &:hover {
-      background: darken($dark-red, 5%);
+      background: $dark-red;
     }
   }
 }
@@ -103,9 +103,9 @@
 
 .filter-events-search {
   width: 100%;
-  background: $dark-red;
+  background: $red;
   &:hover {
-    background: darken($dark-red, 5%);
+    background: $dark-red;
   }
 }
 
@@ -268,9 +268,9 @@
       border: solid 1px $light-gray;
     }
     .search {
-      background: $dark-red;
+      background: $red;
       &:hover {
-        background: darken($dark-red, 5%);
+        background: $dark-red;
       }
     }
   }

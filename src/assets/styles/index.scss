@@ -4,6 +4,7 @@
 @import "~styles/icons";
 @import "~styles/map";
 @import "~styles/header";
+@import "~styles/event_card";
 @import "~styles/event_list";
 @import "~styles/pikaday";
 
@@ -14,7 +15,7 @@ button {
 }
 
 body {
-  font-family: Arial;
+  font-family: "Helvetica Neue", Helvetica, Arial, "sans-serif";
   margin: 0;
 }
 
@@ -23,7 +24,7 @@ button,
   font-family: "Freight Sans CMP";
   display: inline-block;
   font-weight: bold;
-  background: $blue;
+  background: $light-blue;
   text-transform: uppercase;
   color: $white;
   border: none;
@@ -33,7 +34,7 @@ button,
   transition: background .3s;
   &:hover {
     cursor: pointer;
-    background: darken($blue, 5%); 
+    background: $blue; 
   }
 }
 

@@ -2,7 +2,9 @@
   <div>
     <div>
       <div v-for="label in labels">
-        {{label}}
+        <span class="event-card-label">
+          {{label}}
+        </span>
       </div>
     </div>
     <h4 class="event-card-title">
