@@ -23,8 +23,11 @@ function loadEvents() {
 // Load events data
 loadEvents();
 
-// And then keep grabbing events data once per minute 
-setInterval(loadEvents, 6000);
+const ONE_MINUTE = 60000;
+
+// And then keep grabbing events data once per minute,
+// the rate at which the data feed is regenerated.
+setInterval(loadEvents, ONE_MINUTE);
 
 // Load valid zipcodes
 xhr({
