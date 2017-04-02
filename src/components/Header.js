@@ -1,5 +1,4 @@
 import Vue from 'vue';
-import { setHash } from 'src/util/url-hash';
 import EventTypeFilters from 'src/components/EventTypeFilters';
 import EventDateFilters from 'src/components/EventDateFilters';
 import ButtonDropdown from 'src/components/ButtonDropdown';
@@ -13,7 +12,6 @@ export default function(store){
     data() {
       return {
         isFilterEventsOpen: false,
-        zipcode: store.state.filters.zipcode,
         // Where to position the expanded event filtering UI
         // for smaller screens
         filterEventsTop: { top: 0 },
@@ -25,6 +23,9 @@ export default function(store){
       },
       filters() {
         return store.state.filters;
+      },
+      zipcode() {
+        return store.state.filters.zipcode
       },
     },
     methods: {
@@ -44,14 +45,12 @@ export default function(store){
 
         this.isFilterEventsOpen = !this.isFilterEventsOpen;
       },
-      search() {
-        setHash({ zipcode: this.zipcode });
-      }
-    },
-    watch: {
-      zipcode(newZipcode) {
+      search(e) {
+        let newZipcode = e.target.value;
+        console.debug('checking zip', newZipcode);
         if (/^\d+$/.test(newZipcode) && newZipcode.length === 5) {
-          setHash({ zipcode: newZipcode });
+          console.debug('setting zip');
+          store.commit('setFilters',{zipcode: newZipcode });
         }
       }
     },

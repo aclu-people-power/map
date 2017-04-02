@@ -1,16 +1,30 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import xhr from 'xhr';
-import { getHash, onHashChange } from 'src/util/url-hash';
+import { computeFilteredEvents } from 'src/util/events';
+import querystring from 'querystring';
+
+//Save the initial hash of the window when Vue initializes.
+//We'll use these values to populate the initial store filter values
+let initialHash = querystring.parse(window.location.hash.replace(/^#/, ''))
+
+//A small Vuex plugin that will update the browsers location hash whenever
+//the setFilters mutation occurs
+const hashUpdaterPlugin = (store) => {
+  store.subscribe((mutation, state) => {
+    if(mutation.type === "setFilters"){
+      window.location.hash = querystring.stringify(state.filters)
+    }
+  })
+}
 
 Vue.use(Vuex);
-
 const store = new Vuex.Store({
   state: {
     events: [],
     zipcodes: [],
-    filters: getHash(),
-    view: 'map'
+    view: 'map',
+    filters: initialHash
   },
   actions: {
     loadEvents({commit}){
@@ -41,16 +55,22 @@ const store = new Vuex.Store({
     zipcodesReceived(state, zipcodes) {
       state.zipcodes = zipcodes;
     },
-    filtersReceived(state, filters) {
-      state.filters = filters;
-    },
     viewToggled(state) {
       state.view = state.view === 'map' ? 'list' : 'map';
+    },
+    setFilters(state, filters) {
+      state.filters = {...state.filters, ...filters}
+    },
+  },
+  getters: {
+    filteredEvents: state => {
+      return computeFilteredEvents(state.events, state.filters, state.zipcodes)
     }
-  }
+  },
+  plugins: [hashUpdaterPlugin]
 });
 
 // When url filters change, update the store.
-onHashChange((filters) => store.commit('filtersReceived', filters));
-
+// onHashChange((filters) => store.commit('filtersReceived', filters));
+window.store = store;
 export default store;

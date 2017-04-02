@@ -1,5 +1,4 @@
 import Vue from 'vue';
-import { getFilteredEvents } from 'src/util/events';
 
 // Attaches L (leaflet.js) to window.
 import 'mapbox.js';
@@ -27,7 +26,7 @@ export default function(store){
         return store.state.filters;
       },
       filteredEvents() {
-        return getFilteredEvents(this.events, this.filters, this.zipcodes);
+        return store.getters.filteredEvents;
       },
       view() {
         return store.state.view;
@@ -57,7 +56,7 @@ export default function(store){
         // zoom to new location when zipcode changes
         if (newFilters.zipcode !== oldFilters.zipcode) {
           this.setMapPositionBasedOnZip();
-        } 
+        }
       }
     },
     methods: {
@@ -98,7 +97,7 @@ export default function(store){
       setInitialMapPosition() {
         const centerOfUS = [37.8, -96.9];
         const zoom = 4;
-        
+
         this.mapRef.setView(centerOfUS, zoom);
       }
     },

@@ -9,9 +9,9 @@
       <div class="search-wrap">
         <input
           type="text"
-          v-model="zipcode"
+          :value="zipcode"
           placeholder="Search by zip code"
-          @keyup.enter="search"
+          @input="search"
           autofocus
         />
         <button type="button" @click="search">
@@ -42,8 +42,8 @@
           <div class="filter-events-body">
             <event-date-filters :show-title="true" :filters="filters" ></event-date-filters>
             <event-type-filters :show-title="true" :filters="filters"></event-type-filters>
-            <button 
-              class="filter-events-search" 
+            <button
+              class="filter-events-search"
               @click="toggleFilterEvents"
             >
               Search events
@@ -59,9 +59,9 @@
         <input
           class="toolbar-item zipcode"
           type="text"
-          v-model="zipcode"
+          :value="zipcode"
           placeholder="Search by zip code"
-          @keyup.enter="search"
+          @input="search"
           autofocus
         />
 
@@ -73,15 +73,15 @@
           <event-type-filters :filters="filters"></event-type-filters>
         </button-dropdown>
 
-        <button 
-          class="search toolbar-item" 
+        <button
+          class="search toolbar-item"
           @click="search"
         >
           Search events
         </button>
 
-        <a 
-          class="btn toolbar-item" 
+        <a
+          class="btn toolbar-item"
           href="https://go.peoplepower.org/signup/host_new?source=map"
           target="_blank"
         >

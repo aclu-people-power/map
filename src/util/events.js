@@ -2,7 +2,7 @@ import moment from 'moment';
 
 const metersToMiles = (meters) => meters * 0.00062137;
 
-export function getFilteredEvents(events, filters, zipcodes) {
+export function computeFilteredEvents(events, filters, zipcodes) {
   // Bail out early if possible. Huge array!
   if (!filters.eventType && !filters.startDate && !filters.endDate && !filters.zipcode) {
     return events;
