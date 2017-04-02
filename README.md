@@ -25,4 +25,21 @@ yarn run dist:server
 ```
 
 ## Deployment
-TBD
+
+First build the app per instructions in the previous step, serve it locally, and make sure things look good.
+
+Then do either:
+
+```
+yarn run dev-deploy
+```
+
+Or
+
+```
+yarn run prod-deploy
+```
+
+Depending on the situation.
+
+_Note: you will need `aws` installed and configured with your credentials first._
