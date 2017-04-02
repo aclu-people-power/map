@@ -42,7 +42,7 @@ export function getFilteredEvents(events, filters, zipcodes) {
     if (filters.startDate) {
       const startDate = moment(filters.startDate, 'YYYY-MM-DD');
 
-      if (localDatetime.isBefore(startDate)) {
+      if (localDatetime.isBefore(startDate, 'day')) {
         return false;
       }
     }
@@ -50,7 +50,7 @@ export function getFilteredEvents(events, filters, zipcodes) {
     if (filters.endDate) {
       const endDate = moment(filters.endDate, 'YYYY-MM-DD');
 
-      if (localDatetime.isAfter(endDate)) {
+      if (localDatetime.isAfter(endDate, 'day')) {
         return false;
       }
     }
