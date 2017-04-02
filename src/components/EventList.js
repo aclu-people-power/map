@@ -28,6 +28,12 @@ export default function(store){
         return this.filters.zipcode &&
           this.zipcodes &&
           !this.zipcodes[this.filters.zipcode];
+      },
+      noEventsText(){
+        return "No events matched that search."
+      },
+      invalidZipcodeText() {
+        return "Invalid zipcode."
       }
     },
     components: {

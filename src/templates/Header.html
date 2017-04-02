@@ -27,8 +27,8 @@
           Filter events
         </button>
 
-        <button @click="toggleView">
-          {{ view === 'map' ? 'List view' : 'Map view' }}
+        <button @click="toggleView" v-html="toggleButtonText">
+          List View
         </button>
       </div>
 
@@ -43,8 +43,8 @@
           <div class="filter-events-body">
             <event-date-filters :show-title="true" :filters="filters" ></event-date-filters>
             <event-type-filters :show-title="true" :filters="filters"></event-type-filters>
-            <button 
-              class="filter-events-search" 
+            <button
+              class="filter-events-search"
               @click="toggleFilterEvents"
             >
               Search events
@@ -75,15 +75,15 @@
           <event-type-filters :filters="filters"></event-type-filters>
         </button-dropdown>
 
-        <button 
-          class="search toolbar-item" 
+        <button
+          class="search toolbar-item"
           @click="search"
         >
           Search events
         </button>
 
-        <a 
-          class="btn toolbar-item" 
+        <a
+          class="btn toolbar-item"
           href="https://go.peoplepower.org/signup/host_new?source=map"
           target="_blank"
         >
