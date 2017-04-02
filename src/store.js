@@ -8,7 +8,7 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
     events: [],
-    zipcodes: [],
+    zipcodes: {},
     filters: getHash(),
     view: 'map'
   },

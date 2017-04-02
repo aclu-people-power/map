@@ -3,17 +3,18 @@ import moment from 'moment';
 const metersToMiles = (meters) => meters * 0.00062137;
 
 export function getFilteredEvents(events, filters, zipcodes) {
-  // Bail out early if possible. Huge array!
-  if (!filters.eventType && !filters.startDate && !filters.endDate && !filters.zipcode) {
+  // Bail out early if no selected filters. `events` could be huge.
+  if (!Object.keys(filters).length) {
     return events;
   }
 
-  const zipcodesLength = (Object.keys(zipcodes) || []).length;
+  const zipcodesLength = Object.keys(zipcodes).length;
   const validZipcode = zipcodesLength && !!zipcodes[filters.zipcode];
 
-  // We do not yet have zipcodes to filter against, or the selected
-  // zipcode is not valid...so there can be no valid events. Bail early.
-  if (filters.zipcode && (!zipcodes || !zipcodesLength || !validZipcode)) {
+  // A zipcode is selected but either we do not yet have valid zipcodes
+  // to check it against and get its coords, or the zipcode is invalid;
+  // either way there can be no valid events. Bail early.
+  if (filters.zipcode && (!zipcodesLength || !validZipcode)) {
     return [];
   }
 
