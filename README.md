@@ -31,13 +31,13 @@ First build the app per instructions in the previous step, serve it locally, and
 Then do either:
 
 ```
-npm run dev-deploy
+yarn run dev-deploy
 ```
 
 Or
 
 ```
-npm run dev-prod
+yarn run prod-deploy
 ```
 
 Depending on the situation.
