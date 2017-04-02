@@ -1,15 +1,19 @@
 .event-card {
-  padding: 1em;
-  border-bottom: solid 2px #ccc; 
+  padding: 1em 0;
+  .btn {
+    background: $aclu-blue;
+  }
 }
 
 .event-card-title {
-
+  margin: .7em 0 .5em;
 }
 
 .event-card-label {
-  font-size: .8em;
+  font-size: .7em;
+  background: $lightest-blue;
   color: $blue;
-  background: $light-blue;
-  padding: .2em;
+  padding: .3em 1em;
+  display: inline-block;
+  margin-right: .5em;
 }

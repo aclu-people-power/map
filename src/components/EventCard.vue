@@ -1,19 +1,15 @@
 <template>
-  <div>
-    <div>
-      <div v-for="label in labels">
-        <span class="event-card-label">
-          {{label}}
-        </span>
-      </div>
-    </div>
+  <div class="event-card inner-wrap">
+    <span v-for="label in labels" class="event-card-label">
+      {{label}}
+    </span>
     <h4 class="event-card-title">
       {{event.title}}
     </h4>
-    <div>
+    <div class="event-card-date">
       {{date}}
     </div>
-    <div>
+    <div class="event-card-venue">
       {{event.venue}}
     </div>
     <div>
@@ -23,15 +19,19 @@
 </template>
 
 <script>
+
 import moment from 'moment';
 import { eventTypes } from 'src/util/events';
+
+// e.g. Tuesday, Mar 21 6:30pm
+const displayDateFormat = 'dddd, MMM D h:mma';
 
 export default {
   name: 'event-card',
   props: ['event'],
   computed: {
     date() {
-      return moment(this.event.start_datetime).format('YYYY-MM-DD');
+      return moment(this.event.start_datetime).format(displayDateFormat);
     },
     labels() {
       if (!this.event.categories) {

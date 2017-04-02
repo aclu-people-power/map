@@ -4,18 +4,18 @@
 @import "~styles/icons";
 @import "~styles/map";
 @import "~styles/header";
-@import "~styles/event_card";
 @import "~styles/event_list";
+@import "~styles/event_card";
 @import "~styles/pikaday";
 
 body,
 input,
 button {
-  font-size: $text-size; 
+  font-size: $text-size;
 }
 
 body {
-  font-family: "Helvetica Neue", Helvetica, Arial, "sans-serif";
+  font-family: Arial;
   margin: 0;
 }
 
@@ -24,7 +24,7 @@ button,
   font-family: "Freight Sans CMP";
   display: inline-block;
   font-weight: bold;
-  background: $light-blue;
+  background: $blue;
   text-transform: uppercase;
   color: $white;
   border: none;
@@ -34,7 +34,7 @@ button,
   transition: background .3s;
   &:hover {
     cursor: pointer;
-    background: $blue; 
+    background: darken($blue, 5%);
   }
 }
 
