@@ -18,9 +18,9 @@ body,
 .event-list {
   display: none;
   flex: 1;
-  position: relative;
+  flex-direction: column;
   &.-active {
-    display: block;
+    display: flex;
   }
 }
 
@@ -32,7 +32,7 @@ body,
 
   .event-map,
   .event-list {
-    display: block;
+    display: flex;
   }
 
   .event-map {
