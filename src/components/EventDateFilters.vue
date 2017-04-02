@@ -21,6 +21,13 @@ import Pikaday from 'pikaday';
 const inputFormat = 'YYYY-MM-DD';
 // e.g., Mar 1, 2017
 const displayFormat = 'MMM D, YYYY'
+const forDisplay = (date) => {
+  if(date){
+    return moment(date, inputFormat).format(displayFormat);
+  }else{
+    return null
+  }
+}
 
 export default {
   name: 'event-type-filters',
@@ -28,7 +35,7 @@ export default {
   computed: {
     startDate: {
       get(){
-        return moment(store.state.filters.startDate, inputFormat).format(displayFormat);
+        return forDisplay(store.state.filters.startDate);
       },
       set(value){
         store.commit('setFilters',{startDate: value})
@@ -36,7 +43,7 @@ export default {
     },
     endDate: {
       get(){
-        return moment(store.state.filters.endDate, inputFormat).format(displayFormat);
+        return forDisplay(store.state.filters.endDate);
       },
       set(value){
         store.commit('setFilters',{endDate: value})
