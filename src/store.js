@@ -61,12 +61,7 @@ const store = new Vuex.Store({
       state.view = state.view === 'map' ? 'list' : 'map';
     },
     setFilters(state, filters) {
-      // Updating filters triggers a large load of work --
-      // push it to the next tick so that the user interaction
-      // that triggers it doesn’t feel laggy
-      process.nextTick(() => {
-        state.filters = {...state.filters, ...filters}
-      });
+      state.filters = {...state.filters, ...filters};
     },
   },
   getters: {
