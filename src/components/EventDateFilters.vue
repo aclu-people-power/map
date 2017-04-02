@@ -30,23 +30,23 @@ const forDisplay = (date) => {
 }
 
 export default {
-  name: 'event-type-filters',
+  name: 'event-date-filters',
   props: ['filters', 'showTitle'],
   computed: {
     startDate: {
       get(){
-        return forDisplay(store.state.filters.startDate);
+        return forDisplay(this.$store.state.filters.startDate);
       },
       set(value){
-        store.commit('setFilters',{startDate: value})
+        this.$store.commit('setFilters',{startDate: value})
       }
     },
     endDate: {
       get(){
-        return forDisplay(store.state.filters.endDate);
+        return forDisplay(this.$store.state.filters.endDate);
       },
       set(value){
-        store.commit('setFilters',{endDate: value})
+        this.$store.commit('setFilters',{endDate: value})
       }
     }
   },

@@ -19,6 +19,7 @@ const hashUpdaterPlugin = (store) => {
 }
 
 Vue.use(Vuex);
+
 const store = new Vuex.Store({
   state: {
     events: [],
