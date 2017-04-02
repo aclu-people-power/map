@@ -1,11 +1,13 @@
 <template>
   <div class="event-card inner-wrap">
-    <span v-for="label in labels" class="event-card-label">
-      {{label}}
-    </span>
-    <h4 class="event-card-title">
+    <div v-if="labels.length" class="event-card-labels">
+      <span v-for="label in labels" class="event-card-label">
+        {{label}}
+      </span>
+    </div>
+    <h3 class="event-card-title">
       {{event.title}}
-    </h4>
+    </h3>
     <div class="event-card-date">
       {{date}}
     </div>
@@ -13,7 +15,7 @@
       {{event.venue}}
     </div>
     <div>
-      <a class="btn" v-bind:href="event.url" target="_blank">RSVP</a>
+      <a class="btn event-card-cta" v-bind:href="event.url" target="_blank">RSVP</a>
     </div>
   </div>
 </template>

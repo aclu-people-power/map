@@ -1,12 +1,13 @@
 .event-card {
-  padding: 1em 0;
-  .btn {
-    background: $aclu-blue;
-  }
+  padding: $offset 0;
 }
 
 .event-card-title {
-  margin: .7em 0 .5em;
+  margin: 0 0 .3em;
+}
+
+.event-card-labels + .event-card-title {
+  margin-top: $offset;
 }
 
 .event-card-label {
@@ -16,4 +17,20 @@
   padding: .3em 1em;
   display: inline-block;
   margin-right: .5em;
+}
+
+.event-card-date,
+.event-card-venue {
+  font-size: .8em;
+}
+
+.event-card-date {
+  margin-bottom: .4em;
+}
+
+.btn.event-card-cta {
+  margin-top: $offset;
+  background: $aclu-blue;
+  padding-left: 1em;
+  padding-right: 1em;
 }
