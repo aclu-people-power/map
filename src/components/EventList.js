@@ -31,6 +31,9 @@ export default function(store){
       },
       noEventsText(){
         return "No events matched that search."
+      },
+      invalidZipcodeText() {
+        return "Invalid zipcode."
       }
     },
     components: {
