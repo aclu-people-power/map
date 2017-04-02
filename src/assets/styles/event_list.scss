@@ -5,5 +5,17 @@
 }
 
 .event-list-item {
-  border-bottom: solid 2px $gray;
+  border-top: solid 2px $gray;
+  &:first-child {
+    border-top: none;
+  }
+}
+
+.event-list-empty {
+  text-align: center;
+  font-family: $accent-font;
+  text-transform: uppercase;
+  margin: 1em 0;
+  font-size: 2em;
+  color: $blue;
 }

@@ -8,7 +8,14 @@ export function getFilteredEvents(events, filters, zipcodes) {
     return events;
   }
 
-  const zipCodesLength = (Object.keys(zipcodes) || []).length;
+  const zipcodesLength = (Object.keys(zipcodes) || []).length;
+  const validZipcode = zipcodesLength && !!zipcodes[filters.zipcode];
+
+  // We do not yet have zipcodes to filter against, or the selected
+  // zipcode is not valid...so there can be no valid events. Bail early.
+  if (filters.zipcode && (!zipcodes || !zipcodesLength || !validZipcode)) {
+    return [];
+  }
 
   return events.filter(function(event) {
 
@@ -49,12 +56,6 @@ export function getFilteredEvents(events, filters, zipcodes) {
     }
 
     if (filters.zipcode) {
-      // We do not yet have valid zipcodes to filter against,
-      // give it a pass.
-      if (!zipcodes || !zipCodesLength) {
-        return true;
-      }
-
       const zipcodeLatLng = L.latLng(zipcodes[filters.zipcode]);
 
       const milesFromZipcode = metersToMiles(
