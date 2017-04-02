@@ -19,7 +19,7 @@ export default function(store){
         return store.state.zipcodes;
       },
       filteredEvents() {
-        return getFilteredEvents(this.events, this.filters, this.zipcodes)
+        return getFilteredEvents(this.events, this.filters, this.zipcodes);
       },
       view() {
         return store.state.view;
