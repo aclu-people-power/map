@@ -24,9 +24,6 @@ export default function(store){
       filters() {
         return store.state.filters;
       },
-      zipcode() {
-        return store.state.filters.zipcode
-      },
     },
     methods: {
       toggleView() {
@@ -46,10 +43,8 @@ export default function(store){
         this.isFilterEventsOpen = !this.isFilterEventsOpen;
       },
       search(e) {
-        let newZipcode = e.target.value;
-        console.debug('checking zip', newZipcode);
+        const newZipcode = e.target.value;
         if (/^\d+$/.test(newZipcode) && newZipcode.length === 5) {
-          console.debug('setting zip');
           store.commit('setFilters',{zipcode: newZipcode });
         }
       }

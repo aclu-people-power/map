@@ -9,7 +9,7 @@
       <div class="search-wrap">
         <input
           type="text"
-          :value="zipcode"
+          :value="filters.zipcode"
           placeholder="Search by zip code"
           @input="search"
           autofocus
@@ -60,7 +60,7 @@
         <input
           class="toolbar-item zipcode"
           type="text"
-          :value="zipcode"
+          :value="filters.zipcode"
           placeholder="Search by zip code"
           @input="search"
           autofocus
