@@ -1,35 +1,42 @@
 <template>
-  <div>
-    <div>
-      <div v-for="label in labels">
+  <div class="event-card inner-wrap">
+    <div v-if="labels.length" class="event-card-labels">
+      <span v-for="label in labels" class="event-card-label">
         {{label}}
-      </div>
+      </span>
     </div>
-    <h4 class="event-card-title">
+    <h3 class="event-card-title">
       {{event.title}}
-    </h4>
-    <div>
+    </h3>
+    <div class="event-card-date">
       {{date}}
     </div>
-    <div>
+    <div class="event-card-venue">
       {{event.venue}}
     </div>
-    <div>
-      <a class="btn" v-bind:href="event.url" target="_blank">RSVP</a>
+    <div v-if="hasCapacity">
+      <a class="btn event-card-cta" v-bind:href="event.url" target="_blank">RSVP</a>
     </div>
   </div>
 </template>
 
 <script>
+
 import moment from 'moment';
 import { eventTypes } from 'src/util/events';
+
+// e.g. Tuesday, Mar 21 6:30pm
+const displayDateFormat = 'dddd, MMM D h:mma';
 
 export default {
   name: 'event-card',
   props: ['event'],
   computed: {
     date() {
-      return moment(this.event.start_datetime).format('YYYY-MM-DD');
+      return moment(this.event.start_datetime).format(displayDateFormat);
+    },
+    hasCapacity() {
+      return this.event.attendee_count < this.event.max_attendees;
     },
     labels() {
       if (!this.event.categories) {

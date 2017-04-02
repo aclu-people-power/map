@@ -1,14 +1,27 @@
 @import "~styles/variables";
 
-.event-list {
-  border: solid 1px black;
+.event-list-item {
+  border-top: solid 2px $gray;
+  &:first-child {
+    border-top: none;
+  }
 }
 
-.event-card {
-  padding: 1em;
-  border-bottom: solid 2px #ccc; 
+.event-list-empty {
+  text-align: center;
+  font-family: $accent-font;
+  text-transform: uppercase;
+  margin: 1em 0;
+  font-size: 2em;
+  color: $blue;
 }
 
-.event-card-title {
-
+@media (min-width: $breakpoint-large) {
+  .event-list {
+    border-top: solid 2px $gray;
+    border-left: solid 2px $gray;
+    .event-list-item {
+      padding: 0 2em;
+    }
+  }
 }

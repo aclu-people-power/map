@@ -23,6 +23,11 @@ export default function(store){
       },
       view() {
         return store.state.view;
+      },
+      isSelectedZipcodeInvalid() {
+        return this.filters.zipcode &&
+          this.zipcodes &&
+          !this.zipcodes[this.filters.zipcode];
       }
     },
     components: {

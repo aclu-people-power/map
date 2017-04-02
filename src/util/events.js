@@ -3,12 +3,20 @@ import moment from 'moment';
 const metersToMiles = (meters) => meters * 0.00062137;
 
 export function getFilteredEvents(events, filters, zipcodes) {
-  // Bail out early if possible. Huge array!
-  if (!filters.eventType && !filters.startDate && !filters.endDate && !filters.zipcode) {
+  // Bail out early if no selected filters. `events` could be huge.
+  if (!Object.keys(filters).length) {
     return events;
   }
 
-  const zipCodesLength = (Object.keys(zipcodes) || []).length;
+  const zipcodesLength = Object.keys(zipcodes).length;
+  const validZipcode = zipcodesLength && !!zipcodes[filters.zipcode];
+
+  // A zipcode is selected but either we do not yet have valid zipcodes
+  // to check it against and get its coords, or the zipcode is invalid;
+  // either way there can be no valid events. Bail early.
+  if (filters.zipcode && (!zipcodesLength || !validZipcode)) {
+    return [];
+  }
 
   return events.filter(function(event) {
 
@@ -35,7 +43,7 @@ export function getFilteredEvents(events, filters, zipcodes) {
     if (filters.startDate) {
       const startDate = moment(filters.startDate, 'YYYY-MM-DD');
 
-      if (localDatetime.isBefore(startDate)) {
+      if (localDatetime.isBefore(startDate, 'day')) {
         return false;
       }
     }
@@ -43,18 +51,12 @@ export function getFilteredEvents(events, filters, zipcodes) {
     if (filters.endDate) {
       const endDate = moment(filters.endDate, 'YYYY-MM-DD');
 
-      if (localDatetime.isAfter(endDate)) {
+      if (localDatetime.isAfter(endDate, 'day')) {
         return false;
       }
     }
 
     if (filters.zipcode) {
-      // We do not yet have valid zipcodes to filter against,
-      // give it a pass.
-      if (!zipcodes || !zipCodesLength) {
-        return true;
-      }
-
       const zipcodeLatLng = L.latLng(zipcodes[filters.zipcode]);
 
       const milesFromZipcode = metersToMiles(

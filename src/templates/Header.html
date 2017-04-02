@@ -1,5 +1,5 @@
 <div class="header" id="header">
-  <div class="header-inner">
+  <div class="inner-wrap">
     <div class="branding">
       <img class="logo" src="~images/logo.png" alt="logo" />
       <h2 class="cta" ref="cta">Find events near you</h2>
@@ -13,6 +13,7 @@
           placeholder="Search by zip code"
           @keyup.enter="search"
           autofocus
+          maxlength="5"
         />
         <button type="button" @click="search">
           <i class="icon-search"></i>
@@ -63,6 +64,7 @@
           placeholder="Search by zip code"
           @keyup.enter="search"
           autofocus
+          maxlength="5"
         />
 
         <button-dropdown button-text="Date of event" button-class="toolbar-item">

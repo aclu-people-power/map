@@ -1,0 +1,36 @@
+.event-card {
+  padding: $offset 0;
+}
+
+.event-card-title {
+  margin: 0 0 .3em;
+}
+
+.event-card-labels + .event-card-title {
+  margin-top: $offset;
+}
+
+.event-card-label {
+  font-size: .7em;
+  background: $lightest-blue;
+  color: $blue;
+  padding: .3em 1em;
+  display: inline-block;
+  margin-right: .5em;
+}
+
+.event-card-date,
+.event-card-venue {
+  font-size: .8em;
+}
+
+.event-card-date {
+  margin-bottom: .4em;
+}
+
+.btn.event-card-cta {
+  margin-top: $offset;
+  background: $aclu-blue;
+  padding-left: 1em;
+  padding-right: 1em;
+}
