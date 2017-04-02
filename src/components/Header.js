@@ -44,7 +44,8 @@ export default function(store){
       },
       search(e) {
         const newZipcode = e.target.value;
-        if (/^\d+$/.test(newZipcode) && newZipcode.length === 5) {
+
+        if (/^\d{5}$/.test(newZipcode) || !newZipcode) {
           store.commit('setFilters',{zipcode: newZipcode });
         }
       }
