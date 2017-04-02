@@ -22,9 +22,10 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
     events: [],
-    zipcodes: [],
+    zipcodes: {},
     view: 'map',
     filters: initialHash
+
   },
   actions: {
     loadEvents({commit}){

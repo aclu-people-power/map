@@ -2,15 +2,17 @@
 @import "~styles/mixins";
 @import "~styles/fonts";
 @import "~styles/icons";
+@import "~styles/layout";
 @import "~styles/map";
 @import "~styles/header";
 @import "~styles/event_list";
+@import "~styles/event_card";
 @import "~styles/pikaday";
 
 body,
 input,
 button {
-  font-size: $text-size; 
+  font-size: $text-size;
 }
 
 body {
@@ -23,7 +25,7 @@ button,
   font-family: "Freight Sans CMP";
   display: inline-block;
   font-weight: bold;
-  background: $blue;
+  background: $light-blue;
   text-transform: uppercase;
   color: $white;
   border: none;
@@ -33,7 +35,7 @@ button,
   transition: background .3s;
   &:hover {
     cursor: pointer;
-    background: darken($blue, 5%); 
+    background: $blue;
   }
 }
 

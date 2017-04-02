@@ -1,12 +1,12 @@
 .header {
   background: $dark;
   text-align: center;
-  padding: 1em;
 }
 
-.header-inner {
+.inner-wrap {
+  padding: 1em;
   margin: 0 auto;
-  width: 80%;
+  width: 85%;
   max-width: 500px;
 }
 
@@ -47,9 +47,9 @@
   }
   button {
     width: 20%;
-    background: $dark-red;
+    background: $red;
     &:hover {
-      background: darken($dark-red, 5%);
+      background: $dark-red;
     }
   }
 }
@@ -103,14 +103,14 @@
 
 .filter-events-search {
   width: 100%;
-  background: $dark-red;
+  background: $red;
   &:hover {
-    background: darken($dark-red, 5%);
+    background: $dark-red;
   }
 }
 
 .filter-events-title {
-  font-size: 1rem; 
+  font-size: 1rem;
   font-weight: bold;
   font-family: $accent-font;
   text-transform: uppercase;
@@ -125,6 +125,11 @@
 
 .filter-events-checkbox {
   display: block;
+  cursor: pointer;
+
+  &:hover span {
+    background-color: $light-gray;
+  }
 
   // Hide default checkbox, too hard to style
   input {
@@ -139,6 +144,7 @@
   // The fake checkbox to style
   span {
     display: inline-block;
+    vertical-align: top;
     position: relative;
     height: 1em;
     width: 1em;
@@ -147,9 +153,6 @@
     font-size: .8em;
     margin-right: 1em;
     font-weight: bold;
-    &:hover {
-      cursor: pointer;
-    }
   }
 
   // Checked style
@@ -217,9 +220,10 @@
     padding: 0;
   }
 
-  .header-inner {
-    width: auto; 
-    max-width: none; 
+  .inner-wrap {
+    width: auto;
+    max-width: none;
+    padding: 0;
   }
 
   .branding {
@@ -268,9 +272,9 @@
       border: solid 1px $light-gray;
     }
     .search {
-      background: $dark-red;
+      background: $red;
       &:hover {
-        background: darken($dark-red, 5%);
+        background: $dark-red;
       }
     }
   }
