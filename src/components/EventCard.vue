@@ -14,7 +14,7 @@
     <div class="event-card-venue">
       {{event.venue}}
     </div>
-    <div>
+    <div v-if="hasCapacity">
       <a class="btn event-card-cta" v-bind:href="event.url" target="_blank">RSVP</a>
     </div>
   </div>
@@ -34,6 +34,9 @@ export default {
   computed: {
     date() {
       return moment(this.event.start_datetime).format(displayDateFormat);
+    },
+    hasCapacity() {
+      return this.event.attendee_count < this.event.max_attendees;
     },
     labels() {
       if (!this.event.categories) {
