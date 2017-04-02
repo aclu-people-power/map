@@ -1,9 +1,5 @@
 @import "~styles/variables";
 
-.event-list {
-
-}
-
 .event-list-item {
   border-top: solid 2px $gray;
   &:first-child {
@@ -18,4 +14,14 @@
   margin: 1em 0;
   font-size: 2em;
   color: $blue;
+}
+
+@media (min-width: $breakpoint-large) {
+  .event-list {
+    border-top: solid 2px $gray;
+    border-left: solid 2px $gray;
+    .event-list-item {
+      padding: 0 2em;
+    }
+  }
 }

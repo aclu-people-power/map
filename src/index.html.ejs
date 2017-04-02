@@ -16,13 +16,12 @@
 </head>
 
 <body>
-
-  <div id="app">
-    <div>
+  <div id="app" class="layout">
+    <div class="layout-header">
       <%= require('src/templates/Header.html') %>
       <%= require('src/templates/LoadingBar.html') %>
     </div>
-    <div class="event-wrapper">
+    <div class="layout-main">
       <%= require('src/templates/EventMap.html') %>
       <%= require('src/templates/EventList.html') %>
     </div>

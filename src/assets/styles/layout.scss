@@ -1,0 +1,47 @@
+html,
+body,
+.layout {
+  height: 100%;
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+}
+
+.layout-main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.event-map,
+.event-list {
+  display: none;
+  &.-active {
+    display: block;
+  }
+}
+
+@media (min-width: $breakpoint-large) {
+  .event-map,
+  .event-list {
+    display: block;
+    position: absolute;
+    box-sizing: border-box;
+    top: 0;
+    bottom: 0;
+  }
+
+  .event-map {
+    left: 0;
+    right: 33.333%;
+  }
+
+  .event-list {
+    left: 66.666%;
+    right: 0;
+    overflow-y: scroll;
+  }
+}
