@@ -2,8 +2,8 @@ import moment from 'moment';
 
 const metersToMiles = (meters) => meters * 0.00062137;
 
-export function getFilteredEvents(events, filters, zipcodes) {
-  // Bail out early if no selected filters. `events` could be huge.
+export function computeFilteredEvents(events, filters, zipcodes) {
+  // Bail out early if possible. Huge array!
   if (!Object.keys(filters).length) {
     return events;
   }
