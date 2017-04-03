@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import { getFilteredEvents } from 'src/util/events';
 import mapMarker from 'src/templates/mapMarker.svg';
+import helpers from 'turf-helpers';
 
 mapboxgl.accessToken = 'pk.eyJ1Ijoia2VubmV0aHBlbm5pbmd0b24iLCJhIjoiY2l6bmJ3MmFiMDMzZTMzbDJtdGxkM3hveSJ9.w4iOGaL2vrIvETimSXUXsw';
 
@@ -62,18 +63,11 @@ export default function(store){
     },
     methods: {
       plotEvents() {
-        // wipe out existing plotted events -- probably this can
-        // be done more efficiently
-        if (this.eventsLayer) {
-          this.eventsLayer.clearLayers();
+        const eventsSource = this.mapRef.getSource("events");
+        if (eventsSource) {
+          const eventsAsGeoJson = this.filteredEvents.map((event) => helpers.point([event.lng, event.lat]));
+          eventsSource.setData(helpers.featureCollection(eventsAsGeoJson));
         }
-
-        this.filteredEvents.forEach((event) => {
-          const el = document.createElement("div");
-          el.className = "map-marker";
-          el.innerHTML = mapMarker;
-          new mapboxgl.Marker(el).setLngLat([event.lng, event.lat]).addTo(this.mapRef);
-        });
       },
 
       setMapPositionBasedOnZip() {
@@ -90,10 +84,57 @@ export default function(store){
     mounted() {
       this.mapRef = new mapboxgl.Map({
         container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v9',
+        style: 'mapbox://styles/mapbox/bright-v9',
         center: this.initialCoordinates,
         zoom: this.initialZoom
-      })
+      });
+
+      this.mapRef.on("load", function(){
+        this.mapRef.addSource("events", {
+          "type": "geojson",
+          "data": helpers.featureCollection([]),
+          "cluster": true,
+          "clusterMaxZoom": 8
+        });
+
+        this.mapRef.addLayer({
+          "id": "unclustered-points",
+          "type": "symbol",
+          "source": "events",
+          "filter": ["!has", "point_count"],
+          "layout": {
+              "icon-image": "marker-15",
+              "icon-size": 1.5
+          }
+        });
+
+        this.mapRef.addLayer({
+          "id": "unclustered",
+          "type": "circle",
+          "source": "events",
+          "paint": {
+            "circle-color": "#ff4b4d",
+            "circle-radius": 12
+          },
+          "filter": [">=", "point_count", 1]
+        });
+
+        this.mapRef.addLayer({
+          "id": "cluster-count",
+          "type": "symbol",
+          "source": "events",
+          "layout": {
+              "text-field": "{point_count}",
+              "text-font": [
+                  "DIN Offc Pro Medium",
+                  "Arial Unicode MS Bold"
+              ],
+              "text-size": 12
+          }
+        });
+
+        this.plotEvents();
+      }.bind(this))
     }
   })
 }
