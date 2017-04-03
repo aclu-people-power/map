@@ -27,21 +27,21 @@
 </template>
 
 <script>
+
 import moment from 'moment';
 import Pikaday from 'pikaday';
 
-// sigh
-window.moment = moment;
-
 // e.g., 2017-03-01
 const inputFormat = 'YYYY-MM-DD';
+
 // e.g., Mar 1, 2017
-const displayFormat = 'MMM D, YYYY'
+const displayFormat = 'MMM D, YYYY';
 const forDisplay = (date) => {
-  if(date){
+  if (date) {
     return moment(date, inputFormat).format(displayFormat);
   } else {
-  return null
+    return null;
+  }
 }
 
 // Pikaday needs all of these i18n values just to override the weekdays to
@@ -57,16 +57,16 @@ const calendarFormat = {
 export default {
   name: 'event-date-filters',
   props: ['filters', 'showTitle'],
-  data: () => {
+  data() {
     return { currentCalendar: 'startDate' };
   },
   computed: {
     startDate: {
-      get(){
+      get() {
         return forDisplay(this.$store.state.filters.startDate);
       },
-      set(value){
-        this.$store.commit('setFilters',{ startDate: value })
+      set(value) {
+        this.$store.commit('setFilters',{ startDate: value });
       }
     },
     endDate: {
