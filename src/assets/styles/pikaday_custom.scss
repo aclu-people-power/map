@@ -11,7 +11,6 @@ $pd-day-hover-color: lighten($pd-day-color, 8%);
   margin-top: 30px;
 }
 
-
 .pika-single,
 .pika-single.is-bound {
   border: none;
@@ -22,6 +21,7 @@ $pd-day-hover-color: lighten($pd-day-color, 8%);
   .pika-title {
     border-bottom: 2px solid $light-gray;
     padding: 0 40px;
+    margin-bottom: 5px;
   }
   .pika-table {
     th {

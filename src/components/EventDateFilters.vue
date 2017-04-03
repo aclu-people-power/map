@@ -30,10 +30,12 @@
 import moment from 'moment';
 import Pikaday from 'pikaday';
 
+// sigh
+window.moment = moment;
+
 // e.g., 2017-03-01
 const inputFormat = 'YYYY-MM-DD';
 // e.g., Mar 1, 2017
-<<<<<<< HEAD
 const displayFormat = 'MMM D, YYYY'
 const forDisplay = (date) => {
   if(date){
@@ -50,19 +52,21 @@ const calendarFormat = {
   months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
   weekdays: ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
   weekdaysShort: ['S', 'M', 'T', 'W', 'T', 'F', 'S']
-}
+};
 
 export default {
   name: 'event-date-filters',
   props: ['filters', 'showTitle'],
-  data: { currentCalendar: 'startDate' },
+  data: () => {
+    return { currentCalendar: 'startDate' };
+  },
   computed: {
     startDate: {
       get(){
         return forDisplay(this.$store.state.filters.startDate);
       },
       set(value){
-        this.$store.commit('setFilters',{startDate: value})
+        this.$store.commit('setFilters',{ startDate: value })
       }
     },
     endDate: {
@@ -70,12 +74,13 @@ export default {
         return forDisplay(this.$store.state.filters.endDate);
       },
       set(value){
-        this.$store.commit('setFilters',{endDate: value})
+        this.$store.commit('setFilters',{ endDate: value })
       }
     }
   },
 	mounted() {
     const component = this;
+
     this.pikadayStartDate = new Pikaday({
       field: component.$refs.startDate,
       format: displayFormat,
@@ -85,11 +90,11 @@ export default {
       minDate: new Date(),
       onSelect: function() {
         const date = this.getMoment();
-        component.startDate = date.format(displayFormat);
-        setHash({ startDate: date.format(inputFormat) });
+        component.startDate = date.format(inputFormat);
         component.pikadayEndDate.setMinDate(date.toDate());
       }
     });
+
     this.pikadayEndDate = new Pikaday({
       field: component.$refs.endDate,
       format: displayFormat,
