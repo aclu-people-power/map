@@ -23,7 +23,6 @@
 
 <script>
 import { eventTypes } from 'src/util/events';
-import { setHash } from 'src/util/url-hash';
 
 export default {
   name: 'event-type-filters',
@@ -37,7 +36,7 @@ export default {
         return this.filters.eventType ? this.filters.eventType.split(',') : []
       },
       set(newEventTypes){
-        setHash({ eventType: newEventTypes.join(',') });
+        this.$store.commit('setFilters',{ eventType: newEventTypes.join(',') });
       }
     }
   }

@@ -24,6 +24,8 @@ To run a simple webserver and verify production output you can use
 yarn run dist:server
 ```
 
+_Note: requires docker._
+
 ## Deployment
 
 First build the app per instructions in the previous step, serve it locally, and make sure things look good.

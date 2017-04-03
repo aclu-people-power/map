@@ -1,6 +1,5 @@
 import 'styles/index';
 import store from 'src/store.js';
-import { setHash } from 'src/util/url-hash';
 
 import Header from 'components/Header';
 import LoadingBar from 'components/LoadingBar';

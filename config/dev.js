@@ -10,7 +10,7 @@ module.exports = function(env) {
       filename: '[name].js',
     },
     stats: 'errors-only',
-    devtool: 'eval-source-map',
+    devtool: 'inline-source-map',
     plugins: [
       new ExtractTextPlugin({
         filename: "bundle.css",
@@ -22,6 +22,6 @@ module.exports = function(env) {
         inject: false,
 				favicon: './src/assets/favicon.ico'
       })
-    ]
+    ],
   })
 };
