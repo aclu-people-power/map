@@ -1,4 +1,5 @@
 import moment from 'moment';
+import distance from 'turf-distance';
 
 const metersToMiles = (meters) => meters * 0.00062137;
 
@@ -55,10 +56,8 @@ export function getFilteredEvents(events, filters, zipcodes) {
         return true;
       }
 
-      const zipcodeLatLng = L.latLng(zipcodes[filters.zipcode]);
-
       const milesFromZipcode = metersToMiles(
-         zipcodeLatLng.distanceTo([event.lat, event.lng])
+        distance(zipcodes[filters.zipcode].reverse(), [event.lng, event.lat])
       );
 
       const MAX_MILES_FROM_ZIPCODE = 50;

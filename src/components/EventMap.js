@@ -2,10 +2,7 @@ import Vue from 'vue';
 import { getFilteredEvents } from 'src/util/events';
 import mapMarker from 'src/templates/mapMarker.svg';
 
-// Attaches L (leaflet.js) to window.
-import 'mapbox.js';
-
-L.mapbox.accessToken = 'pk.eyJ1Ijoia2VubmV0aHBlbm5pbmd0b24iLCJhIjoiY2l6bmJ3MmFiMDMzZTMzbDJtdGxkM3hveSJ9.w4iOGaL2vrIvETimSXUXsw';
+mapboxgl.accessToken = 'pk.eyJ1Ijoia2VubmV0aHBlbm5pbmd0b24iLCJhIjoiY2l6bmJ3MmFiMDMzZTMzbDJtdGxkM3hveSJ9.w4iOGaL2vrIvETimSXUXsw';
 
 export default function(store){
   return new Vue({
@@ -16,6 +13,8 @@ export default function(store){
     data: {
       mapRef: null,
       eventsLayer: null,
+      initialCoordinates: [-96.9 , 37.8],
+      initialZoom: 4
     },
     computed: {
       events() {
@@ -69,44 +68,32 @@ export default function(store){
           this.eventsLayer.clearLayers();
         }
 
-        this.eventsLayer = L.layerGroup().addTo(this.mapRef);
-
         this.filteredEvents.forEach((event) => {
-          L.marker([event.lat, event.lng], {
-             icon: L.divIcon({
-               html: mapMarker,
-               iconSize: [20,20],
-               iconAnchor: [10, 20],
-               className: 'map-marker'
-             }),
-          }).addTo(this.eventsLayer);
+          const el = document.createElement("div");
+          el.className = "map-marker";
+          el.innerHTML = mapMarker;
+          new mapboxgl.Marker(el).setLngLat([event.lng, event.lat]).addTo(this.mapRef);
         });
       },
 
       setMapPositionBasedOnZip() {
-        if (!this.filters.zipcode || !this.zipcodes[this.filters.zipcode]) {
-
-          this.setInitialMapPosition();
-          return;
-        }
-
         const latLng = this.zipcodes[this.filters.zipcode];
-        const zoom = 8;
+        const zoom = (latLng) ? 8 : this.initialZoom;
 
-        this.mapRef.setView(latLng, zoom);
-      },
-
-      setInitialMapPosition() {
-        const centerOfUS = [37.8, -96.9];
-        const zoom = 4;
-
-        this.mapRef.setView(centerOfUS, zoom);
+        this.mapRef.flyTo({
+          center: latLng || this.initialCoordinates,
+          zoom: zoom
+        });
       }
     },
 
     mounted() {
-      this.mapRef = L.mapbox.map('map', 'mapbox.streets');
-      this.setInitialMapPosition();
+      this.mapRef = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v9',
+        center: this.initialCoordinates,
+        zoom: this.initialZoom
+      })
     }
   })
 }

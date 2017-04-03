@@ -1,7 +1,19 @@
 @import "~styles/variables";
 
-.map-marker path {
-  fill: $salmon;
-  stroke: #FFF;
-  stroke-width: 2px;
+$marker-size: 26px;
+
+.map-marker {
+  top: ($marker-size * -1) + 2;
+  left: $marker-size / 2 * -1;
+
+  path {
+    fill: $salmon;
+    stroke: #FFF;
+    stroke-width: 2px;
+  }
+  
+  svg {
+    width: $marker-size;
+    height: $marker-size;
+  }
 }
