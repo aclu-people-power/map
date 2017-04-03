@@ -4,29 +4,46 @@ $pd-day-hover-color: lighten($pd-day-color, 8%);
 
 // @Overwritten styles
 #calendar-container {
-  
+  height: 215px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
 }
 
 
 .pika-single,
 .pika-single.is-bound {
-  margin-top: 50px;
   border: none;
   box-shadow: none;
 }
 
 .pika-lendar {
+  .pika-title {
+    border-bottom: 2px solid $light-gray;
+    padding: 0 40px;
+  }
   .pika-table {
+    th {
+      color: $dark;
+      font-weight: normal;
+    }
     td {
       .pika-button {
         width: 2em;
         height: 2em;
+        border-radius: 50%;
         font-weight: normal;
         margin: 0 auto;
         text-align: center;
         font-family: inherit;
         font-weight: normal;
         background: transparent;
+      }
+
+      .pika-button:hover {
+        color: inherit;
+        background: rgba(0, 0, 0, 0.05);
       }
 
       &.is-selected .pika-button {
