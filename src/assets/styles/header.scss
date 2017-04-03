@@ -164,10 +164,15 @@
 .filter-events-date-picker {
   input {
     border: none;
-    border-bottom: solid 1px $dark;
+    outline: none;
+    border-bottom: solid 2px $light-gray;
     max-width: 33%;
     padding-left: 0;
     font-size: .8em;
+
+    &:focus {
+      border-color: $aclu-blue;
+    }
   }
   strong {
     font-size: .8em;
