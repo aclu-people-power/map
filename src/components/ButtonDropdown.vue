@@ -10,7 +10,7 @@
       </span>
     </button>
     <div v-show="isOpen" class="button-dropdown-content" :style="dropdownStyle">
-      <slot></slot>
+      <slot v-if="isOpen"></slot>
     </div>
   </div>
 </template>
