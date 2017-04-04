@@ -9,8 +9,8 @@
   >
   </div>
   <div 
-    v-if="filteredEvents.length ===0"
-    class="event-list-zero-state"
+    v-else-if="events.length && !filteredEvents.length"
+    class="event-list-empty"
     v-html="noEventsText"
   >
   </div>
