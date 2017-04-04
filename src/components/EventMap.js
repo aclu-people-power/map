@@ -1,8 +1,10 @@
 import Vue from 'vue';
 import { getFilteredEvents } from 'src/util/events';
-import mapMarker from 'src/assets/images/mapMarker.png';
+import mapMarker from 'src/assets/images/map_marker.png';
+import mapStyles from 'src/assets/styles/mapbox_styles';
 import helpers from 'turf-helpers';
 import mapboxgl from 'mapbox-gl';
+
 
 mapboxgl.accessToken = 'pk.eyJ1Ijoia2VubmV0aHBlbm5pbmd0b24iLCJhIjoiY2l6bmJ3MmFiMDMzZTMzbDJtdGxkM3hveSJ9.w4iOGaL2vrIvETimSXUXsw';
 
@@ -109,49 +111,7 @@ export default function(store){
         });
 
         this.addCustomIcon(mapMarker, "custom-marker");
-
-        this.mapRef.addLayer({
-          "id": "unclustered-points",
-          "type": "symbol",
-          "source": "events",
-          "filter": ["!has", "point_count"],
-          "layout": {
-              "icon-image": "custom-marker",
-              "icon-size": 0.5,
-              "icon-offset": [0, -30]
-          }
-        });
-
-        this.mapRef.addLayer({
-          "id": "clusters",
-          "type": "circle",
-          "source": "events",
-          "paint": {
-            "circle-color": "#ff4b4d",
-            "circle-radius": 12,
-            "circle-stroke-width": 2,
-            "circle-stroke-color": "#FFF"
-          },
-          "filter": [">=", "point_count", 1]
-        });
-
-        this.mapRef.addLayer({
-          "id": "clusters-count",
-          "type": "symbol",
-          "source": "events",
-          "layout": {
-              "text-field": "{point_count}",
-              "text-font": [
-                  "DIN Offc Pro Medium",
-                  "Arial Unicode MS Bold"
-              ],
-              "text-size": 12
-          },
-          "paint": {
-              "text-color": "#FFF"
-          }
-        });
-        
+        mapStyles.forEach((style) => this.mapRef.addLayer(style));
         this.mapRef.addControl(new mapboxgl.NavigationControl())
         this.plotEvents();
       }.bind(this))
