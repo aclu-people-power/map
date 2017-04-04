@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import { getFilteredEvents } from 'src/util/events';
-import mapMarker from 'src/templates/mapMarker.svg';
+import mapMarker from 'src/assets/images/mapMarker.png';
 import helpers from 'turf-helpers';
 
 mapboxgl.accessToken = 'pk.eyJ1Ijoia2VubmV0aHBlbm5pbmd0b24iLCJhIjoiY2l6bmJ3MmFiMDMzZTMzbDJtdGxkM3hveSJ9.w4iOGaL2vrIvETimSXUXsw';
@@ -78,6 +78,14 @@ export default function(store){
           center: latLng || this.initialCoordinates,
           zoom: zoom
         });
+      },
+
+      addCustomIcon(icon, name) {
+        const img = new Image();
+        img.src = icon;
+        img.onload = function() {
+          this.mapRef.addImage(name, img);
+        }.bind(this);
       }
     },
 
@@ -97,30 +105,35 @@ export default function(store){
           "clusterMaxZoom": 8
         });
 
+        this.addCustomIcon(mapMarker, "custom-marker");
+
         this.mapRef.addLayer({
           "id": "unclustered-points",
           "type": "symbol",
           "source": "events",
           "filter": ["!has", "point_count"],
           "layout": {
-              "icon-image": "marker-15",
-              "icon-size": 1.5
+              "icon-image": "custom-marker",
+              "icon-size": 0.5,
+              "icon-offset": [0, -30]
           }
         });
 
         this.mapRef.addLayer({
-          "id": "unclustered",
+          "id": "clusters",
           "type": "circle",
           "source": "events",
           "paint": {
             "circle-color": "#ff4b4d",
-            "circle-radius": 12
+            "circle-radius": 12,
+            "circle-stroke-width": 2,
+            "circle-stroke-color": "#FFF"
           },
           "filter": [">=", "point_count", 1]
         });
 
         this.mapRef.addLayer({
-          "id": "cluster-count",
+          "id": "clusters-count",
           "type": "symbol",
           "source": "events",
           "layout": {
@@ -130,6 +143,9 @@ export default function(store){
                   "Arial Unicode MS Bold"
               ],
               "text-size": 12
+          },
+          "paint": {
+              "text-color": "#FFF"
           }
         });
 
