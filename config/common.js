@@ -45,10 +45,6 @@ module.exports = function(env){
           test: /templates\/.*\.html$/,
           loader: 'html-loader'
         },
-        {
-          test: /\.svg$/,
-          loader: 'html-loader'
-        },
         //scss: ['vue-style-loader'].concat(util.styleLoaders)
         //Allows for normal scss files to also be required directly
         {
@@ -67,7 +63,7 @@ module.exports = function(env){
         },
         //inline assests smaller than 10kb, otherwise copy them as files to output dir
         {
-          test: /\.(jpg|png)$/,
+          test: /\.(jpg|png|svg)$/,
           loader: 'url-loader',
           options: {
             limit: 10000,
