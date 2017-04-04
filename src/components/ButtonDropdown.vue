@@ -2,7 +2,7 @@
   <div ref="root" :class="['button-dropdown', buttonClass, { open: isOpen }]">
     <button
        ref="button"
-       :class="['button-dropdown-button']"
+       class="button-dropdown-button"
       @click="toggleVisibility"
     >
       <span>
@@ -19,7 +19,7 @@
 
 export default {
   name: 'button-dropdown',
-  props: ['buttonText', 'buttonClass'],
+  props: ['buttonText'],
   data() {
     return {
       isOpen: false,
@@ -30,7 +30,7 @@ export default {
     toggleVisibility() {
       // When opening, calculate width based on the parent
       if (!this.isOpen) {
-        this.dropdownStyle.width = 
+        this.dropdownStyle.width =
           `${this.$refs.button.offsetWidth * 2}px`;
       }
       this.isOpen = !this.isOpen;
