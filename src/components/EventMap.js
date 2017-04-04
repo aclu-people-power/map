@@ -2,7 +2,7 @@ import Vue from 'vue';
 import { getFilteredEvents } from 'src/util/events';
 import mapMarker from 'src/assets/images/map_marker.png';
 import mapStyles from 'src/assets/styles/mapbox_styles';
-import helpers from 'turf-helpers';
+import geoJsonHelpers from 'turf-helpers';
 import mapboxgl from 'mapbox-gl';
 
 
@@ -69,8 +69,8 @@ export default function(store){
         const eventsSource = this.mapRef.getSource("events");
 
         if (eventsSource) {
-          const eventsAsGeoJson = this.filteredEvents.map((event) => helpers.point([event.lng, event.lat]));
-          eventsSource.setData(helpers.featureCollection(eventsAsGeoJson));
+          const eventsAsGeoJson = this.filteredEvents.map((event) => geoJsonHelpers.point([event.lng, event.lat]));
+          eventsSource.setData(geoJsonHelpers.featureCollection(eventsAsGeoJson));
         }
       },
 
@@ -105,7 +105,7 @@ export default function(store){
       this.mapRef.on("load", function(){
         this.mapRef.addSource("events", {
           "type": "geojson",
-          "data": helpers.featureCollection([]),
+          "data": null,
           "cluster": true,
           "clusterMaxZoom": 8
         });
