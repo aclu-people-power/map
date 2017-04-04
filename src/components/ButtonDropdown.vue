@@ -1,15 +1,15 @@
 <template>
   <div ref="root" :class="['button-dropdown', { open: isOpen }]">
-    <button 
+    <button
        ref="button"
-       :class="['button-dropdown-button', buttonClass]" 
+       class="button-dropdown-button"
       @click="toggleVisibility"
     >
       <span>
         {{ buttonText }}
       </span>
     </button>
-    <div v-show="isOpen" class="button-dropdown-content" :style="dropdownStyle">
+    <div v-if="isOpen" class="button-dropdown-content" :style="dropdownStyle">
       <slot></slot>
     </div>
   </div>
@@ -19,7 +19,7 @@
 
 export default {
   name: 'button-dropdown',
-  props: ['buttonText', 'buttonClass'],
+  props: ['buttonText'],
   data() {
     return {
       isOpen: false,
@@ -30,7 +30,7 @@ export default {
     toggleVisibility() {
       // When opening, calculate width based on the parent
       if (!this.isOpen) {
-        this.dropdownStyle.width = 
+        this.dropdownStyle.width =
           `${this.$refs.button.offsetWidth * 2}px`;
       }
       this.isOpen = !this.isOpen;
