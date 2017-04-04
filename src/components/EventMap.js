@@ -2,6 +2,7 @@ import Vue from 'vue';
 import { getFilteredEvents } from 'src/util/events';
 import mapMarker from 'src/assets/images/mapMarker.png';
 import helpers from 'turf-helpers';
+import mapboxgl from 'mapbox-gl';
 
 mapboxgl.accessToken = 'pk.eyJ1Ijoia2VubmV0aHBlbm5pbmd0b24iLCJhIjoiY2l6bmJ3MmFiMDMzZTMzbDJtdGxkM3hveSJ9.w4iOGaL2vrIvETimSXUXsw';
 
@@ -64,6 +65,7 @@ export default function(store){
     methods: {
       plotEvents() {
         const eventsSource = this.mapRef.getSource("events");
+
         if (eventsSource) {
           const eventsAsGeoJson = this.filteredEvents.map((event) => helpers.point([event.lng, event.lat]));
           eventsSource.setData(helpers.featureCollection(eventsAsGeoJson));
