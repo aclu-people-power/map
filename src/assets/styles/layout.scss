@@ -1,0 +1,46 @@
+html,
+body,
+.layout {
+  height: 100%;
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+}
+
+.layout-main {
+  flex: 1;
+  display: flex;
+}
+
+.event-map,
+.event-list {
+  display: none;
+  flex: 1;
+  flex-direction: column;
+  &.-active {
+    display: flex;
+  }
+}
+
+@media (min-width: $breakpoint-large) {
+  .layout-main {
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .event-map,
+  .event-list {
+    display: flex;
+  }
+
+  .event-map {
+    flex: 2;
+  }
+
+  .event-list {
+    flex: 1;
+    overflow-y: scroll;
+  }
+}

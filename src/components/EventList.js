@@ -1,5 +1,4 @@
 import Vue from 'vue';
-import { getFilteredEvents } from 'src/util/events';
 import EventCard from 'src/components/EventCard';
 
 export default function(store){
@@ -19,10 +18,21 @@ export default function(store){
         return store.state.zipcodes;
       },
       filteredEvents() {
-        return getFilteredEvents(this.events, this.filters, this.zipcodes);
+        return store.getters.filteredEvents;
       },
       view() {
         return store.state.view;
+      },
+      isSelectedZipcodeInvalid() {
+        return this.filters.zipcode &&
+          this.zipcodes &&
+          !this.zipcodes[this.filters.zipcode];
+      },
+      noEventsText(){
+        return "No events matched that search."
+      },
+      invalidZipcodeText() {
+        return "Invalid zipcode."
       }
     },
     components: {

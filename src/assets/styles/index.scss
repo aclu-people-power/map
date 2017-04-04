@@ -1,40 +1,50 @@
-@import "~normalize.css";
 @import "~styles/variables";
+@import "~styles/mixins";
 @import "~styles/fonts";
 @import "~styles/icons";
+@import "~styles/layout";
 @import "~styles/map";
-@import "~styles/toolbar";
+@import "~styles/header";
 @import "~styles/event_list";
-@import "~styles/map_marker";
-@import "~styles/triangle";
+@import "~styles/event_card";
+@import "~styles/pikaday";
+
+body,
+input,
+button {
+  font-size: $text-size;
+}
 
 body {
-  font-family: "Freight Sans CMP";
-  font-size: 16px;
+  font-family: Arial;
+  margin: 0;
 }
 
+button,
 .btn {
-  background: $blue;
-  text-transform: uppercase;
-  color: #fff;
-  font-weight: bold;
-  border: none;
-  padding: .5rem;
-  outline: none;
+  font-family: "Freight Sans CMP";
   display: inline-block;
+  font-weight: bold;
+  background: $light-blue;
+  text-transform: uppercase;
+  color: $white;
+  border: none;
+  padding: .5em;
+  outline: none;
   text-decoration: none;
+  transition: background .3s;
+  &:hover {
+    cursor: pointer;
+    background: $blue;
+  }
 }
 
-.btn:hover {
-  cursor: pointer;
+input:focus {
+  outline-color: $light-blue;
 }
 
-// oof
-.btn.-fixed-width {
-  width: 150px;
-  text-align: center;
-}
-
-.btn.-primary {
-  background: $red;
+input[type="text"] {
+  height: 2em;
+  font-weight: 200;
+  padding-left: 1em;
 }

@@ -1,0 +1,282 @@
+.header {
+  background: $dark;
+  text-align: center;
+}
+
+.inner-wrap {
+  padding: 1em;
+  margin: 0 auto;
+  width: 85%;
+  max-width: 500px;
+}
+
+.toolbar {
+  position: relative;
+}
+
+.toolbar.-desktop {
+  display: none;
+}
+
+.logo {
+  max-width: 210px;
+}
+
+.cta {
+  font-family: $accent-font;
+  color: $white;
+  font-size: 2em;
+  margin: .1em 0;
+}
+
+.search-wrap {
+  height: 2em;
+  @include clearfix;
+  input,
+  button {
+    height: 100%;
+    display: block;
+    float: left;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    box-sizing: border-box;
+  }
+  input {
+    width: 80%;
+  }
+  button {
+    width: 20%;
+    background: $red;
+    &:hover {
+      background: $dark-red;
+    }
+  }
+}
+
+.button-group {
+  margin-top: $offset;
+  @include clearfix;
+  button {
+    width: calc(50% - #{$offset / 2});
+    float: left;
+    &:last-child {
+      float: right;
+    }
+  }
+}
+
+.filter-events {
+  position: fixed;
+  overflow-y: scroll;
+  z-index: 9999;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: $white;
+  text-align: left;
+}
+
+.filter-events-header {
+  background: $blue;
+  padding: .5em 1em;
+  color: $white;
+  font-weight: bold;
+  font-family: $accent-font;
+  text-transform: uppercase;
+}
+
+.filter-events-body {
+  padding: 0 1em;
+  > * {
+    margin-top: 1em;
+  }
+}
+
+.filter-events-close {
+  display: block;
+  float: right;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.filter-events-search {
+  width: 100%;
+  background: $red;
+  &:hover {
+    background: $dark-red;
+  }
+}
+
+.filter-events-title {
+  font-size: 1rem;
+  font-weight: bold;
+  font-family: $accent-font;
+  text-transform: uppercase;
+  padding-bottom: .5em;
+  border-bottom: solid 2px $light-gray;
+  margin: 0 0 1em 0;
+}
+
+.filter-events-item {
+  margin: 1em 0;
+}
+
+.filter-events-checkbox {
+  display: block;
+  cursor: pointer;
+
+  &:hover span {
+    background-color: $light-gray;
+  }
+
+  // Hide default checkbox, too hard to style
+  input {
+    visibility: hidden;
+    display:block;
+    height:0;
+    width:0;
+    position:absolute;
+    overflow:hidden;
+  }
+
+  // The fake checkbox to style
+  span {
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    height: 1em;
+    width: 1em;
+    border: solid 2px $black;
+    margin-right: 1em;
+    font-size: .8em;
+    margin-right: 1em;
+    font-weight: bold;
+  }
+
+  // Checked style
+  input:checked + span {
+    background: $light-blue;
+  }
+}
+
+.filter-events-date-picker {
+  input {
+    border: none;
+    border-bottom: solid 1px $dark;
+    max-width: 33%;
+    padding-left: 0;
+    font-size: .8em;
+  }
+  strong {
+    font-size: .8em;
+    margin: 1em;
+  }
+}
+
+.button-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.button-dropdown-button {
+  color: $black;
+  background: $white;
+  border: solid 1px $light-gray;
+  transition: background .3s;
+  &:hover {
+    background: $off-white;
+  }
+  span {
+    position: relative;
+    &:after {
+      @include triangle-down;
+      left: calc(100% + .4em);
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+}
+
+.button-dropdown.open .button-dropdown-button span:after {
+  @include triangle-up;
+}
+
+.button-dropdown-content {
+  position: absolute;
+  z-index: 9999;
+  top: calc(100% - 1px);
+  left: 0;
+  background: $white;
+  padding: 1em;
+  text-align: left;
+  border: solid 1px $light-gray;
+}
+
+
+@media (min-width: $breakpoint-large) {
+  .header {
+    padding: 0;
+  }
+
+  .inner-wrap {
+    width: auto;
+    max-width: none;
+    padding: 0;
+  }
+
+  .branding {
+    padding: 1em;
+    @include clearfix;
+  }
+
+  .logo,
+  .cta {
+    float: left;
+    margin-right: 1em;
+  }
+
+  .cta {
+    /* Because of the font this requires a teeny tweak*/
+    position: relative;
+    top: .12em;
+  }
+
+  .toolbar {
+    display: none;
+  }
+
+  .toolbar.-desktop {
+    display: block;
+    background: $white;
+    padding: $offset;
+  }
+
+  .toolbar-inner {
+    margin: 0 auto;
+  }
+
+  .toolbar-item {
+    margin: 0 $offset 0 0;
+    display: inline-block;
+
+    &:last-child {
+      margin-right: 0;
+    }
+    min-width: 8em;
+  }
+
+  .toolbar {
+    .zipcode {
+      border: solid 1px $light-gray;
+    }
+    .search {
+      background: $red;
+      &:hover {
+        background: $dark-red;
+      }
+    }
+  }
+
+}

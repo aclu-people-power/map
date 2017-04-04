@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const path = require('path');
 const util = require('./util');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -97,7 +98,9 @@ module.exports = function(env){
       new CopyWebpackPlugin([{
         from: './src/data/us_postal_codes.json',
         to: 'us_postal_codes.json'
-      }])
+      }]),
+       // Ignore moment.js locale files, they are large
+      new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     ]
   }
 }
