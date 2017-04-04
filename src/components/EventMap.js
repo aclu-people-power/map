@@ -151,7 +151,8 @@ export default function(store){
               "text-color": "#FFF"
           }
         });
-
+        
+        this.mapRef.addControl(new mapboxgl.NavigationControl())
         this.plotEvents();
       }.bind(this))
     }
