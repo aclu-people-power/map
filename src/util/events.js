@@ -58,12 +58,6 @@ export function computeFilteredEvents(events, filters, zipcodes) {
     }
 
     if (filters.zipcode) {
-      // We do not yet have valid zipcodes to filter against,
-      // give it a pass.
-      if (!zipcodes || !zipCodesLength) {
-        return true;
-      }
-
       const milesFromZipcode = metersToMiles(
         distance(zipcodes[filters.zipcode].reverse(), [event.lng, event.lat])
       );
