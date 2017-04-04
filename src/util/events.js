@@ -59,7 +59,7 @@ export function computeFilteredEvents(events, filters, zipcodes) {
 
     if (filters.zipcode) {
       const milesFromZipcode = metersToMiles(
-        distance(zipcodes[filters.zipcode].reverse(), [event.lng, event.lat])
+        distance([zipcodes[filters.zipcode][1], zipcodes[filters.zipcode][0]], [event.lng, event.lat])
       );
 
       const MAX_MILES_FROM_ZIPCODE = 50;

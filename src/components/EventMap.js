@@ -71,7 +71,8 @@ export default function(store){
       },
 
       setMapPositionBasedOnZip() {
-        const latLng = this.zipcodes[this.filters.zipcode];
+        let latLng = this.zipcodes[this.filters.zipcode];
+        if (latLng) latLng = [latLng[1], latLng[0]];
         const zoom = (latLng) ? 8 : this.initialZoom;
 
         this.mapRef.flyTo({
