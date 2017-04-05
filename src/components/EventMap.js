@@ -5,7 +5,6 @@ import mapStyles from 'src/assets/styles/mapbox_styles';
 import geoJsonHelpers from 'turf-helpers';
 import mapboxgl from 'mapbox-gl';
 
-
 mapboxgl.accessToken = 'pk.eyJ1Ijoia2VubmV0aHBlbm5pbmd0b24iLCJhIjoiY2l6bmJ3MmFiMDMzZTMzbDJtdGxkM3hveSJ9.w4iOGaL2vrIvETimSXUXsw';
 
 export default function(store){
@@ -91,6 +90,22 @@ export default function(store){
         img.onload = function() {
           this.mapRef.addImage(name, img);
         }.bind(this);
+      },
+
+      createEmptyEventsDataSource() {
+        this.mapRef.addSource("events", {
+          "type": "geojson",
+          "data": geoJsonHelpers.featureCollection([]),
+          "cluster": true,
+          "clusterMaxZoom": 8
+        });
+      },
+
+      mapMounted() {
+        this.createEmptyEventsDataSource();
+        this.addCustomIcon(mapMarker, "custom-marker");
+        mapStyles.forEach((style) => this.mapRef.addLayer(style));
+        this.plotEvents();
       }
     },
 
@@ -102,19 +117,8 @@ export default function(store){
         zoom: this.initialZoom
       });
 
-      this.mapRef.on("load", function(){
-        this.mapRef.addSource("events", {
-          "type": "geojson",
-          "data": null,
-          "cluster": true,
-          "clusterMaxZoom": 8
-        });
-
-        this.addCustomIcon(mapMarker, "custom-marker");
-        mapStyles.forEach((style) => this.mapRef.addLayer(style));
-        this.mapRef.addControl(new mapboxgl.NavigationControl())
-        this.plotEvents();
-      }.bind(this))
+      this.mapRef.addControl(new mapboxgl.NavigationControl());
+      this.mapRef.on("load", this.mapMounted.bind(this));
     }
   })
 }
