@@ -2,15 +2,14 @@
 
 $pd-day-hover-color: lighten($pd-day-color, 8%);
 
-// @Overwritten styles
 #calendar-container {
-  height: 215px;
   overflow: hidden;
   display: flex;
   justify-content: center;
-  margin-top: 30px;
+  padding: 1.3em  0 .5em 0;
 }
 
+// @Overwritten styles
 .pika-single,
 .pika-single.is-bound {
   border: none;
@@ -19,9 +18,9 @@ $pd-day-hover-color: lighten($pd-day-color, 8%);
 
 .pika-lendar {
   .pika-title {
-    border-bottom: 2px solid $light-gray;
-    padding: 0 40px;
-    margin-bottom: 5px;
+    border-bottom: 1px solid $light-gray;
+    padding: 0 2.2em;
+    margin-bottom: 1em;
   }
   .pika-table {
     th {
