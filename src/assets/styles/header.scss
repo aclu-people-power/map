@@ -254,31 +254,29 @@
   }
 
   .toolbar-inner {
-    display: flex;
-    justify-content: center;
-    align-items: stretch;
+    margin: 0 auto;
   }
 
   .toolbar-item {
-    margin: 0 ($offset / 2);
-    display: flex;
-    flex-direction: column;
+    margin: 0 $offset 0 0;
+    display: inline-block;
 
-    button,
-    .btn {
-      padding-left: 2em;
-      padding-right: 2em;
+    &:last-child {
+      margin-right: 0;
     }
-
-    > * {
-      flex: 1;
-    }
+    min-width: 8em;
   }
 
   .toolbar {
     .zipcode {
       border: solid 1px $light-gray;
-      font-size: .9em;
+    }
+    .search {
+      background: $red;
+      &:hover {
+        background: $dark-red;
+      }
     }
   }
+
 }

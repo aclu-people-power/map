@@ -57,39 +57,38 @@
     <div class="toolbar -desktop">
       <div class="toolbar-inner">
 
-        <div class="toolbar-item">
-          <input
-            class="zipcode"
-            type="text"
-            :value="filters.zipcode"
-            placeholder="Search by zip code"
-            @input="search"
-            autofocus
-            maxlength="5"
-          />
-        </div>
+        <input
+          class="toolbar-item zipcode"
+          type="text"
+          :value="filters.zipcode"
+          placeholder="Search by zip code"
+          @input="search"
+          autofocus
+          maxlength="5"
+        />
 
-        <div class="toolbar-item">
-          <button-dropdown button-text="Date of event">
-            <event-date-filters :filters="filters" ></event-date-filters>
-          </button-dropdown>
-        </div>
+        <button-dropdown button-text="Date of event" button-class="toolbar-item">
+          <event-date-filters :filters="filters" ></event-date-filters>
+        </button-dropdown>
 
-        <div class="toolbar-item">
-          <button-dropdown button-text="Type of event">
-            <event-type-filters :filters="filters"></event-type-filters>
-          </button-dropdown>
-        </div>
+        <button-dropdown button-text="Type of event" button-class="toolbar-item">
+          <event-type-filters :filters="filters"></event-type-filters>
+        </button-dropdown>
 
-        <div class="toolbar-item">
-          <a
-            class="btn"
-            href="https://go.peoplepower.org/signup/host_new?source=map"
-            target="_blank"
-          >
-            Host an event
-          </a>
-        </div>
+        <button
+          class="search toolbar-item"
+          @click="search"
+        >
+          Search events
+        </button>
+
+        <a
+          class="btn toolbar-item"
+          href="https://go.peoplepower.org/signup/host_new?source=map"
+          target="_blank"
+        >
+          Host an event
+        </a>
       </div>
     </div>
   </div>
