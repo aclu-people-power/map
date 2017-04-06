@@ -1,9 +1,11 @@
 import Vue from 'vue';
+import { getFilteredEvents } from 'src/util/events';
+import mapMarker from 'src/assets/images/map_marker.png';
+import mapStyles from 'src/assets/styles/mapbox_styles';
+import geoJsonHelpers from 'turf-helpers';
+import mapboxgl from 'mapbox-gl';
 
-// Attaches L (leaflet.js) to window.
-import 'mapbox.js';
-
-L.mapbox.accessToken = 'pk.eyJ1Ijoia2VubmV0aHBlbm5pbmd0b24iLCJhIjoiY2l6bmJ3MmFiMDMzZTMzbDJtdGxkM3hveSJ9.w4iOGaL2vrIvETimSXUXsw';
+mapboxgl.accessToken = 'pk.eyJ1Ijoia2VubmV0aHBlbm5pbmd0b24iLCJhIjoiY2l6bmJ3MmFiMDMzZTMzbDJtdGxkM3hveSJ9.w4iOGaL2vrIvETimSXUXsw';
 
 export default function(store){
   return new Vue({
@@ -14,6 +16,9 @@ export default function(store){
     data: {
       mapRef: null,
       eventsLayer: null,
+      initialCoordinates: [-96.9, 37.8],
+      initialZoom: 3,
+      boundsOfContinentalUS: [[-124.848974, 24.396308], [-66.885444, 49.384358]]
     },
     computed: {
       events() {
@@ -35,6 +40,7 @@ export default function(store){
     watch: {
       events(newEvents, oldEvents) {
         this.plotEvents();
+        this.resetMap();
 
         // events data just showed up on app boot, if applicable
         // set the map position based on zip
@@ -61,50 +67,82 @@ export default function(store){
     },
     methods: {
       plotEvents() {
-        // wipe out existing plotted events -- probably this can
-        // be done more efficiently
-        if (this.eventsLayer) {
-          this.eventsLayer.clearLayers();
+        const eventsSource = this.mapRef.getSource("events");
+
+        // mapbox will throw an error if we add data before the source has been added,
+        // which may happen if the zipcodes load faster than mapbox-gl mounts
+        if (eventsSource) {
+          const eventsAsGeoJson = this.filteredEvents.map((event) => geoJsonHelpers.point([event.lng, event.lat]));
+          eventsSource.setData(geoJsonHelpers.featureCollection(eventsAsGeoJson));
         }
-
-        this.eventsLayer = L.layerGroup().addTo(this.mapRef);
-
-        this.filteredEvents.forEach((event) => {
-          L.circleMarker([event.lat, event.lng], {
-            radius: 5,
-            color: 'white',
-            fillColor: '#ef3030',
-            opacity: 0.8,
-            fillOpacity: 0.7,
-            weight: 2
-          }).addTo(this.eventsLayer);
-        });
       },
 
       setMapPositionBasedOnZip() {
-        if (!this.filters.zipcode || !this.zipcodes[this.filters.zipcode]) {
+        let latLng = this.zipcodes[this.filters.zipcode];
+        if (latLng) latLng = [latLng[1], latLng[0]];
+        const zoom = (latLng) ? 8 : this.initialZoom;
 
-          this.setInitialMapPosition();
-          return;
+        if (latLng) {
+          this.mapRef.flyTo({
+            center: latLng,
+            zoom: zoom
+          });
+        } else {
+          this.mapRef.fitBounds(this.boundsOfContinentalUS);
         }
-
-        const latLng = this.zipcodes[this.filters.zipcode];
-        const zoom = 8;
-
-        this.mapRef.setView(latLng, zoom);
       },
 
-      setInitialMapPosition() {
-        const centerOfUS = [37.8, -96.9];
-        const zoom = 4;
+      addCustomIcon(icon, name) {
+        const img = new Image();
+        img.src = icon;
+        img.onload = () => {
+          this.mapRef.addImage(name, img);
+        };
+        this.setCustomIconPixelRatio();
+      },
 
-        this.mapRef.setView(centerOfUS, zoom);
+      setCustomIconPixelRatio() {
+        //Currently, mapbox-gl doesn't really care about the pixel ratio when
+        //rendering icons, so we have to set it ourselves.
+        const iconLayer = this.mapRef.getLayer("unclustered-points")
+        if (!window.devicePixelRatio || !iconLayer) return;
+        iconLayer.setLayoutProperty("icon-size", iconLayer.getLayoutProperty("icon-size") * window.devicePixelRatio);
+      },
+
+      resetMap() {
+        if (this.mapRef) {
+          this.mapRef.resize();
+        }
+      },
+
+      createEmptyEventsDataSource() {
+        this.mapRef.addSource("events", {
+          "type": "geojson",
+          "data": geoJsonHelpers.featureCollection([]),
+          "cluster": true,
+          "clusterMaxZoom": 8
+        });
+      },
+
+      mapMounted() {
+        this.resetMap();
+        this.createEmptyEventsDataSource();
+        mapStyles.forEach((style) => this.mapRef.addLayer(style));
+        this.addCustomIcon(mapMarker, "custom-marker");
+        this.plotEvents();
       }
     },
 
     mounted() {
-      this.mapRef = L.mapbox.map('map', 'mapbox.streets');
-      this.setInitialMapPosition();
+      this.mapRef = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/bright-v9',
+        center: this.initialCoordinates,
+        zoom: this.initialZoom
+      });
+
+      this.mapRef.addControl(new mapboxgl.NavigationControl());
+      this.mapRef.on("load", this.mapMounted);
     }
   })
 }

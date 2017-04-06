@@ -1,6 +1,8 @@
 @import "~styles/variables";
 
 .map {
-  flex: 1;
-  background: $light-blue;
+  background: $blue;
+  width: 100%;
+  height: 100%;
+  position: absolute;
 }
