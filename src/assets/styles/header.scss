@@ -191,6 +191,7 @@
   background: $white;
   border: solid 1px $light-gray;
   transition: background .3s;
+  padding: .5em 1.5em;
   &:hover {
     background: $off-white;
   }
