@@ -1,8 +1,6 @@
 import moment from 'moment';
 import distance from 'turf-distance';
 
-const metersToMiles = (meters) => meters * 0.00062137;
-
 export function computeFilteredEvents(events, filters, zipcodes) {
   // Bail out early if possible. Huge array!
   if (!Object.keys(filters).length) {
@@ -58,8 +56,10 @@ export function computeFilteredEvents(events, filters, zipcodes) {
     }
 
     if (filters.zipcode) {
-      const milesFromZipcode = metersToMiles(
-        distance([zipcodes[filters.zipcode][1], zipcodes[filters.zipcode][0]], [event.lng, event.lat])
+      const milesFromZipcode = distance(
+        [zipcodes[filters.zipcode][1], zipcodes[filters.zipcode][0]],
+        [event.lng, event.lat],
+        'miles'
       );
 
       const MAX_MILES_FROM_ZIPCODE = 50;
