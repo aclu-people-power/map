@@ -120,7 +120,7 @@ export default function(store){
       });
 
       this.mapRef.addControl(new mapboxgl.NavigationControl());
-      this.mapRef.on("load", this.mapMounted.bind(this));
+      this.mapRef.on("load", this.mapMounted);
     }
   })
 }
