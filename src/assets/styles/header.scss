@@ -163,9 +163,10 @@
 
 .filter-events-date-picker {
   position: relative;
+  width: 100%;
 
   .date-picker-header {
-    display: inline-block;
+    display: flex;
     width: 100%;
     text-align: center;
 
@@ -178,6 +179,8 @@
       padding: 0;
       font-size: .8em;
       padding-bottom: .3em;
+      flex: 4;
+      min-width: 6em;
 
       &:focus {
         border-color: $aclu-blue;
@@ -185,6 +188,7 @@
     }
     strong {
       font-size: .8em;
+      flex: 1;
       margin: 1em;
       text-align: center;
     }

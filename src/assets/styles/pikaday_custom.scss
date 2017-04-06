@@ -6,7 +6,6 @@ $pd-day-hover-color: lighten($pd-day-color, 8%);
   overflow: hidden;
   display: none;
   justify-content: center;
-  padding: 1.3em  0 .5em 0;
 
   &.active {
     display: flex;
@@ -17,9 +16,13 @@ $pd-day-hover-color: lighten($pd-day-color, 8%);
 .pika-single {
   border: none;
   box-shadow: none;
+  position: relative;
 }
 
 .pika-lendar {
+  width: 95vw;
+  padding: 2vw;
+
   .pika-title {
     border-bottom: 1px solid $light-gray;
     padding: 0 2.2em;
@@ -53,6 +56,27 @@ $pd-day-hover-color: lighten($pd-day-color, 8%);
         border-radius: 50%;
         background: $pd-day-selected-bg;
       }
+    }
+  }
+}
+
+@media (min-width: $breakpoint-large) {
+  .calendar-container {
+    &.active {
+      margin-top: 1.3em;
+    }
+    .calendar-panel {
+      width: 100%;
+    }
+  }
+
+  .pika-single {
+    position: relative;
+
+    .pika-lendar {
+      width: 100%;
+      padding: 0;
+      margin: 0;
     }
   }
 }

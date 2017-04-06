@@ -20,8 +20,8 @@
         />
       </div>
       <div :class="['calendar-container', { active: isActive }]">
-        <div v-show="currentCalendar === 'startDate'" ref='startCalendar' />
-        <div v-show="currentCalendar === 'endDate'" ref='endCalendar' />
+        <div class='calendar-panel' v-show="currentCalendar === 'startDate'" ref='startCalendar' />
+        <div class='calendar-panel' v-show="currentCalendar === 'endDate'" ref='endCalendar' />
       </div>
     </div>
   </div>
