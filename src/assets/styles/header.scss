@@ -66,15 +66,22 @@
   }
 }
 
+@keyframes slideUp {
+  0% { top: 105vh; }
+  100% { top: 0vh; }
+}
+
 .filter-events {
   position: fixed;
   overflow-y: scroll;
   z-index: 9999;
+  top: 105vh;
   left: 0;
   right: 0;
   bottom: 0;
   background: $white;
   text-align: left;
+  animation: slideUp .3s forwards;
 }
 
 .filter-events-header {
