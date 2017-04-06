@@ -5,7 +5,7 @@
   "filter": ["!has", "point_count"],
   "layout": {
       "icon-image": "custom-marker",
-      "icon-size": 0.5,
+      "icon-size": 0.25,
       "icon-offset": [0, -30]
   }
 },

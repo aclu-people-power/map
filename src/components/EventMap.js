@@ -92,6 +92,15 @@ export default function(store){
         img.onload = () => {
           this.mapRef.addImage(name, img);
         };
+        this.setCustomIconPixelRatio();
+      },
+
+      setCustomIconPixelRatio() {
+        //Currently, mapbox-gl doesn't really care about the pixel ratio when
+        //rendering icons, so we have to set it ourselves.
+        const iconLayer = this.mapRef.getLayer("unclustered-points")
+        if (!window.devicePixelRatio || !iconLayer) return;
+        iconLayer.setLayoutProperty("icon-size", iconLayer.getLayoutProperty("icon-size") * window.devicePixelRatio);
       },
 
       createEmptyEventsDataSource() {
@@ -105,8 +114,8 @@ export default function(store){
 
       mapMounted() {
         this.createEmptyEventsDataSource();
-        this.addCustomIcon(mapMarker, "custom-marker");
         mapStyles.forEach((style) => this.mapRef.addLayer(style));
+        this.addCustomIcon(mapMarker, "custom-marker");
         this.plotEvents();
       }
     },
