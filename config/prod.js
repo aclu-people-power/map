@@ -10,6 +10,12 @@ module.exports = function(env){
       filename: '[name].[chunkhash].js'
     },
     devtool: 'source-map',
+    // Uglify is blowing up trying to further minify mapbox-gl
+    // so for now just do not parse it -- it is already minified.
+    // https://github.com/mapbox/mapbox-gl-js/issues/4359
+    module: {
+      noParse: /(mapbox-gl)\.js$/,
+    },
     plugins: [
       new webpack.LoaderOptionsPlugin({
         minimize: true,
