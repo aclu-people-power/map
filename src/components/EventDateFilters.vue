@@ -79,12 +79,9 @@ export default {
   },
   methods: {
     deactivate: function(e) {
-      if (Object.values(this.$refs).includes(e.relatedTarget)) {
-        return;
-      } else {
+      if (!Object.values(this.$refs).includes(e.relatedTarget)) {
         this.currentCalendar = null;
       }
-      console.log(this.currentCalendar);
     }
   },
   data() {
