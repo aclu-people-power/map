@@ -89,9 +89,9 @@ export default function(store){
       addCustomIcon(icon, name) {
         const img = new Image();
         img.src = icon;
-        img.onload = function() {
+        img.onload = () => {
           this.mapRef.addImage(name, img);
-        }.bind(this);
+        };
       },
 
       createEmptyEventsDataSource() {
