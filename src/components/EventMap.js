@@ -16,8 +16,9 @@ export default function(store){
     data: {
       mapRef: null,
       eventsLayer: null,
-      initialCoordinates: [-96.9 , 37.8],
-      initialZoom: 4
+      initialCoordinates: [-96.9, 37.8],
+      initialZoom: 3,
+      boundsOfContinentalUS: [[-124.848974, 24.396308], [-66.885444, 49.384358]]
     },
     computed: {
       events() {
@@ -80,10 +81,14 @@ export default function(store){
         if (latLng) latLng = [latLng[1], latLng[0]];
         const zoom = (latLng) ? 8 : this.initialZoom;
 
-        this.mapRef.flyTo({
-          center: latLng || this.initialCoordinates,
-          zoom: zoom
-        });
+        if (latLng) {
+          this.mapRef.flyTo({
+            center: latLng,
+            zoom: zoom
+          });
+        } else {
+          this.mapRef.fitBounds(this.boundsOfContinentalUS);
+        }
       },
 
       addCustomIcon(icon, name) {
@@ -113,6 +118,7 @@ export default function(store){
       },
 
       mapMounted() {
+        this.mapRef.resize();
         this.createEmptyEventsDataSource();
         mapStyles.forEach((style) => this.mapRef.addLayer(style));
         this.addCustomIcon(mapMarker, "custom-marker");
