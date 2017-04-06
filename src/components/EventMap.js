@@ -40,6 +40,7 @@ export default function(store){
     watch: {
       events(newEvents, oldEvents) {
         this.plotEvents();
+        this.resetMap();
 
         // events data just showed up on app boot, if applicable
         // set the map position based on zip
@@ -108,6 +109,12 @@ export default function(store){
         iconLayer.setLayoutProperty("icon-size", iconLayer.getLayoutProperty("icon-size") * window.devicePixelRatio);
       },
 
+      resetMap() {
+        if (this.mapRef) {
+          this.mapRef.resize();
+        }
+      },
+
       createEmptyEventsDataSource() {
         this.mapRef.addSource("events", {
           "type": "geojson",
@@ -118,7 +125,7 @@ export default function(store){
       },
 
       mapMounted() {
-        this.mapRef.resize();
+        this.resetMap();
         this.createEmptyEventsDataSource();
         mapStyles.forEach((style) => this.mapRef.addLayer(style));
         this.addCustomIcon(mapMarker, "custom-marker");
