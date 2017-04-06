@@ -67,6 +67,8 @@ export default function(store){
       plotEvents() {
         const eventsSource = this.mapRef.getSource("events");
 
+        // mapbox will throw an error if we add data before the source has been added,
+        // which may happen if the zipcodes load faster than mapbox-gl mounts
         if (eventsSource) {
           const eventsAsGeoJson = this.filteredEvents.map((event) => geoJsonHelpers.point([event.lng, event.lat]));
           eventsSource.setData(geoJsonHelpers.featureCollection(eventsAsGeoJson));
