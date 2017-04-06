@@ -4,8 +4,8 @@
     <div class="filter-events-date-picker">
       <div class='date-picker-header'>
         <input
-          autofocus
           v-on:click="currentCalendar = 'startDate'"
+          v-on:blur="deactivate"
           ref="startDate"
           type="text"
           :value="startDate"
@@ -13,14 +13,15 @@
         <strong>to</strong>
         <input
           v-on:click="currentCalendar = 'endDate'"
+          v-on:blur="deactivate"
           ref="endDate"
           type="text"
           :value="endDate"
         />
       </div>
-      <div id='calendar-container'>
-        <div v-show="currentCalendar === 'startDate'" id='start-calendar' />
-        <div v-show="currentCalendar === 'endDate'" id='end-calendar' />
+      <div :class="['calendar-container', { active: isActive }]">
+        <div v-show="currentCalendar === 'startDate'" ref='startCalendar' />
+        <div v-show="currentCalendar === 'endDate'" ref='endCalendar' />
       </div>
     </div>
   </div>
@@ -57,9 +58,6 @@ const calendarFormat = {
 export default {
   name: 'event-date-filters',
   props: ['filters', 'showTitle'],
-  data() {
-    return { currentCalendar: 'startDate' };
-  },
   computed: {
     startDate: {
       get() {
@@ -69,6 +67,7 @@ export default {
         this.$store.commit('setFilters',{ startDate: value });
       }
     },
+    isActive: function() { return !!this.currentCalendar },
     endDate: {
       get(){
         return forDisplay(this.$store.state.filters.endDate);
@@ -78,6 +77,21 @@ export default {
       }
     }
   },
+  methods: {
+    deactivate: function(e) {
+      if (Object.values(this.$refs).includes(e.relatedTarget)) {
+        return;
+      } else {
+        this.currentCalendar = null;
+      }
+      console.log(this.currentCalendar);
+    }
+  },
+  data() {
+    return {
+      currentCalendar: null
+    };
+  },
 	mounted() {
     const component = this;
 
@@ -85,7 +99,7 @@ export default {
       field: component.$refs.startDate,
       format: displayFormat,
       bound: false,
-      container: document.getElementById('start-calendar'),
+      container: component.$refs.startCalendar,
       i18n: calendarFormat,
       minDate: new Date(),
       onSelect: function() {
@@ -98,7 +112,7 @@ export default {
     this.pikadayEndDate = new Pikaday({
       field: component.$refs.endDate,
       format: displayFormat,
-      container: document.getElementById('end-calendar'),
+      container: component.$refs.endCalendar,
       i18n: calendarFormat,
       minDate: new Date(),
       bound: false,
@@ -108,9 +122,6 @@ export default {
         component.pikadayStartDate.setMaxDate(date.toDate());
       }
     });
-
-    // Focus the startDate field by default
-    this.$refs.startDate.focus();
 	}
 }
 </script>

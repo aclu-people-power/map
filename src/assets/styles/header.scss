@@ -162,22 +162,32 @@
 }
 
 .filter-events-date-picker {
-  input {
-    border: none;
-    outline: none;
-    border-bottom: solid 2px $light-gray;
-    max-width: 33%;
-    padding-left: 0;
-    font-size: .8em;
-    padding-bottom: .3em;
+  position: relative;
 
-    &:focus {
-      border-color: $aclu-blue;
+  .date-picker-header {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+
+    input {
+      border: none;
+      outline: none;
+      border-bottom: solid 2px $light-gray;
+      text-align: center;
+      display: inline;
+      padding: 0;
+      font-size: .8em;
+      padding-bottom: .3em;
+
+      &:focus {
+        border-color: $aclu-blue;
+      }
     }
-  }
-  strong {
-    font-size: .8em;
-    margin: 1em;
+    strong {
+      font-size: .8em;
+      margin: 1em;
+      text-align: center;
+    }
   }
 }
 
@@ -236,6 +246,14 @@
   .branding {
     padding: 1em;
     @include clearfix;
+  }
+
+  .filter-events-date-picker {
+    .date-picker-header {
+      input {
+        width: 6.5em;
+      }
+    }
   }
 
   .logo,
