@@ -68,7 +68,7 @@
 
 @keyframes slideUp {
   0% { top: 105vh; }
-  100% { top: 4.5em; }
+  100% { top: 47px; }
 }
 
 .filter-events {
@@ -79,9 +79,10 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: $white;
+  background: transparent;
+  padding-top: 2em;
   text-align: left;
-  animation: slideUp .3s forwards;
+  animation: slideUp .4s ease forwards;
 }
 
 .filter-events-header {
@@ -94,9 +95,10 @@
 }
 
 .filter-events-body {
+  background: $white;
   padding: 0 1em;
   > * {
-    margin-top: 1em;
+    padding-top: 1em;
   }
 }
 
