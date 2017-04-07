@@ -1,14 +1,18 @@
-<div id="event-list" :class="['event-list', { '-active': view === 'list'}]">
-  <div v-for="event in filteredEvents" class="event-list-item">
+<div id="event-list" ref="root" :class="['event-list', { '-active': view === 'list'}]">
+  <event-list-item
+    v-for="event in filteredEvents"
+    :selected="event.id === selectedEventId"
+    :onSelect="scrollIntoView"
+  >
     <event-card v-bind:event="event"></event-card>
-  </div>
-  <div 
-    v-if="isSelectedZipcodeInvalid" 
+  </event-list-item>
+  <div
+    v-if="isSelectedZipcodeInvalid"
     class="event-list-empty"
     v-html="invalidZipcodeText"
   >
   </div>
-  <div 
+  <div
     v-else-if="events.length && !filteredEvents.length"
     class="event-list-empty"
     v-html="noEventsText"

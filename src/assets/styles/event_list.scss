@@ -1,5 +1,9 @@
 @import "~styles/variables";
 
+.event-list {
+  position: relative;
+}
+
 .event-list-item {
   border-top: solid 2px $gray;
   &:first-child {
@@ -22,6 +26,11 @@
     border-left: solid 2px $gray;
     .event-list-item {
       padding: 0 2em;
+    }
+  }
+  .event-list-item {
+    &.-selected {
+      border-left: solid 5px $aclu-blue;
     }
   }
 }
