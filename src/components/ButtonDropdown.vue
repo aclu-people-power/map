@@ -1,5 +1,5 @@
 <template>
-  <div ref="root" :class="['button-dropdown', buttonClass, { open: isOpen }]">
+  <div ref="root" :class="['button-dropdown', { open: isOpen }]">
     <button
        ref="button"
        class="button-dropdown-button"
