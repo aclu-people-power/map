@@ -20,18 +20,28 @@ export function computeFilteredEvents(events, filters, zipcodes) {
   return events.filter(function(event) {
 
     if (filters.eventType) {
-      if (!event.categories) {
+      const eventCategories = event.categories ?
+        event.categories.split(',') :
+        [];
+
+      // The UI lumps into "event types" what are mostly "categories"
+      // in ActionKit, with this one exception, the is_official
+      // boolean field, so we will just pretend it is a category.
+      if (event.is_official) {
+        eventCategories.push('aclu');
+      }
+
+      if (!eventCategories.length) {
         return false;
       }
 
-      const allCategories = event.categories.split(',');
-      const allEventTypes = filters.eventType.split(',');
+      const selectedEventTypes = filters.eventType.split(',');
 
-      const eventIsInNoSelectedCategories = allEventTypes.every(type =>
-        !allCategories.includes(type)
+      const eventMatchesNoSelectedTypes = selectedEventTypes.every(
+        type => !eventCategories.includes(type)
       );
 
-      if (eventIsInNoSelectedCategories) {
+      if (eventMatchesNoSelectedTypes) {
         return false;
       }
     }
@@ -74,6 +84,7 @@ export function computeFilteredEvents(events, filters, zipcodes) {
 }
 
 export const eventTypes = {
+  aclu: "Official ACLU Event",
   freedomcities: "Freedom Cities Action",
   muslimban: "Muslim Ban Action",
   protestrally: "Protest/Rally",
