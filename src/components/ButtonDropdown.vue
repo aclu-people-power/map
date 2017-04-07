@@ -1,15 +1,15 @@
 <template>
-  <div ref="root" :class="['button-dropdown', { open: isOpen }]">
-    <button 
+  <div ref="root" :class="['button-dropdown', buttonClass, { open: isOpen }]">
+    <button
        ref="button"
-       :class="['button-dropdown-button', buttonClass]" 
+       :class="['button-dropdown-button']"
       @click="toggleVisibility"
     >
       <span>
         {{ buttonText }}
       </span>
     </button>
-    <div v-show="isOpen" class="button-dropdown-content" :style="dropdownStyle">
+    <div v-if="isOpen" class="button-dropdown-content" :style="dropdownStyle">
       <slot></slot>
     </div>
   </div>

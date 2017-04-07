@@ -1,0 +1,82 @@
+@import "node_modules/pikaday/scss/pikaday.scss";
+
+$pd-day-hover-color: lighten($pd-day-color, 8%);
+
+.calendar-container {
+  overflow: hidden;
+  display: none;
+  justify-content: center;
+
+  &.active {
+    display: flex;
+  }
+}
+
+// @Overwritten styles
+.pika-single {
+  border: none;
+  box-shadow: none;
+  position: relative;
+}
+
+.pika-lendar {
+  width: 95vw;
+  padding: 2vw;
+
+  .pika-title {
+    border-bottom: 1px solid $light-gray;
+    padding: 0 2.2em;
+    margin-bottom: 1em;
+  }
+
+  .pika-table {
+    th {
+      color: $dark;
+      font-weight: normal;
+    }
+    td {
+      .pika-button {
+        width: 2em;
+        height: 2em;
+        border-radius: 50%;
+        font-weight: normal;
+        margin: 0 auto;
+        text-align: center;
+        font-family: inherit;
+        font-weight: normal;
+        background: transparent;
+      }
+
+      .pika-button:hover {
+        color: inherit;
+        background: rgba(0, 0, 0, 0.05);
+      }
+
+      &.is-selected .pika-button {
+        border-radius: 50%;
+        background: $pd-day-selected-bg;
+      }
+    }
+  }
+}
+
+@media (min-width: $breakpoint-large) {
+  .calendar-container {
+    &.active {
+      margin-top: 1.3em;
+    }
+    .calendar-panel {
+      width: 100%;
+    }
+  }
+
+  .pika-single {
+    position: relative;
+
+    .pika-lendar {
+      width: 100%;
+      padding: 0;
+      margin: 0;
+    }
+  }
+}

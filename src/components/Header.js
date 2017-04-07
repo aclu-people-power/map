@@ -32,19 +32,7 @@ export default function(store){
       toggleView() {
         store.commit('viewToggled');
       },
-      toggleFilterEvents() {
-        // When opening, calculate where to position it based on
-        // cta’s position.
-        if (!this.isFilterEventsOpen) {
-          const position = this.$refs.cta.getBoundingClientRect().top;
-          // This is to account for the large empty on the top of this
-          // font included in its line height // (wish I knew the right word...)
-          const adjustment = 10;
-          this.filterEventsTop.top = `${position + adjustment}px`;
-        }
-
-        this.isFilterEventsOpen = !this.isFilterEventsOpen;
-      },
+      toggleFilterEvents: function() { this.isFilterEventsOpen = !this.isFilterEventsOpen },
       search(e) {
         const newZipcode = e.target.value;
 
