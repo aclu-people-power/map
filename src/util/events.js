@@ -67,7 +67,7 @@ export function computeFilteredEvents(events, filters, zipcodes) {
 
     if (filters.zipcode) {
       const milesFromZipcode = distance(
-        [zipcodes[filters.zipcode][1], zipcodes[filters.zipcode][0]],
+        zipcodes[filters.zipcode],
         [event.lng, event.lat],
         'miles'
       );
