@@ -1,0 +1,39 @@
+[{
+  "id": "unclustered-points",
+  "type": "symbol",
+  "source": "events",
+  "filter": ["!has", "point_count"],
+  "layout": {
+      "icon-image": "custom-marker",
+      "icon-size": 0.25,
+      "icon-offset": [0, -30]
+  }
+},
+{
+  "id": "clusters",
+  "type": "circle",
+  "source": "events",
+  "paint": {
+    "circle-color": "#ff4b4d",
+    "circle-radius": 12,
+    "circle-stroke-width": 2,
+    "circle-stroke-color": "white"
+  },
+  "filter": [">=", "point_count", 1]
+},
+{
+  "id": "clusters-count",
+  "type": "symbol",
+  "source": "events",
+  "layout": {
+      "text-field": "{point_count}",
+      "text-font": [
+          "DIN Offc Pro Medium",
+          "Arial Unicode MS Bold"
+      ],
+      "text-size": 12
+  },
+  "paint": {
+      "text-color": "white"
+  }
+}]
