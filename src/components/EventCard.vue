@@ -15,7 +15,7 @@
       {{event.venue}}
     </div>
     <div v-if="hasCapacity">
-      <a class="btn event-card-cta" v-bind:href="event.url" target="_blank">RSVP</a>
+      <a class="btn event-card-cta" :href="url" target="_blank">RSVP</a>
     </div>
   </div>
 </template>
@@ -46,6 +46,9 @@ export default {
       return this.event.categories.split(',')
         .map(event => eventTypes[event])
         .filter(Boolean);
+    },
+    url() {
+      return `https://go.peoplepower.org/event/${this.event.campaign}/${this.event.id}`;
     }
   }
 }
