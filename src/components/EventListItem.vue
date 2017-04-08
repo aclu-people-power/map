@@ -11,7 +11,7 @@ export default {
   watch: {
     selected() {
       if (this.selected) {
-        this.onSelect(this.$refs.root.offsetTop);
+        this.$refs.root.scrollIntoView({ behavior: 'smooth' });
       }
     }
   }

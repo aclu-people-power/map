@@ -39,13 +39,6 @@ export default function(store){
         return "Invalid zipcode."
       },
     },
-    methods: {
-      scrollIntoView(offsetTop) {
-        if (this.$refs.root) {
-          this.$refs.root.scrollTop = offsetTop + 2;
-        }
-      }
-    },
     components: {
       'event-card': EventCard,
       'event-list-item': EventListItem

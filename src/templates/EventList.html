@@ -1,8 +1,7 @@
-<div id="event-list" ref="root" :class="['event-list', { '-active': view === 'list'}]">
+<div id="event-list" :class="['event-list', { '-active': view === 'list'}]">
   <event-list-item
     v-for="event in filteredEvents"
     :selected="event.id === selectedEventId"
-    :onSelect="scrollIntoView"
   >
     <event-card v-bind:event="event"></event-card>
   </event-list-item>
