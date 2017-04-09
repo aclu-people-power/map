@@ -6,7 +6,8 @@
   "layout": {
       "icon-image": "custom-marker",
       "icon-size": 0.25,
-      "icon-offset": [0, -30]
+      "icon-offset": [0, -30],
+      "icon-allow-overlap": true
   }
 },
 {

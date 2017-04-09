@@ -182,7 +182,8 @@ export default function(store){
 
           this.mapRef.flyTo({
             center: feature.geometry.coordinates,
-            zoom: currentZoom + 1
+            zoom: currentZoom + 2,
+            curve: 1
           });
         });
       },
