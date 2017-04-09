@@ -17,3 +17,13 @@
     max-width: 350px;
   }
 }
+
+.mapboxgl-popup .mapboxgl-popup-content {
+  background: $white;
+  -webkit-font-smoothing: subpixel-antialiased;
+  padding: 0;
+  .event-card {
+    padding: $offset;
+    max-width: 350px;
+  }
+}

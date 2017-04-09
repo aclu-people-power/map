@@ -170,7 +170,7 @@ export default function(store){
 
           new mapboxgl.Popup()
             .setLngLat(feature.geometry.coordinates)
-            .setHTML(vm.$el.outerHTML)
+            .setDOMContent(vm.$el)
             .addTo(this.mapRef);
         });
       },
