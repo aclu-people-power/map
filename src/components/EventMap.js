@@ -151,6 +151,7 @@ export default function(store){
 
         this.mapRef.on('click', 'unclustered-points', (e) => {
           const feature = e.features[0];
+          const eventId = feature.properties.id;
 
           // Create a Vue instance _inside_ a mapbox Map instance
           // _inside_ another Vue instance WHOAH. The point is
@@ -158,12 +159,14 @@ export default function(store){
           const vm = new Vue({
             template: '<event-card :event="event"></event-card>',
             data: {
-              event: eventMap.filteredEvents.find(ev => ev.id === feature.properties.id)
+              event: eventMap.filteredEvents.find(ev => ev.id === eventId)
             },
             components: { 
               'event-card': EventCard 
             }
           }).$mount();
+
+          store.commit('eventSelected', eventId);
 
           new mapboxgl.Popup()
             .setLngLat(feature.geometry.coordinates)
