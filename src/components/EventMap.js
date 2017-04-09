@@ -105,19 +105,19 @@ export default function(store){
         }
       },
 
-      addCustomIcon(icon, name) {
+      addCustomIcon(icon, name, layerId) {
         const img = new Image();
         img.src = icon;
         img.onload = () => {
           this.mapRef.addImage(name, img);
         };
-        this.setCustomIconPixelRatio();
+        this.setCustomIconPixelRatio(layerId);
       },
 
-      setCustomIconPixelRatio() {
+      setCustomIconPixelRatio(layerId) {
         //Currently, mapbox-gl doesn't really care about the pixel ratio when
         //rendering icons, so we have to set it ourselves.
-        const iconLayer = this.mapRef.getLayer("unclustered-points")
+        const iconLayer = this.mapRef.getLayer(layerId)
         if (!window.devicePixelRatio || !iconLayer) return;
         iconLayer.setLayoutProperty("icon-size", iconLayer.getLayoutProperty("icon-size") * window.devicePixelRatio);
       },
@@ -237,8 +237,8 @@ export default function(store){
         this.openPopupsOnClick();
         this.zoomOnClusterClick();
 
-        this.addCustomIcon(mapMarker, "custom-marker");
-        this.addCustomIcon(mapMarkerStar, "custom-marker-star");
+        this.addCustomIcon(mapMarker, 'custom-marker', 'unclustered-points');
+        this.addCustomIcon(mapMarkerStar, 'custom-marker-star', 'stars');
 
         this.plotEvents();
       }
