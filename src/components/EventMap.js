@@ -152,8 +152,24 @@ export default function(store){
         });
       },
 
+      getPopupContent(eventId) {
+        // Create a Vue instance _inside_ a mapbox Map instance
+        // _inside_ another Vue instance WHOAH. The point is
+        // to reuse the existing event card component.
+        const vm = new Vue({
+          template: '<event-card :event="event"></event-card>',
+          data: {
+            event: this.filteredEvents.find(ev => ev.id === eventId)
+          },
+          components: {
+            'event-card': EventCard
+          }
+        }).$mount();
+
+        return vm.$el;
+      },
+
       openPopupsOnClick() {
-        const eventMap = this;
 
         ['unclustered-points', 'stars'].forEach(layer => {
 
@@ -163,21 +179,6 @@ export default function(store){
             const eventCoordinates = e.features[0].geometry.coordinates;
 
             store.commit('eventSelected', eventId);
-
-            // Create a Vue instance _inside_ a mapbox Map instance
-            // _inside_ another Vue instance WHOAH. The point is
-            // to reuse the existing event card component.
-            const vm = new Vue({
-              template: '<event-card :event="event"></event-card>',
-              data: {
-                event: eventMap.filteredEvents.find(ev => ev.id === eventId)
-              },
-              components: {
-                'event-card': EventCard
-              }
-            }).$mount();
-
-
 
             let popupOptions = {};
 
@@ -205,7 +206,7 @@ export default function(store){
 
             new mapboxgl.Popup(popupOptions)
               .setLngLat(eventCoordinates)
-              .setDOMContent(vm.$el)
+              .setDOMContent(this.getPopupContent(eventId))
               .addTo(this.mapRef);
           });
         });
