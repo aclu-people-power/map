@@ -1,5 +1,9 @@
 @import "~styles/variables";
 
+.event-list {
+  position: relative;
+}
+
 .event-list-item {
   border-top: solid 2px $gray;
   &:first-child {
@@ -18,10 +22,14 @@
 
 @media (min-width: $breakpoint-large) {
   .event-list {
-    border-top: solid 2px $gray;
-    border-left: solid 2px $gray;
     .event-list-item {
       padding: 0 2em;
+    }
+  }
+  .event-list-item {
+    border-left: solid 2px $gray;
+    &.-selected {
+      border-left: solid 5px $aclu-blue;
     }
   }
 }

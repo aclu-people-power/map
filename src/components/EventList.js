@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import EventCard from 'src/components/EventCard';
+import EventListItem from 'src/components/EventListItem';
 
 export default function(store){
   return new Vue({
@@ -23,6 +24,9 @@ export default function(store){
       view() {
         return store.state.view;
       },
+      selectedEventId() {
+        return store.state.selectedEventId;
+      },
       isSelectedZipcodeInvalid() {
         return this.filters.zipcode &&
           this.zipcodes &&
@@ -33,10 +37,11 @@ export default function(store){
       },
       invalidZipcodeText() {
         return "Invalid zipcode."
-      }
+      },
     },
     components: {
-      'event-card': EventCard
+      'event-card': EventCard,
+      'event-list-item': EventListItem
     }
   })
 }

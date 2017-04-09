@@ -1,7 +1,10 @@
 <template>
   <div class="event-card inner-wrap">
-    <div v-if="labels.length" class="event-card-labels">
-      <span v-for="label in labels" class="event-card-label">
+    <div v-if="hasLabels" class="event-card-labels">
+      <span v-if="event.is_official" class="event-card-label">
+        <i class="icon-star-full"></i> Official ACLU Event
+      </span>
+      <span v-for="label in categoryLabels" class="event-card-label">
         {{label}}
       </span>
     </div>
@@ -15,7 +18,7 @@
       {{event.venue}}
     </div>
     <div v-if="hasCapacity">
-      <a class="btn event-card-cta" v-bind:href="event.url" target="_blank">RSVP</a>
+      <a class="btn event-card-cta" :href="url" target="_blank">RSVP</a>
     </div>
   </div>
 </template>
@@ -38,14 +41,18 @@ export default {
     hasCapacity() {
       return this.event.attendee_count < this.event.max_attendees;
     },
-    labels() {
-      if (!this.event.categories) {
-        return [];
-      }
+    hasLabels() {
+      return this.event.is_official || this.event.categories;
+    },
+    categoryLabels() {
+      const categories = this.event.categories ?
+        this.event.categories.split(',') :
+        [];
 
-      return this.event.categories.split(',')
-        .map(event => eventTypes[event])
-        .filter(Boolean);
+      return categories.map(event => eventTypes[event]).filter(Boolean);
+    },
+    url() {
+      return `https://go.peoplepower.org/event/${this.event.campaign}/${this.event.id}`;
     }
   }
 }

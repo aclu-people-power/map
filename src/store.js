@@ -25,8 +25,8 @@ const store = new Vuex.Store({
     events: [],
     zipcodes: {},
     view: 'map',
-    filters: initialHash
-
+    filters: initialHash,
+    selectedEventId: null
   },
   actions: {
     loadEvents({commit}){
@@ -63,6 +63,9 @@ const store = new Vuex.Store({
     setFilters(state, filters) {
       state.filters = {...state.filters, ...filters};
     },
+    eventSelected(state, eventId) {
+      state.selectedEventId = eventId;
+    }
   },
   getters: {
     filteredEvents: state => {
