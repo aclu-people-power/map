@@ -3051,9 +3051,9 @@ mapbox-gl-supported@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/mapbox-gl-supported/-/mapbox-gl-supported-1.2.0.tgz#cbd34df894206cadda9a33c8d9a4609f26bb1989"
 
-mapbox-gl@^0.34.0:
-  version "0.34.0"
-  resolved "https://registry.yarnpkg.com/mapbox-gl/-/mapbox-gl-0.34.0.tgz#f35effae360b8174b7466476a400cc1306a19713"
+mapbox-gl@^0.35.0:
+  version "0.35.0"
+  resolved "https://registry.yarnpkg.com/mapbox-gl/-/mapbox-gl-0.35.0.tgz#458db5511196249e06f97e12fe11c8e30b4664bd"
   dependencies:
     "@mapbox/gl-matrix" "^0.0.1"
     "@mapbox/shelf-pack" "^3.0.0"

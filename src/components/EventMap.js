@@ -1,7 +1,7 @@
 import Vue from 'vue';
-import { getFilteredEvents } from 'src/util/events';
+import EventCard from 'src/components/EventCard';
 import mapMarker from 'src/assets/images/map_marker.png';
-import mapStyles from 'src/assets/styles/mapbox_styles';
+import mapLayers from 'src/assets/styles/mapbox_layers';
 import geoJsonHelpers from 'turf-helpers';
 import mapboxgl from 'mapbox-gl';
 
@@ -32,6 +32,13 @@ export default function(store){
       },
       filteredEvents() {
         return store.getters.filteredEvents;
+      },
+      geojsonEvents() {
+        return geoJsonHelpers.featureCollection(
+          this.filteredEvents.map(event =>
+            geoJsonHelpers.point([event.lng, event.lat], { id: event.id })
+          )
+        );
       },
       view() {
         return store.state.view;
@@ -72,8 +79,7 @@ export default function(store){
         // mapbox will throw an error if we add data before the source has been added,
         // which may happen if the zipcodes load faster than mapbox-gl mounts
         if (eventsSource) {
-          const eventsAsGeoJson = this.filteredEvents.map((event) => geoJsonHelpers.point([event.lng, event.lat]));
-          eventsSource.setData(geoJsonHelpers.featureCollection(eventsAsGeoJson));
+          eventsSource.setData(this.geojsonEvents);
         }
       },
 
@@ -115,19 +121,68 @@ export default function(store){
         }
       },
 
-      createEmptyEventsDataSource() {
+      createEventsDataSource() {
         this.mapRef.addSource("events", {
           "type": "geojson",
-          "data": geoJsonHelpers.featureCollection([]),
+          // Depending on the order in which things load,
+          // this may be intitialized empty and may be ready to roll
+          "data": this.geojsonEvents,
           "cluster": true,
           "clusterMaxZoom": 8
         });
       },
 
+      // For all layers representing events, we want the cursor to
+      // be a pointer on hover.
+      setCursorStyleOnHover() {
+        ['unclustered-points', 'clusters'].forEach(layer => {
+          this.mapRef.on('mouseenter', layer, (e) => {
+            this.mapRef.getCanvas().style.cursor = 'pointer';
+          });
+
+          this.mapRef.on('mouseleave', layer, (e) => {
+            this.mapRef.getCanvas().style.cursor = '';
+          });
+        });
+      },
+
+      openPopupsOnClick() {
+        const eventMap = this;
+
+        this.mapRef.on('click', 'unclustered-points', (e) => {
+          const feature = e.features[0];
+
+          // Create a Vue instance _inside_ a mapbox Map instance
+          // _inside_ another Vue instance WHOAH. The point is
+          // to reuse the existing event card component.
+          const vm = new Vue({
+            template: '<event-card :event="event"></event-card>',
+            data: {
+              event: eventMap.filteredEvents.find(ev => ev.id === feature.properties.id)
+            },
+            components: { 
+              'event-card': EventCard 
+            }
+          }).$mount();
+
+          new mapboxgl.Popup()
+            .setLngLat(feature.geometry.coordinates)
+            .setHTML(vm.$el.outerHTML)
+            .addTo(this.mapRef);
+        });
+      },
+
       mapMounted() {
         this.resetMap();
-        this.createEmptyEventsDataSource();
-        mapStyles.forEach((style) => this.mapRef.addLayer(style));
+        this.createEventsDataSource();
+
+        mapLayers.forEach(layer =>
+          this.mapRef.addLayer(layer)
+        );
+
+        this.setCursorStyleOnHover();
+        this.openPopupsOnClick();
+
         this.addCustomIcon(mapMarker, "custom-marker");
         this.plotEvents();
       }
