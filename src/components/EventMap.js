@@ -155,55 +155,59 @@ export default function(store){
       openPopupsOnClick() {
         const eventMap = this;
 
-        this.mapRef.on('click', 'unclustered-points', (e) => {
-          store.commit('eventSelected', eventId);
+        ['unclustered-points', 'stars'].forEach(layer => {
 
-          const eventId = e.features[0].properties.id;
-          const eventCoordinates = e.features[0].geometry.coordinates;
+          this.mapRef.on('click', layer, (e) => {
 
-          // Create a Vue instance _inside_ a mapbox Map instance
-          // _inside_ another Vue instance WHOAH. The point is
-          // to reuse the existing event card component.
-          const vm = new Vue({
-            template: '<event-card :event="event"></event-card>',
-            data: {
-              event: eventMap.filteredEvents.find(ev => ev.id === eventId)
-            },
-            components: {
-              'event-card': EventCard
+            const eventId = e.features[0].properties.id;
+            const eventCoordinates = e.features[0].geometry.coordinates;
+
+            store.commit('eventSelected', eventId);
+
+            // Create a Vue instance _inside_ a mapbox Map instance
+            // _inside_ another Vue instance WHOAH. The point is
+            // to reuse the existing event card component.
+            const vm = new Vue({
+              template: '<event-card :event="event"></event-card>',
+              data: {
+                event: eventMap.filteredEvents.find(ev => ev.id === eventId)
+              },
+              components: {
+                'event-card': EventCard
+              }
+            }).$mount();
+
+
+
+            let popupOptions = {};
+
+            // If the viewport width is on the small side, let’s put
+            // the popup on top of the marker and pan to it, so that
+            // it will usually look ok. For larger screens the
+            // popup is smart enough to usually Just Work.
+            if (document.documentElement.clientWidth < 600) {
+              popupOptions.anchor = 'bottom';
+
+              const bounds = this.mapRef.getBounds();
+
+              // The map’s height expressed in degrees of latitude
+              const mapHeight = bounds.getNorth() - bounds.getSouth();
+
+              // So pan to where that marker lives but centered a bit above it,
+              // to account for the tooltip. .5 of the map height would put
+              // the marker at the exact bottom edge of the screen; this is
+              // adjusted to look a little better.
+              this.mapRef.panTo([
+                eventCoordinates[0],
+                eventCoordinates[1] + (mapHeight * .4)
+              ]);
             }
-          }).$mount();
 
-
-
-          let popupOptions = {};
-
-          // If the viewport width is on the small side, let’s put
-          // the popup on top of the marker and pan to it, so that
-          // it will usually look ok. For larger screens the
-          // popup is smart enough to usually Just Work.
-          if (document.documentElement.clientWidth < 600) {
-            popupOptions.anchor = 'bottom';
-
-            const bounds = this.mapRef.getBounds();
-
-            // The map’s height expressed in degrees of latitude
-            const mapHeight = bounds.getNorth() - bounds.getSouth();
-
-            // So pan to where that marker lives but centered a bit above it,
-            // to account for the tooltip. .5 of the map height would put
-            // the marker at the exact bottom edge of the screen; this is
-            // adjusted to look a little better.
-            this.mapRef.panTo([
-              eventCoordinates[0],
-              eventCoordinates[1] + (mapHeight * .4)
-            ]);
-          }
-
-          new mapboxgl.Popup(popupOptions)
-            .setLngLat(eventCoordinates)
-            .setDOMContent(vm.$el)
-            .addTo(this.mapRef);
+            new mapboxgl.Popup(popupOptions)
+              .setLngLat(eventCoordinates)
+              .setDOMContent(vm.$el)
+              .addTo(this.mapRef);
+          });
         });
       },
 

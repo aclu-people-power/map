@@ -11,7 +11,7 @@
   }
 },
 {
-  "id": "unclustered-points-with-stars",
+  "id": "stars",
   "type": "symbol",
   "source": "events",
   "filter": [
