@@ -150,8 +150,10 @@ export default function(store){
         const eventMap = this;
 
         this.mapRef.on('click', 'unclustered-points', (e) => {
-          const feature = e.features[0];
-          const eventId = feature.properties.id;
+          store.commit('eventSelected', eventId);
+
+          const eventId = e.features[0].properties.id;
+          const eventCoordinates = e.features[0].geometry.coordinates;
 
           // Create a Vue instance _inside_ a mapbox Map instance
           // _inside_ another Vue instance WHOAH. The point is
@@ -161,15 +163,39 @@ export default function(store){
             data: {
               event: eventMap.filteredEvents.find(ev => ev.id === eventId)
             },
-            components: { 
-              'event-card': EventCard 
+            components: {
+              'event-card': EventCard
             }
           }).$mount();
 
-          store.commit('eventSelected', eventId);
 
-          new mapboxgl.Popup()
-            .setLngLat(feature.geometry.coordinates)
+
+          let popupOptions = {};
+
+          // If the viewport width is on the small side, let’s put
+          // the popup on top of the marker and pan to it, so that
+          // it will usually look ok. For larger screens the
+          // popup is smart enough to usually Just Work.
+          if (document.documentElement.clientWidth < 600) {
+            popupOptions.anchor = 'bottom';
+
+            const bounds = this.mapRef.getBounds();
+
+            // The map’s height expressed in degrees of latitude
+            const mapHeight = bounds.getNorth() - bounds.getSouth();
+
+            // So pan to where that marker lives but centered a bit above it,
+            // to account for the tooltip. .5 of the map height would put
+            // the marker at the exact bottom edge of the screen; this is
+            // adjusted to look a little better.
+            this.mapRef.panTo([
+              eventCoordinates[0],
+              eventCoordinates[1] + (mapHeight * .4)
+            ]);
+          }
+
+          new mapboxgl.Popup(popupOptions)
+            .setLngLat(eventCoordinates)
             .setDOMContent(vm.$el)
             .addTo(this.mapRef);
         });
