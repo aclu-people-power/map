@@ -5,4 +5,15 @@
   width: 100%;
   height: 100%;
   position: absolute;
+  flex: 1;
+}
+
+.mapboxgl-popup .mapboxgl-popup-content {
+  background: $white;
+  -webkit-font-smoothing: subpixel-antialiased;
+  padding: 0;
+  .event-card {
+    padding: $offset;
+    max-width: 350px;
+  }
 }

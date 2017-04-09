@@ -1,5 +1,6 @@
 .event-card {
   padding: $offset 0;
+  font-size: 1rem;
 }
 
 .event-card-title {
@@ -17,6 +18,7 @@
   padding: .3em 1em;
   display: inline-block;
   margin-right: .5em;
+  margin-bottom: .5em;
 }
 
 .event-card-date,
