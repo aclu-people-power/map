@@ -172,6 +172,18 @@ export default function(store){
         });
       },
 
+      zoomOnClusterClick() {
+        this.mapRef.on('click', 'clusters', (e) => {
+          const feature = e.features[0];
+          const currentZoom = this.mapRef.getZoom();
+
+          this.mapRef.flyTo({
+            center: feature.geometry.coordinates,
+            zoom: currentZoom + 1
+          });
+        });
+      },
+
       mapMounted() {
         this.resetMap();
         this.createEventsDataSource();
@@ -182,6 +194,7 @@ export default function(store){
 
         this.setCursorStyleOnHover();
         this.openPopupsOnClick();
+        this.zoomOnClusterClick();
 
         this.addCustomIcon(mapMarker, "custom-marker");
         this.plotEvents();
