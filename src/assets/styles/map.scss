@@ -1,10 +1,8 @@
 @import "~styles/variables";
 
-.map {
+#map {
   background: $blue;
-  width: 100%;
-  height: 100%;
-  position: absolute;
+  flex: 1;
 }
 
 .mapboxgl-popup .mapboxgl-popup-content {
