@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import EventCard from 'src/components/EventCard';
 import mapMarker from 'src/assets/images/map_marker.png';
+import mapMarkerStar from 'src/assets/images/map_marker_star.png';
 import mapLayers from 'src/assets/styles/mapbox_layers';
 import geoJsonHelpers from 'turf-helpers';
 import mapboxgl from 'mapbox-gl';
@@ -36,7 +37,13 @@ export default function(store){
       geojsonEvents() {
         return geoJsonHelpers.featureCollection(
           this.filteredEvents.map(event =>
-            geoJsonHelpers.point([event.lng, event.lat], { id: event.id })
+            geoJsonHelpers.point(
+              [event.lng, event.lat],
+              {
+                id: event.id,
+                isOfficial: !!event.is_official
+              }
+            )
           )
         );
       },
@@ -91,7 +98,7 @@ export default function(store){
         if (latLng) {
           this.mapRef.flyTo({
             center: latLng,
-            zoom: zoom
+            zoom
           });
         } else {
           this.mapRef.fitBounds(this.boundsOfContinentalUS);
@@ -132,15 +139,14 @@ export default function(store){
         });
       },
 
-      // For all layers representing events, we want the cursor to
-      // be a pointer on hover.
+      // For all layers, we want the cursor to be a pointer on hover.
       setCursorStyleOnHover() {
-        ['unclustered-points', 'clusters'].forEach(layer => {
-          this.mapRef.on('mouseenter', layer, (e) => {
+        mapLayers.forEach(layer => {
+          this.mapRef.on('mouseenter', layer.id, (e) => {
             this.mapRef.getCanvas().style.cursor = 'pointer';
           });
 
-          this.mapRef.on('mouseleave', layer, (e) => {
+          this.mapRef.on('mouseleave', layer.id, (e) => {
             this.mapRef.getCanvas().style.cursor = '';
           });
         });
@@ -227,6 +233,8 @@ export default function(store){
         this.zoomOnClusterClick();
 
         this.addCustomIcon(mapMarker, "custom-marker");
+        this.addCustomIcon(mapMarkerStar, "custom-marker-star");
+
         this.plotEvents();
       }
     },
