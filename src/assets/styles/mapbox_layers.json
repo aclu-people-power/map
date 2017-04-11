@@ -6,7 +6,24 @@
   "layout": {
       "icon-image": "custom-marker",
       "icon-size": 0.25,
-      "icon-offset": [0, -30]
+      "icon-offset": [0, -30],
+      "icon-allow-overlap": true
+  }
+},
+{
+  "id": "stars",
+  "type": "symbol",
+  "source": "events",
+  "filter": [
+    "all",
+    ["!has", "point_count"],
+    ["==", "isOfficial", true]
+  ],
+  "layout": {
+      "icon-image": "custom-marker-star",
+      "icon-size": 0.4,
+      "icon-offset": [0, -24],
+      "icon-allow-overlap": true
   }
 },
 {
