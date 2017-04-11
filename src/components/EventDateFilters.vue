@@ -63,8 +63,8 @@ export default {
       get() {
         return forDisplay(this.$store.state.filters.startDate);
       },
-      set(value) {
-        this.$store.commit('setFilters',{ startDate: value });
+      set(value){
+        this.$store.dispatch('setFilters',{ startDate: value });
       }
     },
     isActive: function() { return !!this.currentCalendar },
@@ -73,7 +73,7 @@ export default {
         return forDisplay(this.$store.state.filters.endDate);
       },
       set(value){
-        this.$store.commit('setFilters',{ endDate: value })
+        this.$store.dispatch('setFilters',{ endDate: value })
       }
     }
   },

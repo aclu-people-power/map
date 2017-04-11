@@ -37,7 +37,7 @@ export default function(store){
         const newZipcode = e.target.value;
 
         if (/^\d{5}$/.test(newZipcode) || !newZipcode) {
-          store.commit('setFilters',{zipcode: newZipcode });
+          store.dispatch('setFilters',{zipcode: newZipcode });
         }
       }
     },
