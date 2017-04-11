@@ -48,6 +48,15 @@ const store = new Vuex.Store({
         if (err) return;
         commit('zipcodesReceived', response.body);
       });
+    },
+    setFilters({ commit }, filters) {
+      // Pushing this to the next tick because it triggers a large
+      // workload which can momentarily block the UI interaction that
+      // initiated it and feel laggy. The reason this is split into
+      // an action and a mutation is to facilitate this nextTick-ing.
+      process.nextTick(() => {
+        commit('filtersReceived', filters);
+      });
     }
   },
   mutations: {
@@ -60,7 +69,7 @@ const store = new Vuex.Store({
     viewToggled(state) {
       state.view = state.view === 'map' ? 'list' : 'map';
     },
-    setFilters(state, filters) {
+    filtersReceived(state, filters) {
       state.filters = {...state.filters, ...filters};
     },
     eventSelected(state, eventId) {
