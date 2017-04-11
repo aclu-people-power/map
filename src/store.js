@@ -12,7 +12,7 @@ const initialHash = querystring.parse(window.location.hash.replace(/^#/, ''))
 //the setFilters mutation occurs
 const hashUpdaterPlugin = (store) => {
   store.subscribe((mutation, state) => {
-    if(mutation.type === "setFilters"){
+    if(mutation.type === "filtersReceived"){
       window.location.hash = querystring.stringify(state.filters)
     }
   })
