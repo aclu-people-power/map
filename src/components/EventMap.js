@@ -19,7 +19,7 @@ export default function(store){
       eventsLayer: null,
       initialCoordinates: [-96.9, 37.8],
       initialZoom: 3,
-      boundsOfContinentalUS: [[-124.848974, 24.396308], [-66.885444, 49.384358]]
+      boundsOfContinentalUS: [[-124.848974, 24.396308], [-66.885444, 49.384358]],
     },
     computed: {
       events() {
@@ -54,7 +54,6 @@ export default function(store){
     watch: {
       events(newEvents, oldEvents) {
         this.plotEvents();
-        this.resetMap();
 
         // events data just showed up on app boot, if applicable
         // set the map position based on zip
@@ -120,12 +119,6 @@ export default function(store){
         const iconLayer = this.mapRef.getLayer(layerId)
         if (!window.devicePixelRatio || !iconLayer) return;
         iconLayer.setLayoutProperty("icon-size", iconLayer.getLayoutProperty("icon-size") * window.devicePixelRatio);
-      },
-
-      resetMap() {
-        if (this.mapRef) {
-          this.mapRef.resize();
-        }
       },
 
       createEventsDataSource() {
@@ -226,7 +219,8 @@ export default function(store){
       },
 
       mapMounted() {
-        this.resetMap();
+        this.$refs.map.className = this.$refs.map.className.replace('-loading', '');
+
         this.createEventsDataSource();
 
         mapLayers.forEach(layer =>
