@@ -91,14 +91,12 @@ export default function(store){
       },
 
       setMapPositionBasedOnZip() {
-        let latLng = this.zipcodes[this.filters.zipcode];
-        if (latLng) latLng = [latLng[1], latLng[0]];
-        const zoom = (latLng) ? 8 : this.initialZoom;
+        const zipcodeCoordinates = this.zipcodes[this.filters.zipcode];
 
-        if (latLng) {
+        if (zipcodeCoordinates) {
           this.mapRef.flyTo({
-            center: latLng,
-            zoom
+            center: zipcodeCoordinates,
+            zoom: 8
           });
         } else {
           this.mapRef.fitBounds(this.boundsOfContinentalUS);

@@ -5,7 +5,7 @@ zipcodes = Hash.new
 
 CSV.foreach('../src/data/us_postal_codes.csv', headers: true) do |row|
   if row['zip']
-    zipcodes[row['zip']] = [ row['lat'].to_f, row['lon'].to_f ]
+    zipcodes[row['zip']] = [ row['lon'].to_f, row['lat'].to_f ]
   end
 end
 
