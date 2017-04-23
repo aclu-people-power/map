@@ -1,8 +1,20 @@
 @import "~styles/variables";
 
+.event-map {
+  align-items: stretch;
+  display: flex;
+}
+
 #map {
-  background: $blue;
   flex: 1;
+  position: relative;
+  &.-loading:after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    content: url('~images/loading.svg');
+  }
 }
 
 .mapboxgl-popup .mapboxgl-popup-content {

@@ -1,4 +1,4 @@
-<div id="event-list" :class="['event-list', { '-active': view === 'list'}]">
+<div id="event-list" class="event-list" :class="['event-list', { '-active': view === 'list'}]">
   <event-list-item
     v-for="event in filteredEvents"
     :selected="event.id === selectedEventId"

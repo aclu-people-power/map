@@ -1,3 +1,3 @@
-<div id="event-map" :class="['event-map', { '-active': view === 'map'}]">
-  <div id="map" class="map"></div>
+<div id="event-map" class="event-map" :class="{ '-active': view === 'map'}">
+  <div id="map" ref="map" class="-loading"></div>
 </div>

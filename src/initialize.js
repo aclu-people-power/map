@@ -2,7 +2,6 @@ import 'styles/index';
 import store from 'src/store.js';
 
 import Header from 'components/Header';
-import LoadingBar from 'components/LoadingBar';
 import EventMap from 'components/EventMap';
 import EventList from 'components/EventList';
 
@@ -19,7 +18,6 @@ store.dispatch('loadZips')
 
 // Initialize Vue instances with the store.
 Header(store);
-LoadingBar(store);
 EventMap(store);
 EventList(store);
 
