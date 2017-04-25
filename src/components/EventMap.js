@@ -1,8 +1,5 @@
 import Vue from 'vue';
 import EventCard from 'src/components/EventCard';
-import mapMarker from 'src/assets/images/map_marker.png';
-import mapMarkerStar from 'src/assets/images/map_marker_star.png';
-import mapLayers from 'src/assets/styles/mapbox_layers';
 import geoJsonHelpers from 'turf-helpers';
 import mapboxgl from 'mapbox-gl';
 
@@ -102,44 +99,23 @@ export default function(store){
         }
       },
 
-      addCustomIcon(icon, name, layerId) {
-        const img = new Image();
-        img.src = icon;
-        img.onload = () => {
-          this.mapRef.addImage(name, img);
-        };
-        this.setCustomIconPixelRatio(layerId);
-      },
-
-      setCustomIconPixelRatio(layerId) {
-        //Currently, mapbox-gl doesn't really care about the pixel ratio when
-        //rendering icons, so we have to set it ourselves.
-        const iconLayer = this.mapRef.getLayer(layerId)
-        if (!window.devicePixelRatio || !iconLayer) return;
-        iconLayer.setLayoutProperty("icon-size", iconLayer.getLayoutProperty("icon-size") * window.devicePixelRatio);
-      },
-
       createEventsDataSource() {
         this.mapRef.addSource("events", {
           "type": "geojson",
           // Depending on the order in which things load,
           // this may be intitialized empty and may be ready to roll
           "data": this.geojsonEvents,
-          "cluster": true,
-          "clusterMaxZoom": 8
         });
       },
 
       // For all layers, we want the cursor to be a pointer on hover.
       setCursorStyleOnHover() {
-        mapLayers.forEach(layer => {
-          this.mapRef.on('mouseenter', layer.id, (e) => {
-            this.mapRef.getCanvas().style.cursor = 'pointer';
-          });
+        this.mapRef.on('mouseenter', 'points', (e) => {
+          this.mapRef.getCanvas().style.cursor = 'pointer';
+        });
 
-          this.mapRef.on('mouseleave', layer.id, (e) => {
-            this.mapRef.getCanvas().style.cursor = '';
-          });
+        this.mapRef.on('mouseleave', 'points', (e) => {
+          this.mapRef.getCanvas().style.cursor = '';
         });
       },
 
@@ -162,57 +138,41 @@ export default function(store){
 
       openPopupsOnClick() {
 
-        ['unclustered-points', 'stars'].forEach(layer => {
+        this.mapRef.on('click', 'points', (e) => {
 
-          this.mapRef.on('click', layer, (e) => {
+          const eventId = e.features[0].properties.id;
+          const eventCoordinates = e.features[0].geometry.coordinates;
 
-            const eventId = e.features[0].properties.id;
-            const eventCoordinates = e.features[0].geometry.coordinates;
+          store.commit('eventSelected', eventId);
 
-            store.commit('eventSelected', eventId);
+          let popupOptions = {};
 
-            let popupOptions = {};
+          // If the viewport width is on the small side, let’s put
+          // the popup on top of the marker and pan to it, so that
+          // it will usually look ok. For larger screens the
+          // popup is smart enough to usually Just Work.
+          if (document.documentElement.clientWidth < 600) {
+            popupOptions.anchor = 'bottom';
 
-            // If the viewport width is on the small side, let’s put
-            // the popup on top of the marker and pan to it, so that
-            // it will usually look ok. For larger screens the
-            // popup is smart enough to usually Just Work.
-            if (document.documentElement.clientWidth < 600) {
-              popupOptions.anchor = 'bottom';
+            const bounds = this.mapRef.getBounds();
 
-              const bounds = this.mapRef.getBounds();
+            // The map’s height expressed in degrees of latitude
+            const mapHeight = bounds.getNorth() - bounds.getSouth();
 
-              // The map’s height expressed in degrees of latitude
-              const mapHeight = bounds.getNorth() - bounds.getSouth();
+            // So pan to where that marker lives but centered a bit above it,
+            // to account for the tooltip. .5 of the map height would put
+            // the marker at the exact bottom edge of the screen; this is
+            // adjusted to look a little better.
+            this.mapRef.panTo([
+              eventCoordinates[0],
+              eventCoordinates[1] + (mapHeight * .4)
+            ]);
+          }
 
-              // So pan to where that marker lives but centered a bit above it,
-              // to account for the tooltip. .5 of the map height would put
-              // the marker at the exact bottom edge of the screen; this is
-              // adjusted to look a little better.
-              this.mapRef.panTo([
-                eventCoordinates[0],
-                eventCoordinates[1] + (mapHeight * .4)
-              ]);
-            }
-
-            new mapboxgl.Popup(popupOptions)
-              .setLngLat(eventCoordinates)
-              .setDOMContent(this.getPopupContent(eventId))
-              .addTo(this.mapRef);
-          });
-        });
-      },
-
-      zoomOnClusterClick() {
-        this.mapRef.on('click', 'clusters', (e) => {
-          const feature = e.features[0];
-          const currentZoom = this.mapRef.getZoom();
-
-          this.mapRef.flyTo({
-            center: feature.geometry.coordinates,
-            zoom: currentZoom + 2,
-            curve: 1
-          });
+          new mapboxgl.Popup(popupOptions)
+            .setLngLat(eventCoordinates)
+            .setDOMContent(this.getPopupContent(eventId))
+            .addTo(this.mapRef);
         });
       },
 
@@ -221,16 +181,20 @@ export default function(store){
 
         this.createEventsDataSource();
 
-        mapLayers.forEach(layer =>
-          this.mapRef.addLayer(layer)
-        );
+        this.mapRef.addLayer({
+          id: 'points',
+          type: 'circle',
+          source: 'events',
+          paint: {
+            'circle-color': '#ff4b4d',
+            'circle-radius': 6,
+            'circle-stroke-width': 2,
+            'circle-stroke-color': 'white'
+          }
+        });
 
         this.setCursorStyleOnHover();
         this.openPopupsOnClick();
-        this.zoomOnClusterClick();
-
-        this.addCustomIcon(mapMarker, 'custom-marker', 'unclustered-points');
-        this.addCustomIcon(mapMarkerStar, 'custom-marker-star', 'stars');
 
         this.plotEvents();
       }
