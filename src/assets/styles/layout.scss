@@ -19,10 +19,15 @@
 .event-list {
   display: none;
   flex: 1;
+}
+
+.event-map.-active {
+  display: flex;
   flex-direction: column;
-  &.-active {
-    display: flex;
-  }
+}
+
+.event-list.-active {
+  display: block;
 }
 
 @media (min-width: $breakpoint-large) {
@@ -31,17 +36,14 @@
     align-items: stretch;
   }
 
-  .event-map,
-  .event-list {
-    display: flex;
-  }
-
   .event-map {
+    display: flex;
     flex: 2;
   }
 
   .event-list {
     flex: 1;
+    display: block;
     overflow-y: scroll;
   }
 }
