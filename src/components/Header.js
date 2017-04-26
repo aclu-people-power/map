@@ -15,6 +15,7 @@ export default function(store){
         // Where to position the expanded event filtering UI
         // for smaller screens
         filterEventsTop: { top: 0 },
+        scrollPosition: window.pageYOffset
       };
     },
     computed: {
@@ -26,6 +27,9 @@ export default function(store){
       },
       toggleButtonText() {
         return this.view === 'map' ? 'List view' : 'Map view'
+      },
+      shouldBeSticky() {
+        return this.scrollPosition > 350;
       }
     },
     methods: {
@@ -33,6 +37,7 @@ export default function(store){
         store.commit('viewToggled');
       },
       toggleFilterEvents: function() { this.isFilterEventsOpen = !this.isFilterEventsOpen },
+      updateScrollPosition: function() { this.scrollPosition = window.pageYOffset },
       search(e) {
         const newZipcode = e.target.value;
 
@@ -40,6 +45,9 @@ export default function(store){
           store.dispatch('setFilters',{zipcode: newZipcode });
         }
       }
+    },
+    mounted() {
+      window.setInterval(this.updateScrollPosition, 300);
     },
     components: {
       'event-type-filters': EventTypeFilters,

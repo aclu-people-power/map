@@ -3,6 +3,12 @@
   text-align: center;
 }
 
+.header.-sticky {
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+}
+
 .inner-wrap {
   padding: 1em;
   margin: 0 auto;
