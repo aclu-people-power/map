@@ -1,65 +1,14 @@
-<div class="header" id="header" :class="{ '-sticky': shouldBeSticky === true}">
-  <div class="inner-wrap">
-    <div class="branding">
-      <img class="logo" src="~images/logo.png" alt="logo" />
-      <h2 class="cta" ref="cta">Find events near you</h2>
-    </div>
-
-    <div class="toolbar">
-      <div class="search-wrap">
-        <input
-          type="text"
-          :value="filters.zipcode"
-          placeholder="Search by zip code"
-          @input="search"
-          autofocus
-          maxlength="5"
-        />
-        <button type="button">
-          <i class="icon-search"></i>
-        </button>
-      </div>
-      <div class="button-group">
-        <button
-          type="button"
-          @click="toggleFilterEvents"
-        >
-          Filter events
-        </button>
-
-        <button @click="toggleView" v-html="toggleButtonText">
-          List View
-        </button>
+<div>
+  <div class="header" id="header" ref="header" :class="{ '-sticky': shouldBeSticky === true}">
+    <div class="inner-wrap">
+      <div class="branding">
+        <img class="logo" src="~images/logo.png" alt="logo" />
+        <h2 class="cta" ref="cta">Find events near you</h2>
       </div>
 
-      <div v-if="isFilterEventsOpen">
-        <div class="filter-events" :style="filterEventsTop">
-          <div class="filter-events-header">
-            <span>Filter events</span>
-            <span class="filter-events-close" @click="toggleFilterEvents">
-              ✖
-            </span>
-          </div>
-          <div class="filter-events-body">
-            <event-date-filters :show-title="true" :filters="filters" ></event-date-filters>
-            <event-type-filters :show-title="true" :filters="filters"></event-type-filters>
-            <button
-              class="filter-events-search"
-              @click="toggleFilterEvents"
-            >
-              Search events
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="toolbar -desktop">
-      <div class="toolbar-inner">
-
-        <div class="toolbar-item">
+      <div class="toolbar">
+        <div class="search-wrap">
           <input
-            class="zipcode"
             type="text"
             :value="filters.zipcode"
             placeholder="Search by zip code"
@@ -67,30 +16,84 @@
             autofocus
             maxlength="5"
           />
+          <button type="button">
+            <i class="icon-search"></i>
+          </button>
         </div>
-
-        <div class="toolbar-item">
-          <button-dropdown button-text="Date of event">
-            <event-date-filters :filters="filters" ></event-date-filters>
-          </button-dropdown>
-        </div>
-
-        <div class="toolbar-item">
-          <button-dropdown button-text="Type of event">
-            <event-type-filters :filters="filters"></event-type-filters>
-          </button-dropdown>
-        </div>
-
-        <div class="toolbar-item">
-          <a
-            class="btn"
-            href="https://go.peoplepower.org/signup/host_new?source=map"
-            target="_blank"
+        <div class="button-group">
+          <button
+            type="button"
+            @click="toggleFilterEvents"
           >
-            Host an event
-          </a>
+            Filter events
+          </button>
+
+          <button @click="toggleView" v-html="toggleButtonText">
+            List View
+          </button>
+        </div>
+
+        <div v-if="isFilterEventsOpen">
+          <div class="filter-events" :style="filterEventsTop">
+            <div class="filter-events-header">
+              <span>Filter events</span>
+              <span class="filter-events-close" @click="toggleFilterEvents">
+                ✖
+              </span>
+            </div>
+            <div class="filter-events-body">
+              <event-date-filters :show-title="true" :filters="filters" ></event-date-filters>
+              <event-type-filters :show-title="true" :filters="filters"></event-type-filters>
+              <button
+                class="filter-events-search"
+                @click="toggleFilterEvents"
+              >
+                Search events
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="toolbar -desktop">
+        <div class="toolbar-inner">
+
+          <div class="toolbar-item">
+            <input
+              class="zipcode"
+              type="text"
+              :value="filters.zipcode"
+              placeholder="Search by zip code"
+              @input="search"
+              autofocus
+              maxlength="5"
+            />
+          </div>
+
+          <div class="toolbar-item">
+            <button-dropdown button-text="Date of event">
+              <event-date-filters :filters="filters" ></event-date-filters>
+            </button-dropdown>
+          </div>
+
+          <div class="toolbar-item">
+            <button-dropdown button-text="Type of event">
+              <event-type-filters :filters="filters"></event-type-filters>
+            </button-dropdown>
+          </div>
+
+          <div class="toolbar-item">
+            <a
+              class="btn"
+              href="https://go.peoplepower.org/signup/host_new?source=map"
+              target="_blank"
+            >
+              Host an event
+            </a>
+          </div>
         </div>
       </div>
     </div>
   </div>
+  <div :style="{height: headerHeight + 'px', display: (shouldBeSticky) ? 'block' : 'none'}"></div>
 </div>

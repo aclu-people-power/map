@@ -15,7 +15,8 @@ export default function(store){
         // Where to position the expanded event filtering UI
         // for smaller screens
         filterEventsTop: { top: 0 },
-        scrollPosition: window.pageYOffset
+        scrollPosition: window.pageYOffset,
+        headerHeight: 0
       };
     },
     computed: {
@@ -29,15 +30,18 @@ export default function(store){
         return this.view === 'map' ? 'List view' : 'Map view'
       },
       shouldBeSticky() {
-        return this.scrollPosition > 350;
-      }
+        return this.scrollPosition > this.headerHeight;
+      },
     },
     methods: {
       toggleView() {
         store.commit('viewToggled');
       },
       toggleFilterEvents: function() { this.isFilterEventsOpen = !this.isFilterEventsOpen },
-      updateScrollPosition: function() { this.scrollPosition = window.pageYOffset },
+      updateScrollPosition: function() {
+        this.scrollPosition = window.pageYOffset;
+        this.headerHeight = (this.$refs.header) ? this.$refs.header.clientHeight : 0;
+      },
       search(e) {
         const newZipcode = e.target.value;
 
