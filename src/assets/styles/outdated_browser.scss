@@ -1,0 +1,25 @@
+.outdated-browser {
+  display: none;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: $dark;
+  color: $light-blue;
+  padding: 4em;
+  font-size: 1.3em;
+  text-align: center;
+  a {
+    &:link, &:visited, &:hover {
+      color: $aclu-blue;
+    }
+  }
+}
+
+.no-flexbox, .no-webgl {
+  .outdated-browser {
+    display: block;
+  }
+}
