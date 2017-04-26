@@ -1,7 +1,5 @@
-html,
-body,
 .layout {
-  height: 100%;
+  height: 100vh;
 }
 
 .layout {
@@ -12,6 +10,9 @@ body,
 .layout-main {
   flex: 1;
   display: flex;
+  // sigh
+  // http://stackoverflow.com/a/28639686
+  min-height: 0;
 }
 
 .event-map,
