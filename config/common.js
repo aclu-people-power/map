@@ -70,6 +70,10 @@ module.exports = function(env){
             name: './images/[name]-[hash].[ext]'
           },
         },
+        {
+          test: /\.modernizrrc(\.json)?$/,
+          loader: "modernizr-loader!json-loader"
+        }
       ]
     },
     //Setup some basic extensions and aliases to make importing files easier
@@ -82,6 +86,7 @@ module.exports = function(env){
       extensions: [".js", ".json", ".vue", ".scss"],
       alias: {
         'vue$': 'vue/dist/vue.esm.js',
+        'modernizr$': path.resolve(__dirname, "../.modernizrrc.json"),
         'src': path.resolve(__dirname, '../src'),
         'assets': path.resolve(__dirname,'../src/assets'),
         'styles': path.resolve(__dirname,'../src/assets/styles'),

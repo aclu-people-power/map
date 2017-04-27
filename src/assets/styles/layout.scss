@@ -1,7 +1,5 @@
-html,
-body,
 .layout {
-  height: 100%;
+  height: 100vh;
 }
 
 .layout {
@@ -35,17 +33,14 @@ body,
     align-items: stretch;
   }
 
-  .event-map,
-  .event-list {
-    display: flex;
-  }
-
   .event-map {
+    display: flex;
     flex: 2;
   }
 
   .event-list {
     flex: 1;
+    display: block;
     overflow-y: scroll;
   }
 }

@@ -1,4 +1,6 @@
 import 'styles/index';
+import 'babel-polyfill';
+import 'modernizr';
 import store from 'src/store.js';
 
 import Header from 'components/Header';
