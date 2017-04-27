@@ -7,14 +7,17 @@
   right: 0;
   z-index: 1000;
   background: $dark;
-  color: $light-blue;
-  padding: 4em;
+  color: $lightest-blue;
+  padding: 4em 1em;
   font-size: 1.3em;
   text-align: center;
   a {
     &:link, &:visited, &:hover {
       color: $aclu-blue;
     }
+  }
+  img {
+    max-width: 300px;
   }
 }
 
