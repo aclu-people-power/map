@@ -4,8 +4,10 @@ import 'modernizr';
 import store from 'src/store.js';
 
 import Header from 'components/Header';
+import Footer from 'components/Footer';
 import EventMap from 'components/EventMap';
 import EventList from 'components/EventList';
+
 
 // Load events data
 store.dispatch('loadEvents')
@@ -22,6 +24,7 @@ store.dispatch('loadZips')
 Header(store);
 EventMap(store);
 EventList(store);
+Footer();
 
 // Allow HMR updates
 if (module.hot) {

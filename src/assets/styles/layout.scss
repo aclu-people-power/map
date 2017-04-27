@@ -9,20 +9,11 @@
 
 .layout-main {
   flex: 1;
-  display: flex;
-  // sigh
-  // http://stackoverflow.com/a/28639686
-  min-height: 0;
 }
 
 .event-map,
 .event-list {
   display: none;
-  flex: 1;
-}
-
-.event-map.-active {
-  display: flex;
   flex-direction: column;
 }
 
@@ -30,8 +21,14 @@
   display: block;
 }
 
+.event-map.-active {
+  display: flex;
+  height: 100%;
+}
+
 @media (min-width: $breakpoint-large) {
   .layout-main {
+    display: flex;
     flex-direction: row;
     align-items: stretch;
   }

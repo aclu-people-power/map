@@ -1,0 +1,93 @@
+.footer {
+  display: inline-block;
+  background: $light-gray;
+  height: 10em;
+  width: 100%;
+
+  .footer-buttons {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  a.btn {
+    margin: 1.5em 0.6em 0.3em 0.6em;
+    color: white;
+    text-decoration: none;
+    flex-grow: 1;
+    font-size: 1em;
+    text-align: center;
+    position: relative;
+    min-width: calc(50% - 2.5em);
+  }
+
+  .privacy-policy {
+    margin: 0 1em;
+
+    a:link,
+    a:visited,
+    a:hover {
+      color: $dark;
+    }
+  }
+
+  .host-btn {
+    background: $aclu-blue;
+  }
+
+  .share-btn {
+    background: $facebook-blue;
+
+    &:hover {
+      background: lighten($facebook-blue, 8%);
+    }
+    span {
+      margin-right: .2em;
+    }
+    img {
+      height: 1.1em;
+      width: 1.1em;
+      vertical-align: sub;
+    }
+  }
+
+  .privacy-policy {
+    margin-top: 0.2em;
+    font-size: 0.7em;
+    display: block;
+  }
+}
+
+.event-map.-active ~ .footer {
+  position: fixed;
+  background: transparent;
+  bottom: 1em;
+  height: auto;
+}
+
+@media (min-width: $breakpoint-large) {
+  .event-map.-active ~ .footer,
+  .event-map ~ .footer {
+    left: 0;
+    position: fixed;
+    background: transparent;
+    bottom: 1em;
+    height: auto;
+    width: auto;
+
+    .btn { font-size: 1.3em; }
+
+    .footer-buttons {
+      margin: 0;
+      max-width: 250px;
+    }
+
+    .privacy-policy {
+      font-size: 0.9em;
+    }
+
+    .btn.host-btn { display: none; }
+  }
+}
