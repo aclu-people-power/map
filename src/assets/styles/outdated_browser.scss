@@ -1,0 +1,28 @@
+.outdated-browser {
+  display: none;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: $dark;
+  color: $lightest-blue;
+  padding: 4em 1em;
+  font-size: 1.3em;
+  text-align: center;
+  a {
+    &:link, &:visited, &:hover {
+      color: $aclu-blue;
+    }
+  }
+  img {
+    max-width: 300px;
+  }
+}
+
+.no-flexbox, .no-webgl {
+  .outdated-browser {
+    display: block;
+  }
+}

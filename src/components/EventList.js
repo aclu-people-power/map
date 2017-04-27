@@ -29,7 +29,7 @@ export default function(store){
       },
       isSelectedZipcodeInvalid() {
         return this.filters.zipcode &&
-          this.zipcodes &&
+          Object.keys(this.zipcodes).length &&
           !this.zipcodes[this.filters.zipcode];
       },
       noEventsText(){

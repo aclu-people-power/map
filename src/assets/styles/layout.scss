@@ -1,7 +1,5 @@
-html,
-body,
 .layout {
-  height: 100%;
+  height: 100vh;
 }
 
 .layout {
@@ -11,36 +9,38 @@ body,
 
 .layout-main {
   flex: 1;
-  display: flex;
 }
 
 .event-map,
 .event-list {
   display: none;
-  flex: 1;
   flex-direction: column;
-  &.-active {
-    display: flex;
-  }
+}
+
+.event-list.-active {
+  display: block;
+}
+
+.event-map.-active {
+  display: flex;
+  height: 100%;
 }
 
 @media (min-width: $breakpoint-large) {
   .layout-main {
+    display: flex;
     flex-direction: row;
     align-items: stretch;
   }
 
-  .event-map,
-  .event-list {
-    display: flex;
-  }
-
   .event-map {
+    display: flex;
     flex: 2;
   }
 
   .event-list {
     flex: 1;
+    display: block;
     overflow-y: scroll;
   }
 }
