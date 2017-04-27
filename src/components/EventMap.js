@@ -80,7 +80,7 @@ export default function(store){
 
       // when the map is toggled to, make sure to resize accordingly
       view(newView, oldView) {
-        if (newView === 'map' && this.mapRef) {
+        if (newView !== oldView && newView === 'map' && this.mapRef) {
           Vue.nextTick(() => this.mapRef.resize());
         }
       }
