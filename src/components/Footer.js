@@ -11,7 +11,7 @@ export default function() {
     },
     computed: {
       shareUrl() {
-        return `${this.facebookUrl}?=${location.href}`
+        return `${this.facebookUrl}?=${this.currentUrl}`
       }
     },
     created() {

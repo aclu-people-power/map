@@ -25,7 +25,10 @@
 
   .privacy-policy {
     margin: 0 1em;
-    &:link, &:visited, &:hover {
+
+    a:link,
+    a:visited,
+    a:hover {
       color: $dark;
     }
   }
@@ -72,6 +75,7 @@
     background: transparent;
     bottom: 1em;
     height: auto;
+    width: auto;
 
     .btn { font-size: 1.3em; }
 
