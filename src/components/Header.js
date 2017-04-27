@@ -42,7 +42,7 @@ export default function(store){
         if (/^\d{5}$/.test(newZipcode) || !newZipcode) {
           store.dispatch('setFilters',{zipcode: newZipcode });
         }
-      }
+      },
       handleScroll: function() {
         clearTimeout(this.scrollTimeout);
 
