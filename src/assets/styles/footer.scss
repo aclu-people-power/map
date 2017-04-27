@@ -65,18 +65,15 @@
   .event-map.-active ~ .footer {
     left: 0;
 
-    .btn {
-      width: 50%;
-      font-size: 1.5em;
+    .btn { font-size: 1.3em; }
 
-      .fb-logo {
-        top: 5px;
-        right: -1.5em;
-      }
-    }
     .footer-buttons {
       margin: 0;
-      max-width: 300px;
+      max-width: 250px;
+    }
+
+    .privacy-policy {
+      font-size: 0.9em;
     }
 
     .btn.host-btn { display: none; }
