@@ -16,7 +16,7 @@ export default function(store){
         // for smaller screens
         filterEventsTop: { top: 0 },
         headerIsStuck: false,
-        placeholderHeight: 0
+        headerHeight: null
       };
     },
     computed: {
