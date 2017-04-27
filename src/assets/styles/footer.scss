@@ -34,25 +34,21 @@
   .share-btn {
     background: $facebook-blue;
 
-    .share-btn-content {
-      margin-left: -1.3em;
-      position: relative;
-
-      .fb-logo {
-        width: 1em;
-        height: 1em;
-        position: absolute;
-        right: -1.3em;
-        top: 2px;
-        display: inline-block;
-
-        background-image: url('../images/fb-logo-white.png');
-        background-size: 100%;
-      }
+    &:hover {
+      background: lighten($facebook-blue, 8%);
+    }
+    span {
+      margin-right: .2em;
+    }
+    img {
+      height: 1.1em;
+      width: 1.1em;
+      vertical-align: sub;
     }
   }
 
   .privacy-policy {
+    margin-top: 0.2em;
     font-size: 0.7em;
     display: block;
   }
