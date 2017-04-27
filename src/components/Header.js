@@ -16,6 +16,7 @@ export default function(store){
         // for smaller screens
         filterEventsTop: { top: 0 },
         headerIsStuck: false,
+        headerHeight: null,
         stickyBuffer: 100
       };
     },
@@ -46,7 +47,7 @@ export default function(store){
     mounted() {
       const checkIfHeaderShouldBeSticky = function() {
         this.headerHeight = (this.$refs.header) ? this.$refs.header.clientHeight : null;
-        this.headerIsStuck = this.headerHeight && window.pageYOffset > this.headerHeight + this.stickyBuffer;
+        this.headerIsStuck = this.headerHeight && this.view === 'list' && window.pageYOffset > this.headerHeight + this.stickyBuffer;
       }.bind(this);
 
       window.setInterval(checkIfHeaderShouldBeSticky, 300);
