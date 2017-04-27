@@ -16,7 +16,6 @@ export default function(store){
         // for smaller screens
         filterEventsTop: { top: 0 },
         headerIsStuck: false,
-        headerHeight: null,
         stickyBuffer: 100
       };
     },
@@ -43,18 +42,24 @@ export default function(store){
           store.dispatch('setFilters',{zipcode: newZipcode });
         }
       },
+      headerHeight: function() {
+        return (this.$refs.header) ? this.$refs.header.clientHeight : null;
+      },
+      checkifHeaderIsStuck() {
+        const headerHeight = this.headerHeight();
+        this.headerIsStuck = headerHeight && window.pageYOffset > headerHeight + this.stickyBuffer;
+      },
       handleScroll: function() {
         clearTimeout(this.scrollTimeout);
 
         this.scrollTimeout = setTimeout(() => {
-          this.headerHeight = (this.$refs.header) ? this.$refs.header.clientHeight : null;
-          this.headerIsStuck = this.headerHeight && this.view === 'list' && window.pageYOffset > this.headerHeight + this.stickyBuffer;
-        }, 100)
+          this.checkifHeaderIsStuck();
+        }, 100);
       }
     },
     mounted() {
       window.addEventListener('scroll', this.handleScroll);
-    },
+    }
 
     components: {
       'event-type-filters': EventTypeFilters,
