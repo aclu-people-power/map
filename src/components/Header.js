@@ -15,8 +15,8 @@ export default function(store){
         // Where to position the expanded event filtering UI
         // for smaller screens
         filterEventsTop: { top: 0 },
-        scrollPosition: window.pageYOffset,
-        headerHeight: 0
+        headerIsStuck: false,
+        placeholderHeight: 0
       };
     },
     computed: {
@@ -28,20 +28,13 @@ export default function(store){
       },
       toggleButtonText() {
         return this.view === 'map' ? 'List view' : 'Map view'
-      },
-      shouldBeSticky() {
-        return this.scrollPosition > this.headerHeight;
-      },
+      }
     },
     methods: {
       toggleView() {
         store.commit('viewToggled');
       },
       toggleFilterEvents: function() { this.isFilterEventsOpen = !this.isFilterEventsOpen },
-      updateScrollPosition: function() {
-        this.scrollPosition = window.pageYOffset;
-        this.headerHeight = (this.$refs.header) ? this.$refs.header.clientHeight : 0;
-      },
       search(e) {
         const newZipcode = e.target.value;
 
@@ -51,7 +44,18 @@ export default function(store){
       }
     },
     mounted() {
-      window.setInterval(this.updateScrollPosition, 300);
+      const checkIfHeaderShouldBeSticky = function() {
+        const headerHeight = (this.$refs.header) ? this.$refs.header.clientHeight : null;
+        const shouldHeaderBeStuck = headerHeight && window.pageYOffset > headerHeight;
+        if (this.headerIsStuck !== shouldHeaderBeStuck) {
+          this.headerIsStuck = shouldHeaderBeStuck;
+          if (shouldHeaderBeStuck == true && this.headerHeight !== this.$refs.header.clientHeight) {
+            this.headerHeight = this.$refs.header.clientHeight;
+          }
+        }
+      }.bind(this);
+
+      window.setInterval(checkIfHeaderShouldBeSticky, 300);
     },
     components: {
       'event-type-filters': EventTypeFilters,
