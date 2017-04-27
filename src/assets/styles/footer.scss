@@ -1,0 +1,82 @@
+.footer {
+  display: inline-block;
+  background: $light-gray;
+  height: 10em;
+  width: 100%;
+
+  .footer-buttons {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  a.btn {
+    margin: 1.5em 0.6em 0.3em 0.6em;
+    color: white;
+    text-decoration: none;
+    flex-grow: 1;
+    font-size: 1em;
+    text-align: center;
+    position: relative;
+    min-width: calc(50% - 2.5em);
+  }
+
+  .privacy-policy {
+    margin: 0 1em;
+  }
+
+  .host-btn {
+    background: $aclu-blue;
+  }
+
+  .share-btn {
+    background: $facebook-blue;
+
+    .share-btn-content {
+      margin-left: -1.3em;
+      position: relative;
+
+      .fb-logo {
+        width: 1em;
+        height: 1em;
+        position: absolute;
+        right: -1.3em;
+        top: 2px;
+        display: inline-block;
+
+        background-image: url('../images/fb-logo-white.png');
+        background-size: 100%;
+      }
+    }
+  }
+
+  .privacy-policy {
+    font-size: 0.7em;
+    display: block;
+  }
+}
+
+.event-map.-active ~ .footer {
+  position: fixed;
+  background: transparent;
+  bottom: 1em;
+  height: auto;
+}
+
+@media (min-width: $breakpoint-large) {
+  .event-map.-active ~ .footer {
+    left: 0;
+
+    .btn {
+      width: 50%;
+    }
+    .footer-buttons {
+      margin: 0;
+      max-width: 300px;
+    }
+
+    .btn.host-btn { display: none; }
+  }
+}

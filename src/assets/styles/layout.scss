@@ -11,17 +11,20 @@ body,
 
 .layout-main {
   flex: 1;
-  display: flex;
 }
 
 .event-map,
 .event-list {
   display: none;
-  flex: 1;
-  flex-direction: column;
-  &.-active {
-    display: flex;
-  }
+}
+
+.event-list.-active {
+  display: block;
+}
+
+.event-map.-active {
+  display: flex;
+  height: 100%;
 }
 
 @media (min-width: $breakpoint-large) {

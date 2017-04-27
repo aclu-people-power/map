@@ -14,6 +14,8 @@
     transform: translate(-50%, -50%);
     content: url('~images/loading.svg');
   }
+
+  .mapboxgl-ctrl-bottom-left { display: none; }
 }
 
 .mapboxgl-popup .mapboxgl-popup-content {
