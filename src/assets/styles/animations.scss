@@ -1,6 +1,6 @@
 @keyframes slideup {
-  0% { top: 105vh; }
-  100% { top: 4.5em; }
+  0% { transform: translateY(105vh); }
+  100% { transform: translateY(0); }
 }
 
 @keyframes slidein {

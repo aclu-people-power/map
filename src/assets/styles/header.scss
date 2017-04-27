@@ -79,13 +79,15 @@
   position: fixed;
   overflow-y: scroll;
   z-index: 9999;
-  top: 105vh;
+  top: 4.5em;
   left: 0;
   right: 0;
   bottom: 0;
   background: $white;
   text-align: left;
-  animation: slideup .3s forwards;
+  animation: slideup .3s;
+
+  .header.-sticky & { top: 0; }
 }
 
 .filter-events-header {

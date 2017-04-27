@@ -14,7 +14,6 @@ export default function(store){
         isFilterEventsOpen: false,
         // Where to position the expanded event filtering UI
         // for smaller screens
-        filterEventsTop: { top: 0 },
         headerIsStuck: false,
         stickyBuffer: 100
       };
@@ -54,7 +53,7 @@ export default function(store){
 
         this.scrollTimeout = setTimeout(() => {
           this.checkIfHeaderShouldBeStuck();
-        }, 100);
+        }, 25);
       }
     },
     mounted() {
