@@ -43,15 +43,19 @@ export default function(store){
           store.dispatch('setFilters',{zipcode: newZipcode });
         }
       }
+      handleScroll: function() {
+        clearTimeout(this.scrollTimeout);
+
+        this.scrollTimeout = setTimeout(() => {
+          this.headerHeight = (this.$refs.header) ? this.$refs.header.clientHeight : null;
+          this.headerIsStuck = this.headerHeight && this.view === 'list' && window.pageYOffset > this.headerHeight + this.stickyBuffer;
+        }, 100)
+      }
     },
     mounted() {
-      const checkIfHeaderShouldBeSticky = function() {
-        this.headerHeight = (this.$refs.header) ? this.$refs.header.clientHeight : null;
-        this.headerIsStuck = this.headerHeight && this.view === 'list' && window.pageYOffset > this.headerHeight + this.stickyBuffer;
-      }.bind(this);
-
-      window.setInterval(checkIfHeaderShouldBeSticky, 300);
+      window.addEventListener('scroll', this.handleScroll);
     },
+
     components: {
       'event-type-filters': EventTypeFilters,
       'event-date-filters': EventDateFilters,
