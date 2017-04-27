@@ -45,14 +45,8 @@ export default function(store){
     },
     mounted() {
       const checkIfHeaderShouldBeSticky = function() {
-        const headerHeight = (this.$refs.header) ? this.$refs.header.clientHeight : null;
-        const shouldHeaderBeStuck = headerHeight && window.pageYOffset > headerHeight;
-        if (this.headerIsStuck !== shouldHeaderBeStuck) {
-          this.headerIsStuck = shouldHeaderBeStuck;
-          if (shouldHeaderBeStuck == true && this.headerHeight !== this.$refs.header.clientHeight) {
-            this.headerHeight = this.$refs.header.clientHeight;
-          }
-        }
+        this.headerHeight = (this.$refs.header) ? this.$refs.header.clientHeight : null;
+        this.headerIsStuck = this.headerHeight && window.pageYOffset > this.headerHeight;
       }.bind(this);
 
       window.setInterval(checkIfHeaderShouldBeSticky, 300);
