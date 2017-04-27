@@ -28,6 +28,9 @@ export default function(store){
       },
       toggleButtonText() {
         return this.view === 'map' ? 'List view' : 'Map view'
+      },
+      headerPlaceholderStyle() {
+        return { height: this.headerHeight() + 'px' }
       }
     },
     methods: {
