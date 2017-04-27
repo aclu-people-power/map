@@ -24,7 +24,7 @@ const store = new Vuex.Store({
   state: {
     events: [],
     zipcodes: {},
-    view: 'map',
+    view: 'list',
     filters: initialHash,
     selectedEventId: null
   },

@@ -73,6 +73,13 @@ export default function(store){
         if (newFilters.zipcode !== oldFilters.zipcode) {
           this.setMapPositionBasedOnZip();
         }
+      },
+
+      // when the map is toggled to, make sure to resize accordingly
+      view(newView, oldView) {
+        if (newView !== oldView && newView === 'map' && this.mapRef) {
+          Vue.nextTick(() => this.mapRef.resize());
+        }
       }
     },
     methods: {

@@ -2,6 +2,7 @@ import Vue from 'vue';
 import EventTypeFilters from 'src/components/EventTypeFilters';
 import EventDateFilters from 'src/components/EventDateFilters';
 import ButtonDropdown from 'src/components/ButtonDropdown';
+import MobileEventFilters from 'src/components/MobileEventFilters';
 
 export default function(store){
   return new Vue({
@@ -45,6 +46,7 @@ export default function(store){
       'event-type-filters': EventTypeFilters,
       'event-date-filters': EventDateFilters,
       'button-dropdown': ButtonDropdown,
+      'mobile-event-filters': MobileEventFilters,
     }
   })
 }
