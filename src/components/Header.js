@@ -54,10 +54,7 @@ export default function(store){
       },
       handleScroll: function() {
         clearTimeout(this.scrollTimeout);
-
-        this.scrollTimeout = setTimeout(() => {
-          this.checkIfHeaderShouldBeStuck();
-        }, 25);
+        this.scrollTimeout = setTimeout(() => this.checkIfHeaderShouldBeStuck(), 25);
       }
     },
     mounted() {
