@@ -45,7 +45,7 @@ export default function(store){
       headerHeight: function() {
         return (this.$refs.header) ? this.$refs.header.clientHeight : null;
       },
-      checkifHeaderIsStuck() {
+      checkIfHeaderShouldBeStuck() {
         const headerHeight = this.headerHeight();
         this.headerIsStuck = headerHeight && window.pageYOffset > headerHeight + this.stickyBuffer;
       },
@@ -53,13 +53,13 @@ export default function(store){
         clearTimeout(this.scrollTimeout);
 
         this.scrollTimeout = setTimeout(() => {
-          this.checkifHeaderIsStuck();
+          this.checkIfHeaderShouldBeStuck();
         }, 100);
       }
     },
     mounted() {
       window.addEventListener('scroll', this.handleScroll);
-    }
+    },
 
     components: {
       'event-type-filters': EventTypeFilters,
