@@ -11,7 +11,7 @@ export default function() {
     },
     computed: {
       shareUrl() {
-        return `${this.facebookUrl}?=${this.currentUrl}`
+        return `${this.facebookUrl}?u=${encodeURIComponent(this.currentUrl)}`
       }
     },
     created() {
