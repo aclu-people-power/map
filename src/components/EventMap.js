@@ -84,6 +84,8 @@ export default function(store){
     },
     methods: {
       plotEvents() {
+        if (!this.mapRef) return;
+
         const eventsSource = this.mapRef.getSource("events");
 
         // mapbox will throw an error if we add data before the source has been added,
@@ -94,6 +96,8 @@ export default function(store){
       },
 
       setMapPositionBasedOnZip() {
+        if (!this.mapRef) return;
+
         const zipcodeCoordinates = this.zipcodes[this.filters.zipcode];
 
         if (zipcodeCoordinates) {
