@@ -26,13 +26,18 @@ const store = new Vuex.Store({
     zipcodes: {},
     view: 'list',
     filters: initialHash,
-    selectedEventId: null
+    selectedEventId: null,
+    // We initialize eventTypes just with our "virtual" event type,
+    // and the rest are loaded from the server
+    eventTypes: {
+      aclu: "Official ACLU Event"
+    }
   },
   actions: {
     loadEvents({commit}){
       xhr({
         method: 'GET',
-        url: 'http://d3r5pbxngwkvri.cloudfront.net/action_events.json',
+        url: 'http://d3r5pbxngwkvri.cloudfront.net/action_events_v2.json',
         json: true,
       }, (err, response) => {
         if (err) return;
@@ -61,7 +66,17 @@ const store = new Vuex.Store({
   },
   mutations: {
     eventsReceived(state, events) {
-      state.events = events;
+      state.events = events.events;
+
+      const newEventTypes = Object.entries(events.categories).reduce((result, [category, { label }]) => {
+        result[category] = label;
+        return result;
+      }, {});
+
+      state.eventTypes = {
+        ...state.eventTypes,
+        ...newEventTypes,
+      };
     },
     zipcodesReceived(state, zipcodes) {
       state.zipcodes = zipcodes;

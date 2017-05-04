@@ -3,7 +3,7 @@
     v-for="event in filteredEvents"
     :selected="event.id === selectedEventId"
   >
-    <event-card :event="event"></event-card>
+    <event-card :event="event" :event-types="eventTypes"></event-card>
   </event-list-item>
   <div
     v-if="isSelectedZipcodeInvalid"
