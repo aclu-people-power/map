@@ -18,6 +18,9 @@ export default function(store){
       zipcodes() {
         return store.state.zipcodes;
       },
+      eventTypes() {
+        return store.state.eventTypes;
+      },
       filteredEvents() {
         return store.getters.filteredEvents;
       },

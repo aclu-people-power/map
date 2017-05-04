@@ -26,14 +26,13 @@
 <script>
 
 import moment from 'moment';
-import { eventTypes } from 'src/util/events';
 
 // e.g. Tuesday, Mar 21 6:30pm
 const displayDateFormat = 'dddd, MMM D h:mma';
 
 export default {
   name: 'event-card',
-  props: ['event'],
+  props: ['event', 'eventTypes'],
   computed: {
     date() {
       return moment(this.event.start_datetime).format(displayDateFormat);
@@ -49,7 +48,8 @@ export default {
         this.event.categories.split(',') :
         [];
 
-      return categories.map(event => eventTypes[event]).filter(Boolean);
+      return categories.map(category => this.eventTypes[category])
+        .filter(Boolean);
     },
     url() {
       return `https://go.peoplepower.org/event/${this.event.campaign}/${this.event.id}`;

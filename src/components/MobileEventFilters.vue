@@ -9,7 +9,7 @@
       </div>
       <div class="filter-events-body">
         <event-date-filters :show-title="true" :filters="filters" ></event-date-filters>
-        <event-type-filters :show-title="true" :filters="filters"></event-type-filters>
+        <event-type-filters :event-types="eventTypes" :show-title="true" :filters="filters"></event-type-filters>
         <button
           class="filter-events-search"
           @click="toggleFilterEvents"
@@ -27,7 +27,9 @@ import EventDateFilters from 'src/components/EventDateFilters';
 
 export default {
   name: 'mobile-event-filters',
-  props: ['isFilterEventsOpen', 'filterEventsTop', 'toggleFilterEvents', 'filters'],
+  props: [
+    'isFilterEventsOpen', 'filterEventsTop', 'toggleFilterEvents', 'filters', 'eventTypes'
+  ],
   components: {
     'event-type-filters': EventTypeFilters,
     'event-date-filters': EventDateFilters,

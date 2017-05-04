@@ -82,14 +82,3 @@ export function computeFilteredEvents(events, filters, zipcodes) {
     return true;
   });
 }
-
-export const eventTypes = {
-  aclu: "Official ACLU Event",
-  freedomcities: "Freedom Cities Action",
-  muslimban: "Muslim Ban Action",
-  protestrally: "Protest/Rally",
-  townmeeting: "Town Meeting",
-  organizing: "Organizing Meeting",
-  healthcareaction: "Health Care Action",
-  other: "Other"
-};

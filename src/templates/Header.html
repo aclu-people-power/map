@@ -36,6 +36,7 @@
         :is-filter-events-open="isFilterEventsOpen"
         :filter-events-top="filterEventsTop"
         :toggle-filter-events="toggleFilterEvents"
+        :event-types="eventTypes"
         :filters="filters"
       >
       </mobile-event-filters>
@@ -65,7 +66,7 @@
 
         <div class="toolbar-item">
           <button-dropdown button-text="Type of event">
-            <event-type-filters :filters="filters"></event-type-filters>
+            <event-type-filters :event-types="eventTypes":filters="filters"></event-type-filters>
           </button-dropdown>
         </div>
 
