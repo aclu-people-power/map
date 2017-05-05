@@ -10,7 +10,7 @@
     "clean": "rm -rf dist",
     "dist:server": "./scripts/dist_server.sh",
     "dev-deploy": "aws s3 sync dist/ s3://mapstaging",
-    "prod-deploy": "echo TBD"
+    "prod-deploy": "aws s3 sync dist/ s3://map.peoplepower.org"
   },
   "repository": {
     "type": "git",
