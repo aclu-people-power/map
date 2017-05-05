@@ -9,7 +9,7 @@
       </span>
     </div>
     <h3 class="event-card-title">
-      {{event.title}}
+      <a :href="url" target="_blank">{{event.title}}</a>
     </h3>
     <div class="event-card-date">
       {{date}}
