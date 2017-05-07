@@ -1,20 +1,18 @@
 .layout {
   height: 100vh;
-}
-
-.layout {
   display: flex;
   flex-direction: column;
 }
 
 .layout-main {
   flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .event-map,
 .event-list {
   display: none;
-  flex-direction: column;
 }
 
 .event-list.-active {
@@ -23,12 +21,11 @@
 
 .event-map.-active {
   display: flex;
-  height: 100%;
+  flex: 1;
 }
 
 @media (min-width: $breakpoint-large) {
   .layout-main {
-    display: flex;
     flex-direction: row;
     align-items: stretch;
     min-height: 0;
