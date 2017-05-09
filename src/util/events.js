@@ -17,7 +17,7 @@ export function computeFilteredEvents(events, filters, zipcodes) {
     return [];
   }
 
-  return events.filter(function(event) {
+  const filteredEvents = events.filter(event => {
 
     if (filters.eventType) {
       const eventCategories = event.categories ?
@@ -81,4 +81,18 @@ export function computeFilteredEvents(events, filters, zipcodes) {
 
     return true;
   });
+
+  // When a zipcode is selected, sort events by proximity to that zipcode.
+  if (filters.zipcode) {
+
+    filteredEvents.sort((a, b) => {
+      const distanceFromA = distance(zipcodes[filters.zipcode], [a.lng, a.lat]);
+      const distanceFromB = distance(zipcodes[filters.zipcode], [b.lng, b.lat]);
+
+      return distanceFromA - distanceFromB;
+    });
+
+  }
+
+  return filteredEvents;
 }
