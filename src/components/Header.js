@@ -51,13 +51,13 @@ export default function(store){
       headerHeight: function() {
         return (this.$refs.header) ? this.$refs.header.clientHeight : null;
       },
-      checkIfHeaderShouldBeStuck() {
+      checkIfHeaderIsStuck() {
         const headerHeight = this.headerHeight();
         this.headerIsStuck = headerHeight && window.pageYOffset > headerHeight + this.stickyBuffer;
       },
       handleScroll: function() {
         clearTimeout(this.scrollTimeout);
-        this.scrollTimeout = setTimeout(() => this.checkIfHeaderShouldBeStuck(), 25);
+        this.scrollTimeout = setTimeout(() => this.checkIfHeaderIsStuck(), 25);
       }
     },
     mounted() {
