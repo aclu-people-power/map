@@ -1,4 +1,4 @@
-<div>
+</div>
   <div class="header" id="header" ref="header" :class="{ '-sticky': headerIsStuck === true}">
     <div class="inner-wrap">
       <div class="branding">
@@ -33,26 +33,15 @@
           </button>
         </div>
 
-        <div v-if="isFilterEventsOpen">
-          <div class="filter-events">
-            <div class="filter-events-header">
-              <span>Filter events</span>
-              <span class="filter-events-close" @click="toggleFilterEvents">
-                ✖
-              </span>
-            </div>
-            <div class="filter-events-body">
-              <event-date-filters :show-title="true" :filters="filters" ></event-date-filters>
-              <event-type-filters :show-title="true" :filters="filters"></event-type-filters>
-              <button
-                class="filter-events-search"
-                @click="toggleFilterEvents"
-              >
-                Search events
-              </button>
-            </div>
-          </div>
-        </div>
+        <mobile-event-filters
+          :is-filter-events-open="isFilterEventsOpen"
+          :filter-events-top="filterEventsTop"
+          :toggle-filter-events="toggleFilterEvents"
+          :event-types="eventTypes"
+          :filters="filters"
+        >
+        </mobile-event-filters>
+
       </div>
 
       <div class="toolbar -desktop">
@@ -78,7 +67,7 @@
 
           <div class="toolbar-item">
             <button-dropdown button-text="Type of event">
-              <event-type-filters :filters="filters"></event-type-filters>
+              <event-type-filters :event-types="eventTypes":filters="filters"></event-type-filters>
             </button-dropdown>
           </div>
 
@@ -95,5 +84,4 @@
       </div>
     </div>
   </div>
-  <div v-if="headerIsStuck" :style="headerPlaceholderStyle"></div>
 </div>

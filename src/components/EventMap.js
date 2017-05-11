@@ -25,6 +25,9 @@ export default function(store){
       zipcodes() {
         return store.state.zipcodes;
       },
+      eventTypes() {
+        return store.state.eventTypes;
+      },
       filters() {
         return store.state.filters;
       },
@@ -84,6 +87,8 @@ export default function(store){
     },
     methods: {
       plotEvents() {
+        if (!this.mapRef) return;
+
         const eventsSource = this.mapRef.getSource("events");
 
         // mapbox will throw an error if we add data before the source has been added,
@@ -94,6 +99,8 @@ export default function(store){
       },
 
       setMapPositionBasedOnZip() {
+        if (!this.mapRef) return;
+
         const zipcodeCoordinates = this.zipcodes[this.filters.zipcode];
 
         if (zipcodeCoordinates) {
@@ -131,9 +138,10 @@ export default function(store){
         // _inside_ another Vue instance WHOAH. The point is
         // to reuse the existing event card component.
         const vm = new Vue({
-          template: '<event-card :event="event"></event-card>',
+          template: '<event-card :event="event" :event-types="eventTypes"></event-card>',
           data: {
-            event: this.filteredEvents.find(ev => ev.id === eventId)
+            event: this.filteredEvents.find(ev => ev.id === eventId),
+            eventTypes: this.eventTypes
           },
           components: {
             'event-card': EventCard

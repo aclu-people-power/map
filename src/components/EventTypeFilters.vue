@@ -22,15 +22,11 @@
 </template>
 
 <script>
-import { eventTypes } from 'src/util/events';
 
 export default {
   name: 'event-type-filters',
-  props: ['filters', 'showTitle'],
+  props: ['filters', 'showTitle', 'eventTypes'],
   computed: {
-    eventTypes() {
-      return eventTypes;
-    },
     selectedEventTypes: {
       get(){
         return this.filters.eventType ? this.filters.eventType.split(',') : []

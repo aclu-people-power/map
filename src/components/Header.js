@@ -26,6 +26,9 @@ export default function(store){
       filters() {
         return store.state.filters;
       },
+      eventTypes() {
+        return store.state.eventTypes;
+      },
       toggleButtonText() {
         return this.view === 'map' ? 'List view' : 'Map view'
       },
