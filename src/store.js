@@ -26,7 +26,7 @@ const store = new Vuex.Store({
     zipcodes: {},
     view: 'list',
     filters: initialHash,
-    selectedEventId: null,
+    selectedEventIds: [],
     // We initialize eventTypes just with our "virtual" event type,
     // and the rest are loaded from the server
     eventTypes: {
@@ -87,8 +87,8 @@ const store = new Vuex.Store({
     filtersReceived(state, filters) {
       state.filters = {...state.filters, ...filters};
     },
-    eventSelected(state, eventId) {
-      state.selectedEventId = eventId;
+    eventSelected(state, eventIds) {
+      state.selectedEventIds = eventIds;
     }
   },
   getters: {
