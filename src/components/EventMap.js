@@ -142,7 +142,7 @@ export default function(store){
         const eventTypes = this.eventTypes;
         
         let eventCard = document.createElement("div");
-        eventCard.className = "event-card";
+        eventCard.className = "event-card-wrapper";
         
         eventIds.forEach(function(eventId, i) {
           const vm = new Vue({
