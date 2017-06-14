@@ -27,8 +27,8 @@ export default function(store){
       view() {
         return store.state.view;
       },
-      selectedEventId() {
-        return store.state.selectedEventId;
+      selectedEventIds() {
+        return store.state.selectedEventIds;
       },
       isSelectedZipcodeInvalid() {
         return this.filters.zipcode &&

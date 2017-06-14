@@ -1,7 +1,7 @@
 <div id="event-list" class="event-list" :class="['event-list', { '-active': view === 'list'}]">
   <event-list-item
     v-for="event in filteredEvents"
-    :selected="event.id === selectedEventId"
+    :selected="selectedEventIds.includes(event.id)"
   >
     <event-card :event="event" :event-types="eventTypes"></event-card>
   </event-list-item>

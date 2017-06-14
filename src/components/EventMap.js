@@ -133,32 +133,48 @@ export default function(store){
         });
       },
 
-      getPopupContent(eventId) {
+      getPopupContent(eventIds) {
         // Create a Vue instance _inside_ a mapbox Map instance
         // _inside_ another Vue instance WHOAH. The point is
         // to reuse the existing event card component.
-        const vm = new Vue({
-          template: '<event-card :event="event" :event-types="eventTypes"></event-card>',
-          data: {
-            event: this.filteredEvents.find(ev => ev.id === eventId),
-            eventTypes: this.eventTypes
-          },
-          components: {
-            'event-card': EventCard
-          }
-        }).$mount();
 
-        return vm.$el;
+        const filteredEvents = this.filteredEvents;
+        const eventTypes = this.eventTypes;
+        
+        let eventCard = document.createElement("div");
+        eventCard.className = "event-card-wrapper";
+        
+        eventIds.forEach(function(eventId, i) {
+          const vm = new Vue({
+            template: '<event-card :event="event" :event-types="eventTypes"></event-card>',
+            data: {
+              event: filteredEvents.find(ev => ev.id === eventId),
+              eventTypes: eventTypes
+            },
+            components: {
+              'event-card': EventCard
+            }
+          }).$mount();
+
+          eventCard.appendChild(vm.$el);
+          if (i !== eventIds.length - 1) {
+            eventCard.appendChild(document.createElement("hr"));
+          }
+        });
+        
+        return eventCard;
+        
       },
 
       openPopupsOnClick() {
 
         this.mapRef.on('click', 'points', (e) => {
 
-          const eventId = e.features[0].properties.id;
+          const eventIds = e.features.map(feature =>
+                                          feature.properties.id);
           const eventCoordinates = e.features[0].geometry.coordinates;
 
-          store.commit('eventSelected', eventId);
+          store.commit('eventSelected', eventIds);
 
           let popupOptions = {};
 
@@ -186,7 +202,7 @@ export default function(store){
 
           new mapboxgl.Popup(popupOptions)
             .setLngLat(eventCoordinates)
-            .setDOMContent(this.getPopupContent(eventId))
+            .setDOMContent(this.getPopupContent(eventIds))
             .addTo(this.mapRef);
         });
       },
