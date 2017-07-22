@@ -18,8 +18,14 @@
   display: none;
 }
 
-.logo {
-  max-width: 210px;
+.logo img {
+  max-width: 105px;
+  margin-right: 5px;
+  &.aclu {
+    max-height: 37px;
+    margin-top: 8px;
+    margin-right: 1em;
+  }
 }
 
 .cta {
@@ -270,7 +276,6 @@
   .logo,
   .cta {
     float: left;
-    margin-right: 1em;
   }
 
   .cta {

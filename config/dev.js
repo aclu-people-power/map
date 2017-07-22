@@ -20,7 +20,7 @@ module.exports = function(env) {
         filename: 'index.html',
         template: './src/index.html.ejs',
         inject: false,
-				favicon: './src/assets/favicon.ico'
+        favicon: './src/assets/favicon.ico',
       })
     ],
   })

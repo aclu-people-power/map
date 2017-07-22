@@ -1,13 +1,21 @@
 import 'styles/index';
 import 'babel-polyfill';
 import 'modernizr';
+
 import store from 'src/store.js';
+import querystring from 'querystring';
 
 import Header from 'components/Header';
 import Footer from 'components/Footer';
 import EventMap from 'components/EventMap';
 import EventList from 'components/EventList';
 
+let params = querystring.parse(window.location.search.replace('?', ''));
+console.log(params);
+let showACLU = true;
+if (params.b === 'co') {
+  showACLU = false;
+}
 
 // Load events data
 store.dispatch('loadEvents')
@@ -21,10 +29,10 @@ setInterval(() => {store.dispatch('loadEvents')}, ONE_MINUTE);
 store.dispatch('loadZips')
 
 // Initialize Vue instances with the store.
-Header(store);
+Header(store, {showACLU: showACLU});
 EventMap(store);
 EventList(store);
-Footer();
+Footer({showACLU: showACLU});
 
 // Allow HMR updates
 if (module.hot) {

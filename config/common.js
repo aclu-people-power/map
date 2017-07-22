@@ -12,7 +12,7 @@ const ASSET_PATH = process.env.ASSET_PATH || '/';
 module.exports = function(env){
   return {
     entry: {
-      'initialize': './src/initialize.js'
+      'initialize': './src/initialize.js',
     },
     output: {
       path: DIST_PATH,
