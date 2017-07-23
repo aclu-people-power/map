@@ -79,6 +79,12 @@ export function computeFilteredEvents(events, filters, zipcodes) {
       }
     }
 
+    if (filters.us_state) {
+      if (event.state != filters.us_state.toUpperCase()) {
+        return false;
+      }
+    }
+
     return true;
   });
 

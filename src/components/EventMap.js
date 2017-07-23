@@ -25,6 +25,9 @@ export default function(store){
       zipcodes() {
         return store.state.zipcodes;
       },
+      us_states() {
+        return store.state.us_states;
+      },
       eventTypes() {
         return store.state.eventTypes;
       },
@@ -58,7 +61,7 @@ export default function(store){
         // events data just showed up on app boot, if applicable
         // set the map position based on zip
         if (newEvents.length && !oldEvents.length) {
-          this.setMapPositionBasedOnZip();
+          this.setMapPositionBasedOnFilters();
         }
       },
 
@@ -66,15 +69,26 @@ export default function(store){
       // if applicable, set the map position based on zip
       zipcodes(newZipcodes, oldZipcodes) {
         this.plotEvents();
-        this.setMapPositionBasedOnZip();
+        this.setMapPositionBasedOnFilters()
+      },
+
+      us_states(newStates, oldStates) {
+        this.setMapPositionBasedOnFilters();
       },
 
       filters(newFilters, oldFilters) {
         this.plotEvents();
 
+        console.log('EventMap.watch.filters');
+        console.log(newFilters, oldFilters);
+
         // zoom to new location when zipcode changes
         if (newFilters.zipcode !== oldFilters.zipcode) {
-          this.setMapPositionBasedOnZip();
+          this.setMapPositionBasedOnFilters();
+        }
+
+        if (newFilters.us_state !== oldFilters.us_state) {
+          this.setMapPositionBasedOnFilters();
         }
       },
 
@@ -98,7 +112,7 @@ export default function(store){
         }
       },
 
-      setMapPositionBasedOnZip() {
+      setMapPositionBasedOnFilters() {
         if (!this.mapRef) return;
 
         const zipcodeCoordinates = this.zipcodes[this.filters.zipcode];
@@ -109,7 +123,12 @@ export default function(store){
             zoom: 8
           });
         } else {
-          this.mapRef.fitBounds(this.boundsOfContinentalUS);
+          const us_state = this.us_states[this.filters.us_state.toUpperCase()];
+          if (us_state.bounds) {
+            this.mapRef.fitBounds(us_state.bounds);
+          } else {
+            this.mapRef.fitBounds(this.boundsOfContinentalUS);
+          }
         }
       },
 

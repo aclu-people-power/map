@@ -28,6 +28,9 @@ setInterval(() => {store.dispatch('loadEvents')}, ONE_MINUTE);
 // Load valid zipcodes
 store.dispatch('loadZips')
 
+// Load valid US states
+store.dispatch('loadUSStates')
+
 // Initialize Vue instances with the store.
 Header(store, {showACLU: showACLU});
 EventMap(store);
