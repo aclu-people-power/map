@@ -10,8 +10,7 @@ import Footer from 'components/Footer';
 import EventMap from 'components/EventMap';
 import EventList from 'components/EventList';
 
-let params = querystring.parse(window.location.search.replace('?', ''));
-console.log(params);
+let params = querystring.parse(window.location.hash.replace('#', ''));
 let showACLU = true;
 if (params.b === 'co') {
   showACLU = false;
