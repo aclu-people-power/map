@@ -120,8 +120,9 @@ export default function(store){
             zoom: 8
           });
         } else {
-          const us_state = this.us_states[this.filters.us_state.toUpperCase()];
-          if (us_state.bounds) {
+          const state_abbr = this.filters.us_state || '';
+          const us_state = this.us_states[state_abbr.toUpperCase()];
+          if (us_state && us_state.bounds) {
             this.mapRef.fitBounds(us_state.bounds);
           } else {
             this.mapRef.fitBounds(this.boundsOfContinentalUS);
