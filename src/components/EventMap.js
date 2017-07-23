@@ -79,9 +79,6 @@ export default function(store){
       filters(newFilters, oldFilters) {
         this.plotEvents();
 
-        console.log('EventMap.watch.filters');
-        console.log(newFilters, oldFilters);
-
         // zoom to new location when zipcode changes
         if (newFilters.zipcode !== oldFilters.zipcode) {
           this.setMapPositionBasedOnFilters();
