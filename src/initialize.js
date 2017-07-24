@@ -10,12 +10,18 @@ import Footer from 'components/Footer';
 import EventMap from 'components/EventMap';
 import EventList from 'components/EventList';
 
-let params = querystring.parse(window.location.search.replace('?', ''));
-console.log(params);
-let showACLU = true;
-if (params.b === 'co') {
-  showACLU = false;
+let params = querystring.parse(window.location.hash.replace('#', ''));
+
+// set up cobranding based on url params
+let cobrand = {};
+if (params.c === 'vr') {
+  cobrand = {
+    logoFile: 'logo-second-chances.png',
+    hostEventLink: 'https://go.peoplepower.org/signup/host_vr?source=map',
+    showACLU: false
+  };
 }
+console.log('initialize params', params);
 
 // Load events data
 store.dispatch('loadEvents')
@@ -28,11 +34,16 @@ setInterval(() => {store.dispatch('loadEvents')}, ONE_MINUTE);
 // Load valid zipcodes
 store.dispatch('loadZips')
 
+// Set initial event filters based on campaign
+if (params.c === 'vr') {
+  store.state.filters['eventType'] = 'votingRights';
+}
+
 // Initialize Vue instances with the store.
-Header(store, {showACLU: showACLU});
+Header(store, cobrand);
 EventMap(store);
 EventList(store);
-Footer({showACLU: showACLU});
+Footer(cobrand);
 
 // Allow HMR updates
 if (module.hot) {

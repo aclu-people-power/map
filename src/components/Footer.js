@@ -1,7 +1,7 @@
 import Vue from 'vue';
 
-export default function(opts) {
-  var options = opts || {};
+export default function(cobrand) {
+  var options = cobrand || {};
   return new Vue({
     name: 'Footer',
     el: ".footer",

@@ -1,10 +1,8 @@
 <div class="header" id="header">
   <div class="inner-wrap">
     <div class="branding">
-      <div class="logo">
-        <img class="" src="~images/logo.png" alt="People Power" />
-        <img v-if="showACLU" class="aclu" src="~images/logo-aclu.png" alt="ACLU" />
-      </div>
+      <img v-if="logoFile" class="logo" :src="'~images/'+logoFile" alt="PeoplePower" />
+      <img v-else class="logo" src="~images/logo-aclu.png" alt="PeoplePower ACLU" />
       <h2 class="cta" ref="cta">Find events near you</h2>
     </div>
 
@@ -75,6 +73,15 @@
 
         <div class="toolbar-item">
           <a
+            v-if="hostEventLink"
+            class="btn"
+            :href="hostEventLink"
+            target="_blank"
+          >
+            Host an event
+          </a>
+          <a
+            v-else
             class="btn"
             href="https://go.peoplepower.org/signup/host_new?source=map"
             target="_blank"
