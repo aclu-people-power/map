@@ -100,6 +100,10 @@ module.exports = function(env){
         from: './src/data/us_postal_codes.json',
         to: 'us_postal_codes.json'
       }]),
+      new CopyWebpackPlugin([{
+        from: './src/data/us_states.json',
+        to: 'us_states.json'
+      }]),
        // Ignore moment.js locale files, they are large
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     ]

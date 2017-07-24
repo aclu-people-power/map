@@ -24,6 +24,7 @@ const store = new Vuex.Store({
   state: {
     events: [],
     zipcodes: {},
+    us_states: {},
     view: 'list',
     filters: initialHash,
     selectedEventIds: [],
@@ -52,6 +53,16 @@ const store = new Vuex.Store({
       }, (err, response) => {
         if (err) return;
         commit('zipcodesReceived', response.body);
+      });
+    },
+    loadUSStates({commit}){
+      xhr({
+        method: 'GET',
+        url: '/us_states.json',
+        json: true,
+      }, (err, response) => {
+        if (err) return;
+        commit('us_statesReceived', response.body);
       });
     },
     setFilters({ commit }, filters) {
@@ -90,6 +101,9 @@ const store = new Vuex.Store({
     },
     zipcodesReceived(state, zipcodes) {
       state.zipcodes = zipcodes;
+    },
+    us_statesReceived(state, us_states) {
+      state.us_states = us_states;
     },
     viewToggled(state) {
       state.view = state.view === 'map' ? 'list' : 'map';

@@ -34,8 +34,12 @@ setInterval(() => {store.dispatch('loadEvents')}, ONE_MINUTE);
 // Load valid zipcodes
 store.dispatch('loadZips')
 
+// Load valid US states
+store.dispatch('loadUSStates')
+
 // Set initial event filters based on campaign
 if (params.c === 'vr') {
+  store.state.filters['us_state'] = 'FL';
   store.state.filters['eventType'] = 'votingRights';
 }
 
