@@ -15,7 +15,8 @@ export default function(store){
         isFilterEventsOpen: false,
         // Where to position the expanded event filtering UI
         // for smaller screens
-        filterEventsTop: { top: 0 },
+        headerIsStuck: false,
+        stickyBuffer: 100
       };
     },
     computed: {
@@ -30,6 +31,9 @@ export default function(store){
       },
       toggleButtonText() {
         return this.view === 'map' ? 'List view' : 'Map view'
+      },
+      headerPlaceholderStyle() {
+        return { height: this.headerHeight() + 'px' }
       }
     },
     methods: {
@@ -43,8 +47,23 @@ export default function(store){
         if (/^\d{5}$/.test(newZipcode) || !newZipcode) {
           store.dispatch('setFilters',{zipcode: newZipcode });
         }
+      },
+      headerHeight: function() {
+        return (this.$refs.header) ? this.$refs.header.clientHeight : null;
+      },
+      checkIfHeaderIsStuck() {
+        const headerHeight = this.headerHeight();
+        this.headerIsStuck = headerHeight && window.pageYOffset > headerHeight + this.stickyBuffer;
+      },
+      handleScroll: function() {
+        clearTimeout(this.scrollTimeout);
+        this.scrollTimeout = setTimeout(() => this.checkIfHeaderIsStuck(), 25);
       }
     },
+    mounted() {
+      window.addEventListener('scroll', this.handleScroll);
+    },
+
     components: {
       'event-type-filters': EventTypeFilters,
       'event-date-filters': EventDateFilters,

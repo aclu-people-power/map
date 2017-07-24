@@ -3,6 +3,15 @@
   text-align: center;
 }
 
+.header.-sticky {
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+  animation: .15s slidein ease-out;
+
+  .branding { display: none; }
+}
+
 .inner-wrap {
   padding: 1em;
   margin: 0 auto;
@@ -66,22 +75,19 @@
   }
 }
 
-@keyframes slideUp {
-  0% { top: 105vh; }
-  100% { top: 4.5em; }
-}
-
 .filter-events {
   position: fixed;
   overflow-y: scroll;
   z-index: 9999;
-  top: 105vh;
+  top: 4.5em;
   left: 0;
   right: 0;
   bottom: 0;
   background: $white;
   text-align: left;
-  animation: slideUp .3s forwards;
+  animation: slideup .3s;
+
+  .header.-sticky & { top: 0; }
 }
 
 .filter-events-header {
