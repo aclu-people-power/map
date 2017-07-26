@@ -1,11 +1,13 @@
 import Vue from 'vue';
 
-export default function() {
+export default function(cobrand) {
+  var options = cobrand || {};
   return new Vue({
     name: 'Footer',
     el: ".footer",
     template: require('src/templates/Footer.html'),
     data: {
+      showACLU: options.showACLU,
       facebookUrl: 'https://www.facebook.com/sharer/sharer.php',
       currentUrl: location.href
     },

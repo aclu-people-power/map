@@ -4,7 +4,8 @@ import EventDateFilters from 'src/components/EventDateFilters';
 import ButtonDropdown from 'src/components/ButtonDropdown';
 import MobileEventFilters from 'src/components/MobileEventFilters';
 
-export default function(store){
+export default function(store, cobrand){
+  var options = cobrand || {};
   return new Vue({
     name: 'header',
     store,
@@ -12,6 +13,8 @@ export default function(store){
     template: require('src/templates/Header.html'),
     data() {
       return {
+        logoFile: options.logoFile,
+        hostEventLink: options.hostEventLink,
         isFilterEventsOpen: false,
         // Where to position the expanded event filtering UI
         // for smaller screens

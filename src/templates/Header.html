@@ -1,7 +1,8 @@
 <div class="header" id="header">
   <div class="inner-wrap">
     <div class="branding">
-      <img class="logo" src="~images/logo.png" alt="logo" />
+      <img v-if="logoFile === 'logo-second-chances.png'" class="logo" src="~images/logo-second-chances.png" alt="YES Second Chances PeoplePower" />
+      <img v-else class="logo" src="~images/logo-aclu.png" alt="PeoplePower ACLU" />
       <h2 class="cta" ref="cta">Find events near you</h2>
     </div>
 
@@ -72,6 +73,15 @@
 
         <div class="toolbar-item">
           <a
+            v-if="hostEventLink"
+            class="btn"
+            :href="hostEventLink"
+            target="_blank"
+          >
+            Host an event
+          </a>
+          <a
+            v-else
             class="btn"
             href="https://go.peoplepower.org/signup/host_new?source=map"
             target="_blank"
