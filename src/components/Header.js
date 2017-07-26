@@ -4,8 +4,8 @@ import EventDateFilters from 'src/components/EventDateFilters';
 import ButtonDropdown from 'src/components/ButtonDropdown';
 import MobileEventFilters from 'src/components/MobileEventFilters';
 
-export default function(store, cobrand){
-  var options = cobrand || {};
+export default function(store, branding){
+  var options = branding || {};
   return new Vue({
     name: 'header',
     store,
