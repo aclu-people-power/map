@@ -10,18 +10,24 @@ import Footer from 'components/Footer';
 import EventMap from 'components/EventMap';
 import EventList from 'components/EventList';
 
-let params = querystring.parse(window.location.hash.replace('#', ''));
+import acluLogoFile from 'assets/images/logo-aclu.png';
+import vrLogoFile from 'assets/images/logo-second-chances.png';
 
-// set up cobranding based on url params
-let cobrand = {};
-if (params.c === 'vr') {
-  cobrand = {
-    logoFile: 'logo-second-chances.png',
+let params = querystring.parse(window.location.hash.replace('#', ''));
+// set up branding based on url params
+let branding = {
+  logoFile: acluLogoFile,
+  hostEventLink: 'https://go.peoplepower.org/signup/host_new?source=map',
+  showACLU: true
+};
+let campaign = params.c || params.campaign || '';
+if ((campaign.toLowerCase() === 'vr') || (campaign.toLowerCase() === 'votingrights')) {
+  branding = {
+    logoFile: vrLogoFile,
     hostEventLink: 'https://go.peoplepower.org/event/voting_rights/create/?source=map',
     showACLU: false
   };
 }
-console.log('initialize params', params);
 
 // Load events data
 store.dispatch('loadEvents')
@@ -44,10 +50,10 @@ if (params.c === 'vr') {
 }
 
 // Initialize Vue instances with the store.
-Header(store, cobrand);
+Header(store, branding);
 EventMap(store);
 EventList(store);
-Footer(cobrand);
+Footer(branding);
 
 // Allow HMR updates
 if (module.hot) {
