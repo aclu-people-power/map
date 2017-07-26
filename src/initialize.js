@@ -17,7 +17,7 @@ let cobrand = {};
 if (params.c === 'vr') {
   cobrand = {
     logoFile: 'logo-second-chances.png',
-    hostEventLink: 'https://go.peoplepower.org/signup/host_vr?source=map',
+    hostEventLink: 'https://go.peoplepower.org/event/voting_rights/create/?source=map',
     showACLU: false
   };
 }
