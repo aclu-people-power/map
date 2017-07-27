@@ -4,12 +4,15 @@ import acluLogoFile from 'assets/images/logo-aclu.png';
 import vrLogoFile from 'assets/images/logo-second-chances.png';
 
 export default function parse() {
-  // configure based on URL params
+  // configure based on URL params (first hash, then querystring)
   let params = querystring.parse(window.location.hash.replace('#', ''));
-  
+  if (!params) {
+    params = querystring.parse(window.location.search.replace('?', ''));
+  }
+
   // match campaign name on #c= or #campaign=
   let campaignName = params.c || params.campaign || '';
-  // make case insentivie by matching on lowercase
+  // make case insensitive by matching on lowercase
   campaignName = campaignName.toLowerCase();
 
   let campaigns = {
