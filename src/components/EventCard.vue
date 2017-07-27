@@ -32,7 +32,7 @@ const displayDateFormat = 'dddd, MMM D h:mma';
 
 export default {
   name: 'event-card',
-  props: ['event', 'eventTypes'],
+  props: ['event', 'eventTypes', 'source'],
   computed: {
     date() {
       return moment(this.event.start_datetime).format(displayDateFormat);
@@ -52,7 +52,7 @@ export default {
         .filter(Boolean);
     },
     url() {
-      return `https://go.peoplepower.org/event/${this.event.campaign}/${this.event.id}`;
+      return `https://go.peoplepower.org/event/${this.event.campaign}/${this.event.id}?source=${this.source}`;
     }
   }
 }

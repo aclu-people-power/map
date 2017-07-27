@@ -2,8 +2,9 @@
   <event-list-item
     v-for="event in filteredEvents"
     :selected="selectedEventIds.includes(event.id)"
+    :source="source"
   >
-    <event-card :event="event" :event-types="eventTypes"></event-card>
+    <event-card :event="event" :event-types="eventTypes" :source="source"></event-card>
   </event-list-item>
   <div
     v-if="isSelectedZipcodeInvalid"

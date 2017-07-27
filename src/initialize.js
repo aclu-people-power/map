@@ -33,8 +33,8 @@ if (options.filters) {
 
 // Initialize Vue instances with the store.
 Header(store, options);
-EventMap(store);
-EventList(store);
+EventMap(store, options);
+EventList(store, options);
 Footer(options);
 
 // Allow HMR updates

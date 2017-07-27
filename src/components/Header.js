@@ -19,6 +19,7 @@ export default function(store, opts){
         // Where to position the expanded event filtering UI
         // for smaller screens
         filterEventsTop: { top: 0 },
+        source: options.source,
       };
     },
     computed: {
