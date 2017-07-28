@@ -2,12 +2,16 @@ import Vue from 'vue';
 import EventCard from 'src/components/EventCard';
 import EventListItem from 'src/components/EventListItem';
 
-export default function(store){
+export default function(store, opts){
+  var options = opts || {};
   return new Vue({
     el: '#event-list',
     name: 'event-list',
     template: require('src/templates/EventList.html'),
     store,
+    data: {
+      source: options.source
+    },
     computed: {
       events() {
         return store.state.events;

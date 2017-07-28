@@ -5,7 +5,8 @@ import mapboxgl from 'mapbox-gl';
 
 mapboxgl.accessToken = 'pk.eyJ1Ijoia2VubmV0aHBlbm5pbmd0b24iLCJhIjoiY2l6bmJ3MmFiMDMzZTMzbDJtdGxkM3hveSJ9.w4iOGaL2vrIvETimSXUXsw';
 
-export default function(store){
+export default function(store, opts){
+  var options = opts || {};
   return new Vue({
     el: '#event-map',
     name: 'event-map',
@@ -163,10 +164,11 @@ export default function(store){
         
         eventIds.forEach(function(eventId, i) {
           const vm = new Vue({
-            template: '<event-card :event="event" :event-types="eventTypes"></event-card>',
+            template: '<event-card :event="event" :event-types="eventTypes" :source="source"></event-card>',
             data: {
               event: filteredEvents.find(ev => ev.id === eventId),
-              eventTypes: eventTypes
+              eventTypes: eventTypes,
+              source: options.source,
             },
             components: {
               'event-card': EventCard
