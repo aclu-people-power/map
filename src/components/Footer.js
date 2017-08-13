@@ -17,10 +17,12 @@ export default function(opts) {
       }
     },
     created() {
-      window.addEventListener('hashchange', this.updateUrl);
+      window.addEventListener('popstate', this.updateUrl);
+      window.addEventListener('pushstate', this.updateUrl);
     },
     beforeDestroy() {
-      window.removeEventListener('hashchange', this.updateUrl);
+      window.removeEventListener('popstate', this.updateUrl);
+      window.addEventListener('pushstate', this.updateUrl);
     },
     methods: {
       updateUrl() {

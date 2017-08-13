@@ -3,6 +3,7 @@ import EventTypeFilters from 'src/components/EventTypeFilters';
 import EventDateFilters from 'src/components/EventDateFilters';
 import ButtonDropdown from 'src/components/ButtonDropdown';
 import MobileEventFilters from 'src/components/MobileEventFilters';
+import querystring from 'querystring';
 
 export default function(store, opts){
   var options = opts || {};
@@ -47,7 +48,19 @@ export default function(store, opts){
         if (/^\d{5}$/.test(newZipcode) || !newZipcode) {
           store.dispatch('setFilters',{zipcode: newZipcode });
         }
+      },
+      updateFilters() {
+        const newFilters = querystring.parse(location.search.replace(/^\?/, ''))
+        if (newFilters != store.state.filters) {
+          store.dispatch('setFilters', newFilters);
+        }
       }
+    },
+    created() {
+      window.addEventListener('popstate', this.updateFilters);
+    },
+    beforeDestroy() {
+      window.addEventListener('popstate', this.updateFilters);
     },
     components: {
       'event-type-filters': EventTypeFilters,

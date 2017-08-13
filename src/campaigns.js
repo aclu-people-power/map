@@ -6,7 +6,8 @@ import vrLogoFile from 'assets/images/logo-second-chances.png';
 export default function parse() {
   // configure based on URL params (first hash, then querystring)
   let params = querystring.parse(window.location.hash.replace('#', ''));
-  if (!params) {
+
+  if (!Object.keys(params).length) {
     params = querystring.parse(window.location.search.replace('?', ''));
   }
 

@@ -6,14 +6,20 @@ import querystring from 'querystring';
 
 //Save the initial hash of the window when Vue initializes.
 //We'll use these values to populate the initial store filter values
-const initialHash = querystring.parse(window.location.hash.replace(/^#/, ''))
+const initialHash = querystring.parse(window.location.hash.replace(/^#/, '') ||
+                                      window.location.search.replace(/^\?/, ''))
 
-//A small Vuex plugin that will update the browsers location hash whenever
+//A small Vuex plugin that will update the browsers location querystring whenever
 //the setFilters mutation occurs
 const hashUpdaterPlugin = (store) => {
   store.subscribe((mutation, state) => {
     if(mutation.type === "filtersReceived"){
-      window.location.hash = querystring.stringify(state.filters)
+      const newQs = '?' + querystring.stringify(state.filters)
+      if (newQs !== window.location.search) {
+        window.history.pushState(
+          null, null, '?'+querystring.stringify(state.filters))
+        window.dispatchEvent(new Event('pushstate'))
+      }
     }
   })
 }
