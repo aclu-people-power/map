@@ -8,8 +8,10 @@ export default function(opts) {
     template: require('src/templates/Footer.html'),
     data: {
       showACLU: options.showACLU,
+      source: options.source,
+      akid: options.akid,
       facebookUrl: 'https://www.facebook.com/sharer/sharer.php',
-      currentUrl: location.href
+      currentUrl: location.href.replace('akid=', 'referring_akid=')
     },
     computed: {
       shareUrl() {
@@ -26,7 +28,7 @@ export default function(opts) {
     },
     methods: {
       updateUrl() {
-        this.currentUrl = location.href
+        this.currentUrl = location.href.replace('akid=', 'referring_akid=')
       }
     }
   })

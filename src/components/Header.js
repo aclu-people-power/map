@@ -21,6 +21,7 @@ export default function(store, opts){
         // for smaller screens
         filterEventsTop: { top: 0 },
         source: options.source,
+        akid: options.akid
       };
     },
     computed: {
@@ -50,7 +51,7 @@ export default function(store, opts){
         }
       },
       updateFilters() {
-        const newFilters = querystring.parse(location.search.replace(/^\?/, ''))
+        const newFilters = querystring.parse(window.location.search.replace(/^\?/, ''))
         if (newFilters != store.state.filters) {
           store.dispatch('setFilters', newFilters);
         }
