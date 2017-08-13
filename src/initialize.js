@@ -27,7 +27,7 @@ store.dispatch('loadZips')
 store.dispatch('loadUSStates')
 
 // Set initial event filters based on campaign
-if (options.filters) {
+if (Object.keys(options.filters).length) {
   store.state.filters = options.filters;
 }
 
