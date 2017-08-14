@@ -1,6 +1,7 @@
 <div class='footer'>
   <div class='footer-buttons'>
-    <a target="_blank" class='btn host-btn' href='https://go.peoplepower.org/signup/host_new?source=map'>
+    <a target="_blank" class='btn host-btn'
+       :href="'https://go.peoplepower.org/signup/host_new?source='+source+'&akid='+akid">
       Host an event
     </a>
     <a target="_blank" class='btn share-btn' :href="shareUrl">

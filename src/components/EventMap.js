@@ -164,11 +164,12 @@ export default function(store, opts){
         
         eventIds.forEach(function(eventId, i) {
           const vm = new Vue({
-            template: '<event-card :event="event" :event-types="eventTypes" :source="source"></event-card>',
+            template: '<event-card :event="event" :event-types="eventTypes" :source="source" :akid="akid"></event-card>',
             data: {
               event: filteredEvents.find(ev => ev.id === eventId),
               eventTypes: eventTypes,
               source: options.source,
+              akid: options.akid
             },
             components: {
               'event-card': EventCard

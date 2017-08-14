@@ -10,7 +10,8 @@ export default function(store, opts){
     template: require('src/templates/EventList.html'),
     store,
     data: {
-      source: options.source
+      source: options.source,
+      akid: options.akid
     },
     computed: {
       events() {

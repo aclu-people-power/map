@@ -74,7 +74,7 @@
           <a
             v-if="hostEventLink"
             class="btn"
-            :href="hostEventLink+'?source='+source"
+            :href="hostEventLink+'?source='+source+'&akid='+akid"
             target="_blank"
           >
             Host an event
@@ -82,7 +82,7 @@
           <a
             v-else
             class="btn"
-            href="https://go.peoplepower.org/signup/host_new?source=map"
+            :href="'https://go.peoplepower.org/signup/host_new?source='+source+'&akid='+akid"
             target="_blank"
           >
             Host an event
