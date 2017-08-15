@@ -1,7 +1,6 @@
 import querystring from 'querystring';
 
 import acluLogoFile from 'assets/images/logo-aclu.png';
-import vrLogoFile from 'assets/images/logo-second-chances.png';
 
 export default function parse() {
   // configure based on URL params (first hash, then querystring)
@@ -24,7 +23,7 @@ export default function parse() {
       filters: {},
     },
     'votingrights': {
-      logoFile: vrLogoFile,
+      logoFile: acluLogoFile,
       hostEventLink: 'https://go.peoplepower.org/event/voting_rights/create/',
       showACLU: false,
       filters: {
