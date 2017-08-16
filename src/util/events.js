@@ -66,6 +66,7 @@ export function computeFilteredEvents(events, filters, zipcodes) {
     }
 
     if (filters.zipcode) {
+
       const milesFromZipcode = distance(
         zipcodes[filters.zipcode],
         [event.lng, event.lat],
@@ -88,10 +89,17 @@ export function computeFilteredEvents(events, filters, zipcodes) {
     return true;
   });
 
-  // When a zipcode is selected, sort events by proximity to that zipcode.
+  // When a zipcode is selected, list events soonest first, secondarily by proximity to that zipcode.
   if (filters.zipcode) {
 
     filteredEvents.sort((a, b) => {
+      const startTimeA = moment(a.starts_at_utc);
+      const startTimeB = moment(b.starts_at_utc);
+
+      if (startTimeA !== startTimeB) {
+        return startTimeA - startTimeB;
+      }
+
       const distanceFromA = distance(zipcodes[filters.zipcode], [a.lng, a.lat]);
       const distanceFromB = distance(zipcodes[filters.zipcode], [b.lng, b.lat]);
 
