@@ -161,7 +161,7 @@ export default function(store, opts){
         
         let eventCard = document.createElement("div");
         eventCard.className = "event-card-wrapper";
-        
+
         eventIds.forEach(function(eventId, i) {
           const vm = new Vue({
             template: '<event-card :event="event" :event-types="eventTypes" :source="source" :akid="akid"></event-card>',
@@ -191,7 +191,12 @@ export default function(store, opts){
         this.mapRef.on('click', 'points', (e) => {
 
           const eventIds = e.features.map(feature =>
-                                          feature.properties.id);
+                                          feature.properties.id)
+                .reverse();
+          // the map's features are last-in-first-out,
+          // and we want to display the list first-in-first-out,
+          // so we need to reverse the display order
+
           const eventCoordinates = e.features[0].geometry.coordinates;
 
           store.commit('eventSelected', eventIds);
