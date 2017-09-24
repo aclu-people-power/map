@@ -89,12 +89,13 @@ export function computeFilteredEvents(events, filters, zipcodes) {
     return true;
   });
 
-  // When a zipcode is selected, list events soonest first, secondarily by proximity to that zipcode.
+  // When a zipcode is selected, list events soonest first (by day only; ignoring time)
+  // and for events on the same day, secondarily sort by proximity to that zipcode.
   if (filters.zipcode) {
 
     filteredEvents.sort((a, b) => {
-      const startTimeA = moment(a.starts_at_utc);
-      const startTimeB = moment(b.starts_at_utc);
+      const startTimeA = moment(a.starts_at_utc).startOf("day").valueOf();
+      const startTimeB = moment(b.starts_at_utc).startOf("day").valueOf();
 
       if (startTimeA !== startTimeB) {
         return startTimeA - startTimeB;
