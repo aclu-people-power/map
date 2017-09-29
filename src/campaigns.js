@@ -1,6 +1,6 @@
 import querystring from 'querystring';
 
-import acluLogoFile from 'assets/images/logo-aclu.png';
+import acluLogoFile from 'assets/images/peoplepowerredwhitelogo-new.svg';
 
 export default function parse() {
   // configure based on URL params (first hash, then querystring)
