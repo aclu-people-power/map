@@ -1,22 +1,34 @@
 import moment from 'moment';
 import distance from 'turf-distance';
+import inside from 'turf-inside';
+import { polygon, point } from '@turf/helpers'
 
-export function computeFilteredEvents(events, filters, zipcodes) {
-  // Bail out early if possible. Huge array!
-  if (!Object.keys(filters).length) {
-    return events;
+export function computeFilteredEvents(events, map, filters, zipcodes) {
+
+  if (filters && filters.zipcode) {
+    const zipcodesLength = Object.keys(zipcodes || {}).length;
+    const validZipcode = zipcodesLength && !!zipcodes[filters.zipcode];
+
+    // A zipcode is selected but either we do not yet have valid zipcodes
+    // to check it against and get its coords, or the zipcode is invalid;
+    // either way there can be no valid events. Bail early.
+    if (!zipcodesLength || !validZipcode) {
+      console.log('nope nope nope', zipcodesLength, validZipcode)
+      return [];
+    }
   }
 
-  const zipcodesLength = Object.keys(zipcodes).length;
-  const validZipcode = zipcodesLength && !!zipcodes[filters.zipcode];
-
-  // A zipcode is selected but either we do not yet have valid zipcodes
-  // to check it against and get its coords, or the zipcode is invalid;
-  // either way there can be no valid events. Bail early.
-  if (filters.zipcode && (!zipcodesLength || !validZipcode)) {
-    return [];
+  let poly = null;
+  if (map) {
+    poly = polygon([[
+      [map[0][0], map[0][1]],
+      [map[0][0], map[1][1]],
+      [map[1][0], map[1][1]],
+      [map[1][0], map[0][1]],
+      [map[0][0], map[0][1]]
+    ]])
   }
-
+  
   const filteredEvents = events.filter(event => {
 
     if (filters.eventType) {
@@ -65,27 +77,12 @@ export function computeFilteredEvents(events, filters, zipcodes) {
       }
     }
 
-    if (filters.zipcode) {
-
-      const milesFromZipcode = distance(
-        zipcodes[filters.zipcode],
-        [event.lng, event.lat],
-        'miles'
-      );
-
-      const MAX_MILES_FROM_ZIPCODE = 50;
-
-      if (milesFromZipcode > MAX_MILES_FROM_ZIPCODE) {
+    if (map) {
+      if (!inside(point([event.lng, event.lat]), poly)) {
         return false;
       }
     }
-
-    if (filters.us_state) {
-      if (event.state != filters.us_state.toUpperCase()) {
-        return false;
-      }
-    }
-
+    
     return true;
   });
 

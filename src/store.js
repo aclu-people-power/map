@@ -33,7 +33,9 @@ const store = new Vuex.Store({
     us_states: {},
     view: 'list',
     filters: initialHash,
+    map: null,
     selectedEventIds: [],
+    hoveredEventIds: [],
     // We initialize eventTypes just with our "virtual" event type,
     // and the rest are loaded from the server
     eventTypes: {
@@ -79,6 +81,11 @@ const store = new Vuex.Store({
       process.nextTick(() => {
         commit('filtersReceived', filters);
       });
+    },
+    setMap({ commit }, { map }) {
+      process.nextTick(() => {
+        commit('mapChanged', map);
+      });
     }
   },
   mutations: {
@@ -117,13 +124,21 @@ const store = new Vuex.Store({
     filtersReceived(state, filters) {
       state.filters = {...state.filters, ...filters};
     },
+    mapChanged(state, map) {
+      state.map = map;
+      state.hoveredEventIds = [];
+    },
     eventSelected(state, eventIds) {
       state.selectedEventIds = eventIds;
+    },
+    eventHovered(state, eventIds) {
+      state.hoveredEventIds = eventIds;
     }
   },
   getters: {
     filteredEvents: state => {
-      return computeFilteredEvents(state.events, state.filters, state.zipcodes)
+      return computeFilteredEvents(state.events, state.map,
+                                   state.filters, state.zipcodes)
     }
   },
   plugins: [hashUpdaterPlugin]

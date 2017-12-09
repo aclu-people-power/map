@@ -31,5 +31,8 @@
     &.-selected {
       border-left: solid 5px $aclu-blue;
     }
+    &.-hovered {
+      background: $highlight;
+    }    
   }
 }

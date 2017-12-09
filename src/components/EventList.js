@@ -35,6 +35,9 @@ export default function(store, opts){
       selectedEventIds() {
         return store.state.selectedEventIds;
       },
+      hoveredEventIds() {
+        return store.state.hoveredEventIds;
+      },
       isSelectedZipcodeInvalid() {
         return this.filters.zipcode &&
           Object.keys(this.zipcodes).length &&

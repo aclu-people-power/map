@@ -2,6 +2,7 @@
   <event-list-item
     v-for="event in filteredEvents"
     :selected="selectedEventIds.includes(event.id)"
+    :hovered="hoveredEventIds.includes(event.id)"
     :source="source"
     :akid="akid"
   >
