@@ -23,6 +23,9 @@ export default function(store, opts){
       events() {
         return store.state.events;
       },
+      map() {
+        return store.state.map;
+      },
       zipcodes() {
         return store.state.zipcodes;
       },
@@ -68,6 +71,10 @@ export default function(store, opts){
 
       // zipcodes should only change once, and when they do,
       // if applicable, set the map position based on zip
+      map(newMap, oldMap) {
+        this.plotEvents();
+      },
+      
       zipcodes(newZipcodes, oldZipcodes) {
         this.plotEvents();
         this.setMapPositionBasedOnFilters()
@@ -144,6 +151,10 @@ export default function(store, opts){
       setCursorStyleOnHover() {
         this.mapRef.on('mouseenter', 'points', (e) => {
           this.mapRef.getCanvas().style.cursor = 'pointer';
+          const eventIds = e.features.map(feature =>
+                                          feature.properties.id)
+                .reverse();
+          store.commit('eventHovered', eventIds);
         });
 
         this.mapRef.on('mouseleave', 'points', (e) => {
@@ -232,6 +243,12 @@ export default function(store, opts){
         });
       },
 
+      mapChanged() {
+        store.dispatch('setMap', {
+          map: this.mapRef.getBounds().toArray()
+        });
+      },
+      
       mapMounted() {
         this.$refs.map.className = this.$refs.map.className.replace('-loading', '');
 
@@ -266,6 +283,8 @@ export default function(store, opts){
 
       this.mapRef.addControl(new mapboxgl.NavigationControl());
       this.mapRef.on("load", this.mapMounted);
+      this.mapRef.on("zoomend", this.mapChanged);
+      this.mapRef.on("moveend", this.mapChanged);            
     }
   })
 }
