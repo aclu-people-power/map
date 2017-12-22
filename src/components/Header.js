@@ -36,9 +36,20 @@ export default function(store, opts){
       },
       toggleButtonText() {
         return this.view === 'map' ? 'List view' : 'Map view'
+      },
+      toggleTeamsText() {
+        return store.state.filters.eventType === 'teams' ?
+          'Find events near you >>' : 'Find teams near you >>';
       }
     },
     methods: {
+      toggleTeams() {
+        if (store.state.filters.eventType === 'teams') {
+          store.dispatch('setFilters', {eventType: null});
+        } else {
+          store.dispatch('setFilters', {eventType: 'teams'});
+        }
+      },
       toggleView() {
         store.commit('viewToggled');
       },

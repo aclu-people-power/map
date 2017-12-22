@@ -32,6 +32,10 @@
         </button>
       </div>
 
+      <button class="find-teams" @click="toggleTeams" v-html="toggleTeamsText">
+        Find teams near you >>
+      </button>
+      
       <mobile-event-filters
         :is-filter-events-open="isFilterEventsOpen"
         :filter-events-top="filterEventsTop"

@@ -2,6 +2,7 @@ import Vue from 'vue';
 import EventCard from 'src/components/EventCard';
 import geoJsonHelpers from 'turf-helpers';
 import mapboxgl from 'mapbox-gl';
+import teamIcon from 'assets/images/team-icon.png';
 
 mapboxgl.accessToken = 'pk.eyJ1Ijoia2VubmV0aHBlbm5pbmd0b24iLCJhIjoiY2l6bmJ3MmFiMDMzZTMzbDJtdGxkM3hveSJ9.w4iOGaL2vrIvETimSXUXsw';
 
@@ -16,7 +17,7 @@ export default function(store, opts){
       mapRef: null,
       eventsLayer: null,
       initialCoordinates: [-96.9, 37.8],
-      initialZoom: 3,
+      initialZoom: window.outerWidth >= 1000 ? 3 : 1,
       boundsOfContinentalUS: [[-124.848974, 24.396308], [-66.885444, 49.384358]],
     },
     computed: {
@@ -41,9 +42,22 @@ export default function(store, opts){
       filteredEvents() {
         return store.getters.filteredEvents;
       },
+      geojsonTeams() {
+        return geoJsonHelpers.featureCollection(
+          this.filteredEvents.filter(event => event.is_team).map(event =>
+            geoJsonHelpers.point(
+              [event.lng, event.lat],
+              {
+                id: event.id,
+                isOfficial: !!event.is_official
+              }
+            )
+          )
+        );
+      },
       geojsonEvents() {
         return geoJsonHelpers.featureCollection(
-          this.filteredEvents.map(event =>
+          this.filteredEvents.filter(event => !event.is_team).map(event =>
             geoJsonHelpers.point(
               [event.lng, event.lat],
               {
@@ -115,6 +129,12 @@ export default function(store, opts){
         if (eventsSource) {
           eventsSource.setData(this.geojsonEvents);
         }
+
+        const teamsSource = this.mapRef.getSource("teams");
+
+        if (teamsSource) {
+          teamsSource.setData(this.geojsonTeams);
+        }
       },
 
       setMapPositionBasedOnFilters() {
@@ -139,6 +159,11 @@ export default function(store, opts){
       },
 
       createEventsDataSource() {
+        this.mapRef.addSource("teams", {
+          "type": "geojson",
+          "data": this.geojsonTeams
+        });
+        
         this.mapRef.addSource("events", {
           "type": "geojson",
           // Depending on the order in which things load,
@@ -197,50 +222,51 @@ export default function(store, opts){
         
       },
 
-      openPopupsOnClick() {
-
-        this.mapRef.on('click', 'points', (e) => {
-
-          const eventIds = e.features.map(feature =>
-                                          feature.properties.id)
-                .reverse();
-          // the map's features are last-in-first-out,
-          // and we want to display the list first-in-first-out,
-          // so we need to reverse the display order
-
-          const eventCoordinates = e.features[0].geometry.coordinates;
-
-          store.commit('eventSelected', eventIds);
-
-          let popupOptions = {};
-
-          // If the viewport width is on the small side, let’s put
-          // the popup on top of the marker and pan to it, so that
-          // it will usually look ok. For larger screens the
-          // popup is smart enough to usually Just Work.
-          if (document.documentElement.clientWidth < 600) {
-            popupOptions.anchor = 'bottom';
-
-            const bounds = this.mapRef.getBounds();
-
-            // The map’s height expressed in degrees of latitude
-            const mapHeight = bounds.getNorth() - bounds.getSouth();
-
-            // So pan to where that marker lives but centered a bit above it,
-            // to account for the tooltip. .5 of the map height would put
-            // the marker at the exact bottom edge of the screen; this is
-            // adjusted to look a little better.
-            this.mapRef.panTo([
-              eventCoordinates[0],
-              eventCoordinates[1] + (mapHeight * .4)
-            ]);
-          }
-
-          new mapboxgl.Popup(popupOptions)
-            .setLngLat(eventCoordinates)
-            .setDOMContent(this.getPopupContent(eventIds))
-            .addTo(this.mapRef);
-        });
+      openPopupsOnClick(e) {
+        const eventIds = e.features.map(feature =>
+                                        feature.properties.id)
+              .reverse();
+        // the map's features are last-in-first-out,
+        // and we want to display the list first-in-first-out,
+        // so we need to reverse the display order
+        
+        const eventCoordinates = e.features[0].geometry.coordinates;
+        
+        store.commit('eventSelected', eventIds);
+        
+        let popupOptions = {};
+        
+        // If the viewport width is on the small side, let’s put
+        // the popup on top of the marker and pan to it, so that
+        // it will usually look ok. For larger screens the
+        // popup is smart enough to usually Just Work.
+        if (document.documentElement.clientWidth < 600) {
+          popupOptions.anchor = 'bottom';
+          
+          const bounds = this.mapRef.getBounds();
+          
+          // The map’s height expressed in degrees of latitude
+          const mapHeight = bounds.getNorth() - bounds.getSouth();
+          
+          // So pan to where that marker lives but centered a bit above it,
+          // to account for the tooltip. .5 of the map height would put
+          // the marker at the exact bottom edge of the screen; this is
+          // adjusted to look a little better.
+          this.mapRef.panTo([
+            eventCoordinates[0],
+            eventCoordinates[1] + (mapHeight * .4)
+          ]);
+        }
+        
+        new mapboxgl.Popup(popupOptions)
+          .setLngLat(eventCoordinates)
+          .setDOMContent(this.getPopupContent(eventIds))
+          .addTo(this.mapRef);
+      },
+      
+      bindOpenPopupsOnClick() {
+        this.mapRef.on('click', 'teams', this.openPopupsOnClick)        
+        this.mapRef.on('click', 'points', this.openPopupsOnClick)
       },
 
       mapChanged() {
@@ -250,26 +276,41 @@ export default function(store, opts){
       },
       
       mapMounted() {
-        this.$refs.map.className = this.$refs.map.className.replace('-loading', '');
+        let that = this;
+        that.mapRef.loadImage(teamIcon, function(err, image) {
+          that.mapRef.addImage('teams', image);
+            
+          that.$refs.map.className = that.$refs.map.className.replace('-loading', '');
 
-        this.createEventsDataSource();
+          that.createEventsDataSource();
 
-        this.mapRef.addLayer({
-          id: 'points',
-          type: 'circle',
-          source: 'events',
-          paint: {
-            'circle-color': '#ff4b4d',
-            'circle-radius': 6,
-            'circle-stroke-width': 2,
-            'circle-stroke-color': 'white'
-          }
+          that.mapRef.addLayer({
+            id: 'teams',
+            type: 'symbol',
+            source: 'teams',
+            "layout": {
+              "icon-image": "teams",
+              "icon-size": 0.35
+            }
+          });
+          
+          that.mapRef.addLayer({
+            id: 'points',
+            type: 'circle',
+            source: 'events',
+            paint: {
+              'circle-color': '#ff4b4d',
+              'circle-radius': 6,
+              'circle-stroke-width': 2,
+              'circle-stroke-color': 'white'
+            }
+          });
+          
+          that.setCursorStyleOnHover();
+          that.bindOpenPopupsOnClick();
+          
+          that.plotEvents();
         });
-
-        this.setCursorStyleOnHover();
-        this.openPopupsOnClick();
-
-        this.plotEvents();
       }
     },
 

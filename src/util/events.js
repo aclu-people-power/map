@@ -13,7 +13,6 @@ export function computeFilteredEvents(events, map, filters, zipcodes) {
     // to check it against and get its coords, or the zipcode is invalid;
     // either way there can be no valid events. Bail early.
     if (!zipcodesLength || !validZipcode) {
-      console.log('nope nope nope', zipcodesLength, validZipcode)
       return [];
     }
   }
@@ -37,10 +36,13 @@ export function computeFilteredEvents(events, map, filters, zipcodes) {
         [];
 
       // The UI lumps into "event types" what are mostly "categories"
-      // in ActionKit, with this one exception, the is_official
-      // boolean field, so we will just pretend it is a category.
+      // in ActionKit, with two exceptions, the is_official and is_team
+      // boolean fields, so we will just pretend it is a category.
       if (event.is_official) {
         eventCategories.push('aclu');
+      }
+      if (event.is_team) {
+        eventCategories.push('teams');
       }
 
       if (!eventCategories.length) {
