@@ -290,7 +290,7 @@ export default function(store, opts){
             source: 'teams',
             "layout": {
               "icon-image": "teams",
-              "icon-size": 0.35
+              "icon-size": 0.28
             }
           });
           
