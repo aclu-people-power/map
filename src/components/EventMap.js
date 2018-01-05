@@ -289,8 +289,7 @@ export default function(store, opts){
             type: 'symbol',
             source: 'teams',
             "layout": {
-              "icon-image": "teams",
-              "icon-size": 0.28
+              "icon-image": "teams"
             }
           });
           
