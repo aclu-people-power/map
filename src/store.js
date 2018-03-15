@@ -90,20 +90,12 @@ const store = new Vuex.Store({
   },
   mutations: {
     eventsReceived(state, events) {
-      // TEMP check events against list of also official event ids
-      // doing this becase ETL isn't picking up some email domains
-      // hack it up client-side
-      const alsoOfficialEventIds = [7928, 7929, 7930, 7931];
-      events.events.map(event => {
-        if (alsoOfficialEventIds.find(x => x == event.id)) {
-          event.is_official = true;
-        }
-      });
-
       state.events = events.events;
 
-      const newEventTypes = Object.entries(events.categories).reduce((result, [category, { label }]) => {
-        result[category] = label;
+      const newEventTypes = Object.entries(events.categories).reduce((result, [category, { label, disabled }]) => {
+        if (!disabled) {
+          result[category] = label;
+        }
         return result;
       }, {});
 
