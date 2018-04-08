@@ -27,7 +27,14 @@ export default function(store, opts){
         return store.state.eventTypes;
       },
       filteredEvents() {
-        return store.getters.filteredEvents;
+        // Display the teams on the list only if
+        // that's the ONLY event type we're filtering by
+        let events = store.getters.filteredEvents;
+        if (this.filters.eventType === 'teams') {
+          return events;
+        } else {
+          return events.filter(event => !event.is_team);
+        }
       },
       view() {
         return store.state.view;

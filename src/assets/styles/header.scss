@@ -243,6 +243,14 @@
   border: solid 1px $light-gray;
 }
 
+.find-teams {
+  width: 100%;
+  padding: 0.5em 1em;
+  margin-top: 1em;
+  box-sizing: border-box;
+  background: #999;
+  color: white;
+}
 
 @media (min-width: $breakpoint-large) {
   .header {
