@@ -20,8 +20,10 @@
       <span v-if="event.is_team">Established</span> {{date}}
     </div>
     <div v-if="event.is_team" class="event-card-venue">
-      {{event.attendee_count}}
-      member<template v-if="event.attendee_count != 1">s</template>
+      <span v-if="event.attendee_count > 1">
+        {{event.attendee_count}}
+        member<template v-if="event.attendee_count != 1">s</template>
+      </span>
     </div>
     <div v-else class="event-card-venue">
       {{event.venue}}
