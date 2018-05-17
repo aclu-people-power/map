@@ -4,7 +4,7 @@ import geoJsonHelpers from 'turf-helpers';
 import mapboxgl from 'mapbox-gl';
 import teamIcon from 'assets/images/team-icon.png';
 
-mapboxgl.accessToken = 'pk.eyJ1Ijoia2VubmV0aHBlbm5pbmd0b24iLCJhIjoiY2l6bmJ3MmFiMDMzZTMzbDJtdGxkM3hveSJ9.w4iOGaL2vrIvETimSXUXsw';
+mapboxgl.accessToken = 'pk.eyJ1IjoiYWNsdSIsImEiOiJjamg3eGkxbGQwMmcwMnhvZHZzaW9mMGhqIn0.jB-HL4A6ApAOranK3otJig';
 
 export default function(store, opts){
   var options = opts || {};
