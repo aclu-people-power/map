@@ -298,7 +298,7 @@ export default function(store, opts){
             type: 'circle',
             source: 'events',
             paint: {
-              'circle-color': '#ff4b4d',
+              'circle-color': '#ffaa34',
               'circle-radius': 6,
               'circle-stroke-width': 2,
               'circle-stroke-color': 'white'
@@ -316,7 +316,7 @@ export default function(store, opts){
     mounted() {
       this.mapRef = new mapboxgl.Map({
         container: 'map',
-        style: 'mapbox://styles/mapbox/bright-v9',
+        style: 'mapbox://styles/aclu/cjh7yjsth0bfc2rr3foas72zn',
         center: this.initialCoordinates,
         zoom: this.initialZoom
       });
